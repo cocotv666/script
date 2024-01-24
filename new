@@ -592,13 +592,13 @@ end
             InfoContainer.Name = "InfoContainer"
             InfoContainer.Parent = ButtonHolder
             InfoContainer.Size = UDim2.new(1, 0, 0, 20)
-            InfoContainer.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+            InfoContainer.BackgroundColor3 = Color3.fromRGB(0, 255, 239)
             InfoContainer.BackgroundTransparency = 1
-            InfoContainer.BorderColor3 = Color3.fromRGB(0, 0, 0)
+            InfoContainer.BorderColor3 = Color3.fromRGB(0, 255, 239)
             InfoContainer.BorderSizePixel = 0
             InfoContainer.Font = Enum.Font.Gotham
             InfoContainer.Text = "    "..text
-            InfoContainer.TextColor3 = Color3.fromRGB(0, 0, 0)
+            InfoContainer.TextColor3 = Color3.fromRGB(0, 255, 239)
             InfoContainer.TextSize = 14.000
             InfoContainer.TextXAlignment = Enum.TextXAlignment.Left
         end
