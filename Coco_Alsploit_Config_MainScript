@@ -4299,7 +4299,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local Velocity = CreateToggle(WorldTab, "Trail", Settings.Velocity.Value, function(CallBack)
+	local Trail, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Trail", Settings.Velocity.Value, function(CallBack)
 		CallBack = true
 
 		if CallBack == true then
