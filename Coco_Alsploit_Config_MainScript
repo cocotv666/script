@@ -1,5 +1,3 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Kill_aura_FIX"))()
-
 local WhitelistedUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlSploit/AlSploit/main/Whitelist"))()
 local Owner = "AlSploitRevamped"
 
@@ -4872,6 +4870,8 @@ task.spawn(function()
         CreateNotification(5, "FPS Unlocked")
 	setfpscap(999)
 end)
+
+loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Kill_aura_FIX"))()
 
 local TweenService = game:GetService("TweenService")
 local NeonWaterMark = Instance.new("ScreenGui")
