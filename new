@@ -413,14 +413,23 @@ function lib:CreateWindow(text, Position)
             BindFrame.Visible = not BindFrame.Visible
         end)
         function Toggle:SetState(state)
-            toggled = state
-            if toggled then
-                MainToggle.TextColor3 = Color3.fromRGB(0, 110, 255)
-            else
-                MainToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
-            end
-            task.spawn(function() options.Callback(toggled) end)
+    toggled = state
+
+    if MainToggle and MainToggle:IsA("TextButton") then
+        if toggled then
+            task.spawn(function()
+                repeat
+                    MainToggle.TextColor3 = Color3.fromHSV(tick()%5/5,1,1)
+                    task.wait()
+                until not toggled
+            end)
+        else
+            MainToggle.TextColor3 = Color3.fromRGB(255, 255, 255)
         end
+    end
+
+    task.spawn(function() options.Callback(toggled) end)
+end
 
         if options.StartingState then Toggle:SetState(true) end
 
@@ -589,7 +598,7 @@ function lib:CreateWindow(text, Position)
             InfoContainer.BorderSizePixel = 0
             InfoContainer.Font = Enum.Font.Gotham
             InfoContainer.Text = "    "..text
-            InfoContainer.TextColor3 = Color3.fromRGB(255, 85, 0)
+            InfoContainer.TextColor3 = Color3.fromRGB(0, 0, 0)
             InfoContainer.TextSize = 14.000
             InfoContainer.TextXAlignment = Enum.TextXAlignment.Left
         end
