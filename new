@@ -224,7 +224,7 @@ function lib:CreateWindow(text, Position)
     RavenLogoButton.BackgroundTransparency = 0.500
     RavenLogoButton.BorderColor3 = Color3.fromRGB(0, 0, 0)
     RavenLogoButton.BorderSizePixel = 0
-    RavenLogoButton.Position = UDim2.new(0.975, 0, -0.03, 0)
+    RavenLogoButton.Position = UDim2.new(0.963096738, 0, 0.351765305, 0)
     RavenLogoButton.Size = UDim2.new(0, 40, 0, 40)
     RavenLogoButton.Font = Enum.Font.SourceSans
     RavenLogoButton.Text = ""
@@ -236,7 +236,7 @@ function lib:CreateWindow(text, Position)
     ImageLabel.BackgroundTransparency = 1.000
     ImageLabel.BorderColor3 = Color3.fromRGB(0, 0, 0)
     ImageLabel.BorderSizePixel = 0
-    ImageLabel.Position = UDim2.new(0.963096738, 0, 0.351765305, 0)
+    ImageLabel.Position = UDim2.new(0.100000001, 0, 0.100000001, 0)
     ImageLabel.Size = UDim2.new(0.800000012, 0, 0.800000012, 0)
     ImageLabel.Image = "rbxassetid://14483298187"
     ImageLabel.ImageColor3 = Color3.fromRGB(85, 0, 127)
