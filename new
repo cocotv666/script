@@ -1,5 +1,3 @@
---Raven B4 for Bedwars
---RavenB4 best client out there (Eggwars)
 local Settings = {
     Killaura = {Value = false,Range = 18, CostumAnimations = true,Toolcheck = false},
     Reach = {Value = false,Range = 18},
@@ -33,19 +31,19 @@ local Settings = {
         local HttpService = game:service('HttpService')
         if (writefile) then
         JSON = HttpService:JSONEncode(Settings)
-        writefile('CocoWars\\CocoWarsConfigBedwars.txt',JSON)
+        writefile('CocoWars\\CocoWarsConfigSavingBedwars.txt',JSON)
         else
             print("Exploit not supported bruv")
         end
     end
-    if isfile ('CocoWars\\CocoWarsConfigBedwars.txt') then
+    if isfile ('CocoWars\\CocoWarsConfigSavingBedwars.txt') then
     else
         SaveSettings()
     end
     function LoadSettings()
         local HttpService = game:service('HttpService')
-        if isfile('CocoWars\\CocoWarsConfigBedwars.txt') then
-        Settings = HttpService:JSONDecode(readfile('CocoWars\\CocoWarsConfigBedwars.txt'))
+        if isfile('CocoWars\\CocoWarsConfigSavingBedwars.txt') then
+        Settings = HttpService:JSONDecode(readfile('CocoWars\\CocoWarsConfigSavingBedwars.txt'))
         end
     end
     LoadSettings()
@@ -773,7 +771,7 @@ local function createnotification(title,text ,delay2)
         end)
     end)
 end
-createnotification("Raven B4 Loaded", "Press V to toggle GUI", 5)
+createnotification("Coco Wars Loaded", "Press V to toggle GUI", 5)
 --Tabs
 Combat = lib:CreateWindow("combat",UDim2.new(0.1, 0, 0.1, 0))
 Blatant = lib:CreateWindow("blatant",UDim2.new(0.3, 0, 0.1, 0))
