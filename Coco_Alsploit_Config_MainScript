@@ -1491,7 +1491,7 @@ function GetSpeed()
 		end
 
 		if AnticheatDisabled == true then
-			Speed = Speed + 12
+			Speed = Speed + 13
 		end
 
 		Speed = ((Speed + Settings.Speed.Speed) - 20)
@@ -3032,7 +3032,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local AcDisabler, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "AcDisabler", Settings.AcDisabler.Value, function(CallBack)
+	local AcDisabler, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "ElkDisabler", Settings.AcDisabler.Value, function(CallBack)
 		Settings.AcDisabler.Value = CallBack
 	end)
 
@@ -4230,7 +4230,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "GalaxySky", Settings.GalaxySky.Value, function(CallBack)
+	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "RedSky", Settings.GalaxySky.Value, function(CallBack)
 		Settings.GalaxySky.Value = CallBack
 
 		if Settings.GalaxySky.Value == true then
