@@ -3032,7 +3032,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local AcDisabler, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "AcDisabler", Settings.AcDisabler.Value, function(CallBack)
+	local AcDisabler, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "SpeedDisabler", Settings.AcDisabler.Value, function(CallBack)
 		Settings.AcDisabler.Value = CallBack
 	end)
 
@@ -3940,7 +3940,7 @@ task.spawn(function()
 			Value = not Value
 
 			if Value == true then
-				InstanceUI = CreateMiniToggle(UtilityTab, "Kick", Settings.AntiStaff.Kick, LayoutOrder + 2, function(CallBack)
+				InstanceUI = CreateMiniToggle(UtilityTab, "Kick You", Settings.AntiStaff.Kick, LayoutOrder + 2, function(CallBack)
 					Settings.AntiStaff.Kick = CallBack
 				end)
 			end
@@ -4230,7 +4230,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "GalaxySky", Settings.GalaxySky.Value, function(CallBack)
+	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "RedSky", Settings.GalaxySky.Value, function(CallBack)
 		Settings.GalaxySky.Value = CallBack
 
 		if Settings.GalaxySky.Value == true then
@@ -4299,7 +4299,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local Indicators, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Indicators", Settings.Indicators.Value, function(CallBack)
+	local Indicators, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Damage Indicators", Settings.Indicators.Value, function(CallBack)
 		Settings.Indicators.Value = CallBack
 
 		local OldObj = debug.getupvalue(DamageIndicator, 10)
