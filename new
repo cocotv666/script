@@ -18,7 +18,7 @@ local Settings = {
     Chams = {Value = false, TeamColor = false},
     LongJump = {Value = false},
     BedTP = {Value = false},
-    ScytheDisabler = {Value = false, Toolcheck = false},
+    AcDisabler = {Value = false, Toolcheck = false},
     Invis = {Value = false},
     BedNuker = {Value = false,Range = 16},
     ChestStealer = {Value = false, Seconds = 0},
@@ -1729,12 +1729,12 @@ Utility:CreateToggle({
             end
 end})
 ScytheDisabler = Utility:CreateToggle({
-    Name = "Scythe Disabler",
+    Name = "AcDisabler",
     StartingState = Settings.ScytheDisabler.Value,
     Callback = function(Callback) 
-    ScytheDisabler = Callback
-    Settings.ScytheDisabler.Value = Callback
-    if ScytheDisabler then
+    AcDisabler = Callback
+    Settings.AcDisabler.Value = Callback
+    if SAcDisabler then
         repeat task.wait()
             if IsAlive(LocalPlayer) then
             Sword = getSword()
@@ -1748,31 +1748,9 @@ ScytheDisabler = Utility:CreateToggle({
                     })
 			end
         end
-        until not ScytheDisabler
+        until not AcDisabler
     end
 end})
-ScytheDisabler:CreateInfo("Gives you more Speed")
-ScytheDisabler:CreateToggle({
-    Name = "Tool Check",
-    StartingState = Settings.ScytheDisabler.Toolcheck,
-    Callback = function(Callback) 
-    Toolcheck = Callback
-    Settings.ScytheDisabler.Toolcheck = Callback
-    end
-})
-local function SetCollisions(Value)
-    for i, v in pairs(LocalPlayer:GetDescendants()) do
-        if v:IsA("BasePart") and v ~= LocalPlayer.Character.PrimaryPart and v.CanCollide then
-            if Value then
-                v.CanCollide = false
-            end
-
-            if Value then
-                v.CanCollide = true
-            end
-        end
-    end
-end
 Utility:CreateToggle({
     Name = "Invis",
     StartingState = Settings.Invis.Value,
