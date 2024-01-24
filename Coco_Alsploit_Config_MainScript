@@ -3032,7 +3032,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local AcDisabler, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "ElkDisabler", Settings.AcDisabler.Value, function(CallBack)
+	local AcDisabler, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "SpeedDisabler", Settings.AcDisabler.Value, function(CallBack)
 		Settings.AcDisabler.Value = CallBack
 	end)
 
@@ -3743,7 +3743,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local PlayAgain, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "PlayAgain", Settings.PlayAgain.Value, function(CallBack)
+	local PlayAgain, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "AutoPlayAgain", Settings.PlayAgain.Value, function(CallBack)
 		Settings.PlayAgain.Value = CallBack
 	end)
 
@@ -3940,7 +3940,7 @@ task.spawn(function()
 			Value = not Value
 
 			if Value == true then
-				InstanceUI = CreateMiniToggle(UtilityTab, "Kick", Settings.AntiStaff.Kick, LayoutOrder + 2, function(CallBack)
+				InstanceUI = CreateMiniToggle(UtilityTab, "Kick You", Settings.AntiStaff.Kick, LayoutOrder + 2, function(CallBack)
 					Settings.AntiStaff.Kick = CallBack
 				end)
 			end
@@ -4295,6 +4295,20 @@ task.spawn(function()
 				end
 			end
 		end)
+	end)
+end)
+
+task.spawn(function()
+	local Velocity = CreateToggle(WorldTab, "Trail", Settings.Velocity.Value, function(CallBack)
+		CallBack = true
+
+		if CallBack == true then
+			local ar=Instance.new("Trail")local as=Instance.new("Attachment")local at=Instance.new("Attachment")ar.Parent=game.Players.LocalPlayer.Character.HumanoidRootPart;color1=Color3.new(15/255,127/255,254/255)color2=Color3.new(255/255,255/255,255/25)ar.Color=ColorSequence.new(color1,color2)as.Parent=game.Players.LocalPlayer.Character.HumanoidRootPart;at.Parent=game.Players.LocalPlayer.Character.HumanoidRootPart;ar.Attachment0=as;ar.Attachment1=at;ar.Enabled=true;as.Position=Vector3.new(.1,-2.5,0)at.Position=Vector3.new(-.1,-2.5,0)
+		end
+
+		if CallBack == false then
+			setfpscap(100)	
+		end
 	end)
 end)
 
