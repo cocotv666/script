@@ -25,27 +25,27 @@ local Settings = {
     BedNuker = {Value = false,Range = 16},
     ChestStealer = {Value = false, Seconds = 0},
     }
-    if isfolder("RavenB4") == false then
-        makefolder("RavenB4")
+    if isfolder("CocoWars") == false then
+        makefolder("CocoWars")
     end
     local function SaveSettings()
         local JSON -- is nil
         local HttpService = game:service('HttpService')
         if (writefile) then
         JSON = HttpService:JSONEncode(Settings)
-        writefile('RavenB4\\RavenConfigBedwars.txt',JSON)
+        writefile('CocoWars\\CocoWarsConfigBedwars.txt',JSON)
         else
             print("Exploit not supported bruv")
         end
     end
-    if isfile ('RavenB4\\RavenConfigBedwars.txt') then
+    if isfile ('CocoWars\\CocoWarsConfigBedwars.txt') then
     else
         SaveSettings()
     end
     function LoadSettings()
         local HttpService = game:service('HttpService')
-        if isfile('RavenB4\\RavenConfigBedwars.txt') then
-        Settings = HttpService:JSONDecode(readfile('RavenB4\\RavenConfigBedwars.txt'))
+        if isfile('CocoWars\\CocoWarsConfigBedwars.txt') then
+        Settings = HttpService:JSONDecode(readfile('CocoWars\\CocoWarsConfigBedwars.txt'))
         end
     end
     LoadSettings()
