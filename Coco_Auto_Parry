@@ -59,7 +59,7 @@ Balls.ChildAdded:Connect(function(Ball)
             end
         end
         
-        if IsTarget() and (Ball.Position - workspace.CurrentCamera.Focus.Position).Magnitude <= 2 then
+        if IsTarget() and (Ball.Position - workspace.CurrentCamera.Focus.Position).Magnitude <= 5 then
             Parry()
         end
         
