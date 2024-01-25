@@ -1,4 +1,15 @@
-local Debug = true
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+local Window = Library.CreateLib("Blade Ball By coco", "GrapeTheme")
+
+-- Tabs
+
+local Tab1 = Window:NewTab("Example")
+local Tab1Section = Tab1:NewSection("by coco")
+
+-- Buttons/Windows/Idk
+
+Tab1Section:NewButton("Auto Parry.", "hi", function()
+local Debug = false
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
@@ -57,4 +68,5 @@ Balls.ChildAdded:Connect(function(Ball)
             OldPosition = Ball.Position
         end
     end)
+end)
 end)
