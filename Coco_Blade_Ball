@@ -9,7 +9,7 @@ local Tab1Section = Tab1:NewSection("by coco")
 -- Buttons/Windows/Idk
 
 Tab1Section:NewButton("Auto Parry.", "hi", function()
-local Debug = false
+local Debug = true
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local Players = game:GetService("Players")
 
