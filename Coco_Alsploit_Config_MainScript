@@ -1492,7 +1492,7 @@ function GetSpeed()
 		end
 
 		if AnticheatDisabled == true then
-			Speed = Speed + 12
+			Speed = Speed + 15
 		end
 
 		Speed = ((Speed + Settings.Speed.Speed) - 20)
