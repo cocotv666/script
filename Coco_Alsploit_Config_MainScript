@@ -1,5 +1,3 @@
----hi why are you here----
-
 local WhitelistedUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlSploit/AlSploit/main/Whitelist"))()
 local Owner = "AlSploitRevamped"
 
