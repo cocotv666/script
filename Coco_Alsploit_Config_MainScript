@@ -1344,27 +1344,27 @@ local function AutoToxic(Player)
 	local KillMessage = ""					
 
 	if Randomized == 0 then
-		KillMessage = "You are so bad u died. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "You are so bad u died. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
 	end
 
 	if Randomized ~= 0 then
-		KillMessage = "I could probably win without cheats. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "I could probably win without cheats. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
 	end
 
 	if Randomized == 2 then
-		KillMessage = "Clowns are the only ones we kill. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "Clowns are the only ones we kill. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
 	end
 
 	if Randomized == 3 then
-		KillMessage = "Rats. Imagine dying in a block game. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "Rats. Imagine dying in a block game. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
 	end
 
 	if Randomized == 4 then
-		KillMessage = ".gg/J6XkRGqTY3. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = ".gg/J6XkRGqTY3. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
 	end
 
 	if Randomized == 5 then
-		KillMessage = "I ruined a good day for a good reason. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "I ruined a good day for a good reason. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
 	end
 
 	SendChatMessage(KillMessage)
@@ -1412,11 +1412,11 @@ local function ChatSpam()
 	local KillMessage = ""
 
 	if Randomized == 0 then
-		KillMessage = "AlSploit does more updates than Bedwars 💀. | AlSploit/Coco Script on top"
+		KillMessage = "AlSploit does more updates than Bedwars 💀. | AlSploit/Coco Wars on top"
 	end
 
 	if Randomized ~= 0 then
-		KillMessage = "SkidB4 is as bad as how you felt when your dad left you. | AlSploit/Coco Script on top"
+		KillMessage = "SkidB4 is as bad as how you felt when your dad left you. | AlSploit/Coco Wars on top"
 	end
 
 	if Randomized == 2 then
@@ -1424,15 +1424,15 @@ local function ChatSpam()
 	end
 
 	if Randomized == 3 then
-		KillMessage = "I am not cheating, my gaming chair is. | AlSploit/Coco Script on top"
+		KillMessage = "I am not cheating, my gaming chair is. | AlSploit/Coco Wars on top"
 	end
 
 	if Randomized == 4 then
-		KillMessage = "3 years now, and the anticheat is still the same. | AlSploit/Coco Script on top"
+		KillMessage = "3 years now, and the anticheat is still the same. | AlSploit/Coco Wars on top"
 	end
 
 	if Randomized == 5 then
-		KillMessage = "Kids in bedwars just keep getting worst. | AlSploit/Coco Script on top"
+		KillMessage = "Kids in bedwars just keep getting worst. | AlSploit/Coco Wars on top"
 	end
 
 	SendChatMessage(KillMessage)
@@ -1492,7 +1492,7 @@ function GetSpeed()
 		end
 
 		if AnticheatDisabled == true then
-			Speed = Speed + 15
+			Speed = Speed + 16
 		end
 
 		Speed = ((Speed + Settings.Speed.Speed) - 20)
@@ -1921,7 +1921,7 @@ local function InfFly()
 
 			task.wait(0.025)
 
-			WorkSpace.Gravity = 50
+			WorkSpace.Gravity = 196.2
 			LocalPlayer.Character.PrimaryPart.Anchored = false
 
 			task.wait(1)
@@ -4259,7 +4259,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "GalaxySky", Settings.GalaxySky.Value, function(CallBack)
+	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "RedSky", Settings.GalaxySky.Value, function(CallBack)
 		Settings.GalaxySky.Value = CallBack
 
 		if Settings.GalaxySky.Value == true then
@@ -4267,7 +4267,7 @@ task.spawn(function()
 				LightingService.Sky.Parent = ReplicatedStorage
 
 				local Sky = Instance.new("Sky")
-				local ID = 8281961896
+				local ID = 14330586340
 
 				Sky.SkyboxBk = "http://www.roblox.com/asset/?id=" .. ID
 				Sky.SkyboxDn = "http://www.roblox.com/asset/?id=" .. ID
@@ -4334,7 +4334,7 @@ task.spawn(function()
 		local OldObj = debug.getupvalue(DamageIndicator, 10)
 
 		if Settings.Indicators.Value == true then
-			local Messages = {"AlSploit", "Best Client", ":D", "💀"}
+			local Messages = {"AlSploit on top", "Best Client", "Best Config", "Coco Wars on top"}
 
 			debug.setupvalue(DamageIndicator, 10, {
 				Create = function(self, obj, ...)
