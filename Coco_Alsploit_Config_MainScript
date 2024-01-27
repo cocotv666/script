@@ -4267,7 +4267,7 @@ task.spawn(function()
 				LightingService.Sky.Parent = ReplicatedStorage
 
 				local Sky = Instance.new("Sky")
-				local ID = 14330586340
+				local ID = 14330582541
 
 				Sky.SkyboxBk = "http://www.roblox.com/asset/?id=" .. ID
 				Sky.SkyboxDn = "http://www.roblox.com/asset/?id=" .. ID
