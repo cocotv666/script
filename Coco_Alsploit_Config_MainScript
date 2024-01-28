@@ -4954,6 +4954,7 @@ task.spawn(function()
 	ViewModel.RightHand.RightWrist.C1 = C1 * CFrame.Angles(math.rad(0), math.rad(0), math.rad(RotationZ.Value))
 
 	CreateNotification(10, "Coco Alsploit Config has loaded!")
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_mobile_fly"))()
 	setfpscap(999)
 end)
 
