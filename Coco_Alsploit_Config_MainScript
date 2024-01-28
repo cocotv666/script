@@ -703,7 +703,7 @@ local function CreateSettingsFile()
 		InfiniteJump = {Value = true, KeyBind = "..."},
 		AutoClicker = {Value = false, Cps = 30, KeyBind = "..."},
 		NoKnockBack = {Value = true, KeyBind = "..."},	
-		InfiniteFly = {Value = false, KeyBind = "Z"},
+		InfiniteFly = {Value = false, KeyBind = "..."},
 		DamageBoost = {Value = true, KeyBind = "..."},
 		ChatSpammer = {Value = false, Speed = 50, KeyBind = "..."},
 		AcDisabler = {Value = true, KeyBind = "..."},
@@ -733,7 +733,7 @@ local function CreateSettingsFile()
 		Nuker = {Value = true, Range = 30, BreakOres = true, KeyBind = "..."},
 		BedTp = {Value = false, KeyBind = "..."},
 		Cape = {Value = true, KeyBind = "..."},
-		Fly = {Value = false, KeyBind = "X"},
+		Fly = {Value = false, KeyBind = "..."},
 		Esp = {Value = true, KeyBind = "..."},
 		Fov = {Value = false, Fov = 100, KeyBind = "..."}
 	}
@@ -2132,7 +2132,6 @@ task.spawn(function()
 
 				LocalPlayer.Character.Humanoid.HipHeight = HipHeight
 				AnticheatDisabled = true
-                                CreateNotification(5, "Anti cheat Bypass")
 
 				if Elk and Elk:FindFirstChild("body_mesh") then
 					Elk:FindFirstChild("body_mesh"):Destroy()
