@@ -26,7 +26,7 @@ local function CreateButton(text, positionY)
     return Button
 end
 
-local TextButton = CreateButton("Fly (KeyCode:X)", 0.1)
+local TextButton = CreateButton("Fly", 0.1)
 local UpButton = CreateButton("Up", 0.4)
 local DownButton = CreateButton("Down", 0.7)
 
@@ -75,29 +75,3 @@ UpButton.MouseButton1Down:Connect(FlyUpFunction)
 UpButton.MouseButton1Up:Connect(FlyUpEndFunction)
 DownButton.MouseButton1Down:Connect(FlyDownFunction)
 DownButton.MouseButton1Up:Connect(FlyDownEndFunction)
-
-UserInputService.InputBegan:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.X then
-        ToggleFly()
-    elseif input.KeyCode == Enum.KeyCode.Space then
-        FlyUpFunction()
-    elseif input.KeyCode == Enum.KeyCode.LeftShift then
-        FlyDownFunction()
-    end
-end)
-
-UserInputService.InputEnded:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.Space then
-        FlyUpEndFunction()
-    elseif input.KeyCode == Enum.KeyCode.LeftShift then
-        FlyDownEndFunction()
-    end
-end)
-
-while true do
-    wait()
-
-    if FlyBodyVelocity then
-        FlyBodyVelocity.Velocity = Vector3.new(0, (FlyUp and 40 or 0) + (FlyDown and -40 or 0), 0)
-    end
-end
