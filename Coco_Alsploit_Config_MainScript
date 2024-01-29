@@ -1986,7 +1986,7 @@ local function FlyMe()
 				task.wait()
 
 				if tick() - FlyGroundTime <= 1.9 then
-					local MaxFlyTime = 2.4
+					local MaxFlyTime = 1.9
 					local FlyTime = DecimalRound(tick() - FlyGroundTime, 1)
 
 					NumberDisplay.Text = FlyTime		
