@@ -1,4 +1,4 @@
--- Instances
+-- v2
 local TargetInfoHUD = Instance.new("ScreenGui")
 local Health = Instance.new("Frame")
 local Meter = Instance.new("Frame")
@@ -115,7 +115,7 @@ end
 
 local function UpdateTargetInfo()
     local targetPlayer = GetClosestPlayer()
-    if targetPlayer then
+    if targetPlayer and IsAlive(targetPlayer) and IsAlive(LocalPlayer) then
         local targetHumanoid = targetPlayer.Character:FindFirstChild("Humanoid")
         if targetHumanoid then
             local healthColor = Color3.fromRGB(235, 235, 0):Lerp(Color3.fromRGB(85,255,0), targetHumanoid.Health / targetHumanoid.MaxHealth)
