@@ -1,4 +1,4 @@
-a-- Instances
+-- Instances
 local TargetInfoHUD = Instance.new("ScreenGui")
 local Health = Instance.new("Frame")
 local Meter = Instance.new("Frame")
