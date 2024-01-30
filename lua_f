@@ -1,4 +1,4 @@
--- Instances
+-- v3
 local TargetInfoHUD = Instance.new("ScreenGui")
 local Health = Instance.new("Frame")
 local Meter = Instance.new("Frame")
@@ -113,6 +113,13 @@ function GetClosestPlayer()
     return target
 end
 
+local uiInstance = LocalPlayer.PlayerGui:FindFirstChild("TargetInfoHUD")
+
+if not uiInstance then
+    uiInstance = TargetInfoHUD:Clone()
+    uiInstance.Parent = LocalPlayer.PlayerGui
+end
+
 local function UpdateTargetInfo()
     local targetPlayer = GetClosestPlayer()
     if targetPlayer then
@@ -120,10 +127,10 @@ local function UpdateTargetInfo()
         if targetHumanoid then
             local healthColor = Color3.fromRGB(235, 235, 0):Lerp(Color3.fromRGB(85,255,0), targetHumanoid.Health / targetHumanoid.MaxHealth)
             local healthChange = targetHumanoid.Health / targetHumanoid.MaxHealth
-            TargetInfoHUD.Health.Meter:TweenSize(UDim2.new(healthChange,0,0.03,0),"In","Linear",1)
-            TargetInfoHUD.Health.Meter.BackgroundColor3 = healthColor
-            TargetInfoHUD.Health.HP.Text = math.floor(targetHumanoid.Health)
-            TargetInfoHUD.Health.TextLabel.Text = "Name: " .. targetPlayer.Name
+            uiInstance.Health.Meter:TweenSize(UDim2.new(healthChange,0,0.03,0),"In","Linear",1)
+            uiInstance.Health.Meter.BackgroundColor3 = healthColor
+            uiInstance.Health.HP.Text = math.floor(targetHumanoid.Health)
+            uiInstance.Health.TextLabel.Text = "Name: " .. targetPlayer.Name
         end
     end
 end
