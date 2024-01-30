@@ -4955,6 +4955,7 @@ task.spawn(function()
 
 	CreateNotification(10, "Coco Alsploit Config has loaded!")
         loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_mobile_Gui_flyscript"))()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_target_hud"))()
 	setfpscap(999)
 end)
 
