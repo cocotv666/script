@@ -1,4 +1,4 @@
--- v3
+-- v4
 local TargetInfoHUD = Instance.new("ScreenGui")
 local Health = Instance.new("Frame")
 local Meter = Instance.new("Frame")
@@ -113,12 +113,18 @@ function GetClosestPlayer()
     return target
 end
 
-local uiInstance = LocalPlayer.PlayerGui:FindFirstChild("TargetInfoHUD")
+local function CreateUI()
+    local uiInstance = TargetInfoHUD:Clone()
+    uiInstance.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-if not uiInstance then
-    uiInstance = TargetInfoHUD:Clone()
-    uiInstance.Parent = LocalPlayer.PlayerGui
+    return uiInstance
 end
+
+local uiInstance = CreateUI()
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function()
+    uiInstance = CreateUI()
+end)
 
 local function UpdateTargetInfo()
     local targetPlayer = GetClosestPlayer()
