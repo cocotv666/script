@@ -232,7 +232,9 @@ local function createnotification(title, text, delay2, toggled)
         end)
     end)
 end
-createnotification("Loaded", "Press Right-Shift to toggle GUI", 3, true)
+createnotification("Loaded", "Press M to toggle GUI", 3, true)
+createnotification("Coco Wars v1.1", "discord.gg/J6XkRGqTY3", 5, true)
+
 local function dragGUI(gui, dragpart)
     spawn(function()
         local dragging
@@ -826,7 +828,7 @@ function lib:CreateWindow()
 end
 lib:ToggleLib()
 uis.InputBegan:Connect(function(input)
-    if input.KeyCode == Enum.KeyCode.RightShift then
+    if input.KeyCode == Enum.KeyCode.M then
         lib:ToggleLib()
     end
 end) 
