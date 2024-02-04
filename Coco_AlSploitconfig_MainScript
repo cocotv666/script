@@ -4469,11 +4469,11 @@ task.spawn(function()
 		Settings.MobileGui.Value = CallBack
 
 		if Settings.MobileGui.Value == true then
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_Staff_Detector"))()
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_mobile_Gui_flyscript"))()
 		end
 
 		if Settings.MobileGui.Value == false then
-			CombatConstant.RAYCAST_SWORD_CHARACTER_DISTANCE = OldReach
+			print("Off!")
 		end
 	end)
 
@@ -4500,7 +4500,7 @@ task.spawn(function()
 		UserInputService.InputBegan:Connect(function(Input)
 			if not UserInputService:GetFocusedTextBox() then
 				if Input.KeyCode.Name == Settings.MobileGui.KeyBind then
-					Settings.MobileGui.Value = not Settings.Reach.Value
+					Settings.MobileGui.Value = not Settings.MobileGui.Value
 
 					if Settings.MobileGui.Value == true then
 						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
