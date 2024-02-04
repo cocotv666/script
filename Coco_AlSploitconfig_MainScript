@@ -5113,15 +5113,12 @@ task.spawn(function()
 	task.spawn(function()
 		CreateNotification(99999999, "discord.gg/J6XkRGqTY3")
                 CreateNotification(99999999, "Coco Alsploit Config")
-                loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_mobile_Gui_flyscript"))()
 	end)
 
 	task.spawn(function()
 		setfpscap(999)
 	end)
 end)
-
-loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_target_hud"))()
 
 local TweenService = game:GetService("TweenService")
 local NeonWaterMark = Instance.new("ScreenGui")
