@@ -1381,27 +1381,27 @@ local function AutoToxic(Player)
 	local KillMessage = ""					
 
 	if Randomized == 0 then
-		KillMessage = "You are so bad u died. L" .. Player.Name .. " | AlSploit on top"
+		KillMessage = "L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	if Randomized ~= 0 then
-		KillMessage = "I could probably win without cheats. L" .. Player.Name .. " | AlSploit on top"
+		KillMessage = "L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	if Randomized == 2 then
-		KillMessage = "Clowns are the only ones we kill. L" .. Player.Name .. " | AlSploit on top"
+		KillMessage = "L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	if Randomized == 3 then
-		KillMessage = "Rats. Imagine dying in a block game. L" .. Player.Name .. " | AlSploit on top"
+		KillMessage = "L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	if Randomized == 4 then
-		KillMessage = "I hack for fun. Too bad your fun is ruined. L" .. Player.Name .. " | AlSploit on top"
+		KillMessage = "L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	if Randomized == 5 then
-		KillMessage = "I ruined a good day for a good reason. L" .. Player.Name .. " | AlSploit on top"
+		KillMessage = "L" .. Player.Name .. " | AlSploit on top"
 	end
 
 	SendChatMessage(KillMessage)
@@ -1449,27 +1449,27 @@ local function ChatSpam()
 	local KillMessage = ""
 
 	if Randomized == 0 then
-		KillMessage = "AlSploit does more updates than Bedwars 💀. | AlSploit On Top"
+		KillMessage = "AlSploit does more updates than Bedwars 💀. | Coco Config On TOP"
 	end
 
 	if Randomized ~= 0 then
-		KillMessage = "SkidB4 is as bad as how you felt when your dad left you. | AlSploit On Top"
+		KillMessage = "EZ KILL BRO. | Coco Config On TOP"
 	end
 
 	if Randomized == 2 then
-		KillMessage = "Switch to AlSploit, ez wins. | AlSploit On Top"
+		KillMessage = "Switch to AlSploit, ez wins. | Coco Config On TOP"
 	end
 
 	if Randomized == 3 then
-		KillMessage = "I am not cheating, my gaming chair is. | AlSploit On Top"
+		KillMessage = "I am not cheating, my gaming chair is. | Coco Config On TOP"
 	end
 
 	if Randomized == 4 then
-		KillMessage = "3 years now, and the anticheat is still the same. | AlSploit On Top"
+		KillMessage = "3 years now, and the anticheat is still the same. | Coco Config On TOP"
 	end
 
 	if Randomized == 5 then
-		KillMessage = "Kids in bedwars just keep getting worst. | AlSploit On Top"
+		KillMessage = "Kids in bedwars just keep getting worst. | Coco Config On TOP"
 	end
 
 	SendChatMessage(KillMessage)
@@ -1529,7 +1529,7 @@ function GetSpeed()
 		end
 
 		if AnticheatDisabled == true then
-			Speed = Speed + 19
+			Speed = Speed + 18
 		end
 
 		Speed = ((Speed + Settings.Speed.Speed) - 20)
