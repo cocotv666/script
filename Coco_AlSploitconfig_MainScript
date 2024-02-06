@@ -735,7 +735,6 @@ local function CreateSettingsFile()
 		Reach = {Value = true, KeyBind = "..."},
 		Nuker = {Value = true, Range = 30, BreakOres = true, KeyBind = "..."},
 		BedTp = {Value = true, KeyBind = "..."},
-                SpeedBypass = {Value = true, KeyBind = "..."},
                 MobileGui = {Value = false, KeyBind = "..."},
                 targetHud = {Value = false, KeyBind = "..."},
 		Sigma = {Value = true, KeyBind = "..."},
@@ -1528,6 +1527,10 @@ function GetSpeed()
 		if DamageBoost == true then
 			Speed = Speed + 18
 		end
+
+		if AnticheatDisabled == true then
+                        Speed = Speed + 18
+                end
 
 		Speed = ((Speed + Settings.Speed.Speed) - 20)
 	end
@@ -3176,62 +3179,6 @@ task.spawn(function()
 					end
 
 					if Settings.AcDisabler.Value == false then
-						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
-					end
-				end
-			end
-		end)
-	end)
-end)
-
-task.spawn(function()
-	local SpeedBypass, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "Speed Bypass", Settings.SpeedBypass.Value, function(CallBack)
-		Settings.SpeedBypass.Value = CallBack
-
-		if Settings.SpeedBypass.Value == true then
-			while true do
-                            task.wait(1.2)
-                            Speed = Speed + 8
-                            task.wait(0.2)
-                            Speed = Speed - 8
-                         end
-		end
-
-		if Settings.SpeedBypass.Value == false then
-			CreateNotification(3, "Close at next round")
-		end
-	end)
-
-	task.spawn(function()
-		local InstanceUI
-		local Value = false
-
-		DropDownButton.Activated:Connect(function()
-			Value = not Value
-
-			if Value == true then
-				InstanceUI = CreateKeyBind(BlatantTab, Settings.SpeedBypass.KeyBind, LayoutOrder + 1, function(CallBack)
-					Settings.SpeedBypass.KeyBind = CallBack
-				end)
-			end
-
-			if Value == false then
-				InstanceUI:Destroy()
-			end
-		end)
-	end)
-
-	task.spawn(function()
-		UserInputService.InputBegan:Connect(function(Input)
-			if not UserInputService:GetFocusedTextBox() then
-				if Input.KeyCode.Name == Settings.SpeedBypass.KeyBind then
-					Settings.SpeedBypass.Value = not Settings.SpeedBypass.Value
-
-					if Settings.SpeedBypass.Value == true then
-						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
-					end
-
-					if Settings.SpeedBypass.Value == false then
 						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
 					end
 				end
