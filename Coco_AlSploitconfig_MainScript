@@ -1529,8 +1529,11 @@ function GetSpeed()
 		end
 
 		if AnticheatDisabled == true then
-			Speed = Speed + 18
-		end
+                        wait(1.2)
+                        Speed = Speed + 9
+                        wait(0.2)
+                        Speed = Speed - 9
+                end
 
 		Speed = ((Speed + Settings.Speed.Speed) - 20)
 	end
@@ -2427,7 +2430,7 @@ task.spawn(function()
 				end)
 			end
 
-			if Settings.AcDisabler.Value == false or not IsAlive(LocalPlayer) or not LocalPlayer.Character:FindFirstChild("elk") then
+			if Settings.AcDisabler.Value == false then
 				AnticheatDisabled = false
 			end
 		end)
