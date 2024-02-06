@@ -735,6 +735,7 @@ local function CreateSettingsFile()
 		Reach = {Value = true, KeyBind = "..."},
 		Nuker = {Value = true, Range = 30, BreakOres = true, KeyBind = "..."},
 		BedTp = {Value = true, KeyBind = "..."},
+                SpeedBypass = {Value = true, KeyBind = "..."},
                 MobileGui = {Value = false, KeyBind = "..."},
                 targetHud = {Value = false, KeyBind = "..."},
 		Sigma = {Value = true, KeyBind = "..."},
