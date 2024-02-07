@@ -735,6 +735,7 @@ local function CreateSettingsFile()
 		Reach = {Value = true, KeyBind = "..."},
 		Nuker = {Value = true, Range = 30, BreakOres = true, KeyBind = "..."},
 		BedTp = {Value = true, KeyBind = "..."},
+                StaffDetector = {Value = true, KeyBind = "..."},
                 MobileGui = {Value = false, KeyBind = "..."},
                 targetHud = {Value = false, KeyBind = "..."},
 		Sigma = {Value = true, KeyBind = "..."},
@@ -3480,7 +3481,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local Aimbot, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "Aimbot", Settings.Aimbot.Value, function(CallBack)
+	local Aimbot, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "Bow TpAura(Aimbot)", Settings.Aimbot.Value, function(CallBack)
 		Settings.Aimbot.Value = CallBack
 	end)
 
@@ -4058,7 +4059,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local AntiStaff, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "AntiStaff", Settings.AntiStaff.Value, function(CallBack)
+	local AntiStaff, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "Staff Detector", Settings.AntiStaff.Value, function(CallBack)
 		Settings.AntiStaff.Value = CallBack
 	end)
 
@@ -4114,6 +4115,57 @@ task.spawn(function()
 
 			if Value == false then
 				InstanceUI:Destroy()
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
+	local StaffDetector, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "Staff Detector V2", Settings.Reach.Value, function(CallBack)
+		Settings.StaffDetector.Value = CallBack
+
+		if Settings.StaffDetector.Value == true then
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_Staff_Detector"))()
+		end
+
+		if Settings.StaffDetector.Value == false then
+			CreateNotification(3, "Close at next round")
+		end
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(UtilityTab, Settings.StaffDetector.KeyBind, LayoutOrder + 1, function(CallBack)
+					Settings.StaffDetector.KeyBind = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.StaffDetector.KeyBind then
+					Settings.StaffDetector.Value = not Settings.StaffDetector.Value
+
+					if Settings.StaffDetector.Value == true then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
+					end
+
+					if Settings.StaffDetector.Value == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
 			end
 		end)
 	end)
