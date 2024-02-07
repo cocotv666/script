@@ -1,49 +1,52 @@
-local Players = game:GetService("Players")
-local UserInputService = game:GetService("UserInputService")
-local RunService = game:GetService("RunService")
-local Camera = game.Workspace.CurrentCamera
-
+-- Toggle state with "E" key
 local state = false
-
 local function toggleState()
     state = not state
 end
 
-local function lookAt(target)
-    Camera.CFrame = CFrame.new(target)
-end
-
-local function getTeamColor(player)
-    return player.TeamColor
-end
-
-UserInputService.InputBegan:Connect(function(input)
+game:GetService("UserInputService").InputBegan:Connect(function(input, isProcessed)
     if input.KeyCode == Enum.KeyCode.E then
         toggleState()
     end
 end)
 
-RunService.RenderStepped:Connect(function()
-    if state then
-        local closestPlayer = nil
-        local shortestDistance = math.huge
-        local mousePosition = UserInputService:GetMouseLocation()
-        local localPlayerTeamColor = getTeamColor(Players.LocalPlayer)
-        for _, player in ipairs(Players:GetPlayers()) do
-            if player ~= Players.LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
-                local playerTeamColor = getTeamColor(player)
-                if playerTeamColor ~= localPlayerTeamColor then
-                    local position = Camera:WorldToViewportPoint(player.Character.HumanoidRootPart.Position)
-                    local distance = (Vector2.new(position.X, position.Y) - mousePosition).Magnitude
-                    if distance < shortestDistance then
-                        shortestDistance = distance
-                        closestPlayer = player
+-- Scripts:
+
+local function CIXXD_fake_script() -- TextButton_2.LocalScript 
+    local script = Instance.new('LocalScript')
+
+    local Cam = workspace.CurrentCamera
+    local hotkey = true
+
+    function lookAt(target, eye)
+        Cam.CFrame = CFrame.new(target, eye)
+    end
+
+    function getClosestPlayerToCursor(trg_part)
+        local nearest = nil
+        local last = math.huge
+        for i,v in pairs(game.Players:GetPlayers()) do
+            if v ~= game.Players.LocalPlayer and game.Players.LocalPlayer.Character and v.Character and v.Character:FindFirstChild(trg_part) then
+                if game.Players.LocalPlayer.Character:FindFirstChild(trg_part) then
+                    local ePos, vissss = workspace.CurrentCamera:WorldToViewportPoint(v.Character[trg_part].Position)
+                    local AccPos = Vector2.new(ePos.x, ePos.y)
+                    local mousePos = Vector2.new(workspace.CurrentCamera.ViewportSize.x / 2, workspace.CurrentCamera.ViewportSize.y / 2)
+                    local distance = (AccPos - mousePos).magnitude
+                    if distance < last and vissss and hotkey and distance < 400 and v.TeamColor ~= game.Players.LocalPlayer.TeamColor then
+                        last = distance
+                        nearest = v
                     end
                 end
             end
         end
-        if closestPlayer then
-            lookAt(closestPlayer.Character.HumanoidRootPart.Position)
-        end
+        return nearest
     end
-end)
+
+    game:GetService("RunService").RenderStepped:Connect(function()
+        local closest = getClosestPlayerToCursor("Head")
+        if state and closest and closest.Character:FindFirstChild("Head") then
+            lookAt(Cam.CFrame.p, closest.Character:FindFirstChild("Head").Position)
+        end
+    end)
+end
+coroutine.wrap(CIXXD_fake_script)()
