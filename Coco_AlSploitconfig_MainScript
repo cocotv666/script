@@ -4121,7 +4121,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local StaffDetector, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "Staff Detector V2", Settings.StaffDetector.Value, function(CallBack)
+	local StaffDetector, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "Staff Detector V2", Settings.AutoBuy.Value, function(CallBack)
 		Settings.StaffDetector.Value = CallBack
 
 		if Settings.StaffDetector.Value == true then
