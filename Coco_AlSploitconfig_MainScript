@@ -714,6 +714,7 @@ local function CreateSettingsFile()
 		Indicators = {Value = true, KeyBind = "..."},
 		AutoReport = {Value = true, KeyBind = "..."},
 		AntiStaff = {Value = true, Kick = false, KeyBind = "..."},
+                StaffDetector = {Value = true, KeyBind = "..."},
 		AutoToxic = {Value = false, KeyBind = "..."},
 		GalaxySky = {Value = true, KeyBind = "..."},
 		PlayAgain = {Value = true, KeyBind = "..."},
@@ -735,7 +736,6 @@ local function CreateSettingsFile()
 		Reach = {Value = true, KeyBind = "..."},
 		Nuker = {Value = true, Range = 30, BreakOres = true, KeyBind = "..."},
 		BedTp = {Value = true, KeyBind = "..."},
-                StaffDetector = {Value = true, KeyBind = "..."},
                 MobileGui = {Value = false, KeyBind = "..."},
                 targetHud = {Value = false, KeyBind = "..."},
 		Sigma = {Value = true, KeyBind = "..."},
@@ -4121,7 +4121,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local StaffDetector, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "Staff Detector V2", Settings.Reach.Value, function(CallBack)
+	local StaffDetector, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "Staff Detector V2", Settings.StaffDetector.Value, function(CallBack)
 		Settings.StaffDetector.Value = CallBack
 
 		if Settings.StaffDetector.Value == true then
