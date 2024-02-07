@@ -3481,7 +3481,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local Aimbot, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "Bow TpAura(Aimbot)", Settings.Aimbot.Value, function(CallBack)
+	local Aimbot, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "Bow TpAura", Settings.Aimbot.Value, function(CallBack)
 		Settings.Aimbot.Value = CallBack
 	end)
 
