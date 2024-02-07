@@ -1,0 +1,49 @@
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+local RunService = game:GetService("RunService")
+local Camera = game.Workspace.CurrentCamera
+
+local state = false
+
+local function toggleState()
+    state = not state
+end
+
+local function lookAt(target)
+    Camera.CFrame = CFrame.new(target)
+end
+
+local function getTeamColor(player)
+    return player.TeamColor
+end
+
+UserInputService.InputBegan:Connect(function(input)
+    if input.KeyCode == Enum.KeyCode.E then
+        toggleState()
+    end
+end)
+
+RunService.RenderStepped:Connect(function()
+    if state then
+        local closestPlayer = nil
+        local shortestDistance = math.huge
+        local mousePosition = UserInputService:GetMouseLocation()
+        local localPlayerTeamColor = getTeamColor(Players.LocalPlayer)
+        for _, player in ipairs(Players:GetPlayers()) do
+            if player ~= Players.LocalPlayer and player.Character and player.Character:FindFirstChild("HumanoidRootPart") then
+                local playerTeamColor = getTeamColor(player)
+                if playerTeamColor ~= localPlayerTeamColor then
+                    local position = Camera:WorldToViewportPoint(player.Character.HumanoidRootPart.Position)
+                    local distance = (Vector2.new(position.X, position.Y) - mousePosition).Magnitude
+                    if distance < shortestDistance then
+                        shortestDistance = distance
+                        closestPlayer = player
+                    end
+                end
+            end
+        end
+        if closestPlayer then
+            lookAt(closestPlayer.Character.HumanoidRootPart.Position)
+        end
+    end
+end)
