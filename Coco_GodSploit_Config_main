@@ -736,6 +736,7 @@ local function CreateSettingsFile()
 		Reach = {KeyBind = "..."},
 		Nuker = {Range = 30, CustomAnimation = true, BreakOres = true, KeyBind = "..."},
 		BedTp = {KeyBind = "..."},
+                MobileGui = {Value = false, KeyBind = "..."},
 		Sigma = {KeyBind = "..."},
 		Cape = {KeyBind = "..."},
 		Fly = {KeyBind = "..."},
@@ -4421,6 +4422,57 @@ task.spawn(function()
 end)
 
 task.spawn(function()
+	local MobileGui, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Mobile Gui", Settings.Reach.Value, function(CallBack)
+		Settings.MobileGui.Value = CallBack
+
+		if Settings.MobileGui.Value == true then
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_mobile_Gui_flyscript"))()
+		end
+
+		if Settings.MobileGui.Value == false then
+			CreateNotification(3, "Close at next round")
+		end
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(WorldTab, Settings.MobileGui.KeyBind, LayoutOrder + 1, function(CallBack)
+					Settings.MobileGui.KeyBind = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.MobileGui.KeyBind then
+					Settings.MobileGui.Value = not Settings.MobileGui.Value
+
+					if Settings.MobileGui.Value == true then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
+					end
+
+					if Settings.MobileGui.Value == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
 	local Indicators, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Indicators", Settings.Indicators.Value, function(CallBack)
 		Settings.Indicators.Value = CallBack
 
@@ -5094,3 +5146,46 @@ task.spawn(function()
 		setfpscap(999)
 	end)
 end)
+
+local TweenService = game:GetService("TweenService")
+local NeonWaterMark = Instance.new("ScreenGui")
+local TextLabel = Instance.new("TextLabel")
+local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
+
+NeonWaterMark.Name = "NeonWaterMark"
+NeonWaterMark.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+NeonWaterMark.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+NeonWaterMark.ResetOnSpawn = false
+
+TextLabel.Parent = NeonWaterMark
+TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.BackgroundTransparency = 1.000
+TextLabel.BorderSizePixel = 0
+TextLabel.Position = UDim2.new(0, 0, 0, 0)
+TextLabel.Size = UDim2.new(0.2, 0, 0.15, 0)
+TextLabel.Font = Enum.Font.GothamBold
+TextLabel.Text = "Coco Alsploit Config discord.gg/J6XkRGqTY3"
+TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+TextLabel.TextScaled = true
+TextLabel.TextSize = 28.000
+TextLabel.TextWrapped = true
+TextLabel.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Add UITextSizeConstraint for dynamic text sizing
+UITextSizeConstraint.MaxTextSize = 28
+UITextSizeConstraint.MinTextSize = 14
+UITextSizeConstraint.Parent = TextLabel
+
+-- Tweening function for rainbow color change
+local function changeColor()
+    local rainbowColor = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+    local info = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
+    local tween = TweenService:Create(TextLabel, info, {TextColor3 = rainbowColor})
+    tween:Play()
+end
+
+-- Run the color change function in a loop
+while true do
+    changeColor()
+    wait(1) -- Adjust the wait time for a smoother or faster color change
+end
