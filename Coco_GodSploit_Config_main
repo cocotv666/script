@@ -2024,7 +2024,7 @@ local function InfFly()
 
 			task.wait(0.025)
 
-			WorkSpace.Gravity = 50
+			WorkSpace.Gravity = 196.2
 			LocalPlayer.Character.PrimaryPart.Anchored = false
 
 			task.wait(1)
@@ -2093,8 +2093,8 @@ local function FlyMe()
 			repeat
 				task.wait()
 
-				if tick() - FlyGroundTime <= 2.3 then
-					local MaxFlyTime = 2.3
+				if tick() - FlyGroundTime <= 1.8 then
+					local MaxFlyTime = 1.8
 					local FlyTime = DecimalRound(tick() - FlyGroundTime, 1)
 
 					NumberDisplay.Text = FlyTime		
@@ -2130,7 +2130,7 @@ local function FlyMe()
 				end
 				
 				task.spawn(function()
-					if (tick() - FlyGroundTime) >= 2.3 then
+					if (tick() - FlyGroundTime) >= 1.8 then
 						FlyGroundTime = tick()
 						
 						local FlyTeleportPosition = 0
@@ -4473,14 +4473,14 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local Indicators, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Indicators", Settings.Indicators.Value, function(CallBack)
+	local Indicators, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Damage Indicators", Settings.Indicators.Value, function(CallBack)
 		Settings.Indicators.Value = CallBack
 
 		task.spawn(function()
 			local OldObj = debug.getupvalue(DamageIndicator, 10)
 
 			if Settings.Indicators.Value == true then
-				local Messages = {"GodSploit", "Best Client", ":D", "💀"}
+				local Messages = {"GodSploit Config", "Best Config", "Coco Script", "EZ"}
 
 				debug.setupvalue(DamageIndicator, 10, {
 					Create = function(self, obj, ...)
