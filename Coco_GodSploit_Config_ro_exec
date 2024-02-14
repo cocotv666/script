@@ -1,0 +1,29 @@
+repeat task.wait() until game:IsLoaded()
+
+local MainScriptLoadstring = "https://raw.githubusercontent.com/cocotv666/script/main/Coco_GodSploit_Config_main_ro_exec"
+local SecurityLoadstring = "https://raw.githubusercontent.com/cocotv666/script/main/Coco_antilogger_Security_GodSploit"
+
+local function InitMainScript()
+	task.spawn(function()
+		loadstring(game:HttpGet(MainScriptLoadstring))()
+	end)	
+end
+
+local function InitSecurity()
+	task.spawn(function()
+		loadstring(game:HttpGet(SecurityLoadstring))()
+	end)
+end
+
+
+task.spawn(function()
+	task.spawn(function()
+		InitSecurity()
+	end)
+
+	task.wait()
+
+	task.spawn(function()
+		InitMainScript()
+	end)
+end)
