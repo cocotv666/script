@@ -1563,7 +1563,7 @@ function GetSpeed()
 		end
 
 		if ZephyrOrb ~= 0 then
-			Speed = Speed + 19
+			Speed = Speed + 18
 		end
 
 		if DamageBoost == true then
@@ -1902,6 +1902,13 @@ function IsAlive(Player)
 	return true
 end	
 
+local function playkillauraAnimation()
+    local anim = Instance.new("Animation")
+    anim.AnimationId = "rbxassetid://4947108314"
+    local loader = LocalPlayer.Character:FindFirstChild("Humanoid"):FindFirstChild("Animator")
+    loader:LoadAnimation(anim):Play()
+end
+
 local function SwordHit(Entity, Weapon, NearestEntityDistance)
 	local LocalPlayerHumanoidRootPart = LocalPlayer.Character.HumanoidRootPart
 	local EntityPrimaryPart = Entity.PrimaryPart
@@ -2189,6 +2196,7 @@ task.spawn(function()
 			task.spawn(function()
 				if NearestEntity and Sword then
 					SwordHit(NearestEntity, Sword, NearestEntityDistance)
+                                        playkillauraAnimation()
 					
 					NearestEntityFound = true
 				end
