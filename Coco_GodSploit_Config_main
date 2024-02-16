@@ -1902,6 +1902,13 @@ function IsAlive(Player)
 	return true
 end	
 
+local function playDragonBreathAnimation()
+    local DragonBreathRemote = game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.DragonBreath
+    DragonBreathRemote:FireServer({
+        ["Player"] = game:GetService("Players").LocalPlayer
+    })
+end
+
 local function playkillauraAnimation()
     local anim = Instance.new("Animation")
     anim.AnimationId = "rbxassetid://4947108314"
@@ -2197,6 +2204,7 @@ task.spawn(function()
 				if NearestEntity and Sword then
 					SwordHit(NearestEntity, Sword, NearestEntityDistance)
                                         playkillauraAnimation()
+                                        playDragonBreathAnimation()
 					
 					NearestEntityFound = true
 				end
