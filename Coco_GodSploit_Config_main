@@ -1491,27 +1491,27 @@ local function ChatSpam()
 	local KillMessage = ""
 
 	if Randomized == 0 then
-		KillMessage = "GodSploit does more updates than Bedwars 💀. | GodSploit On Top"
+		KillMessage = "I didn't fly. | CocoSploit✨ On Top"
 	end
 
 	if Randomized ~= 0 then
-		KillMessage = "SkidB4 is as bad as how you felt when your dad left you. | GodSploit On Top"
+		KillMessage = "💀. | CocoSploit✨ On Top"
 	end
 
 	if Randomized == 2 then
-		KillMessage = "Switch to GodSploit, ez wins. | GodSploit On Top"
+		KillMessage = "Good Game. | CocoSploit✨ On Top"
 	end
 
 	if Randomized == 3 then
-		KillMessage = "I am not cheating, my gaming chair is. | GodSploit On Top"
+		KillMessage = "I am not cheating, my gaming chair is. | CocoSploit✨ On Top"
 	end
 
 	if Randomized == 4 then
-		KillMessage = "3 years now, and the anticheat is still the same. | GodSploit On Top"
+		KillMessage = "CocoSploit✨ On The Top. | CocoSploit✨ On Top"
 	end
 
 	if Randomized == 5 then
-		KillMessage = "Kids in bedwars just keep getting worst. | GodSploit On Top"
+		KillMessage = "CocoSploit✨ The #1 Best Config on Godsploit. | CocoSploit✨ On Top"
 	end
 
 	SendChatMessage(KillMessage)
@@ -2033,6 +2033,7 @@ local function InfFly()
 			LocalPlayer.Character.PrimaryPart.Anchored = true
 			LocalPlayer.Character.PrimaryPart.CFrame = SpoofedCamera.CFrame + Vector3.new(0, 5, 0)	
 			SetCamera(LocalPlayer.Character)
+                        CreateNotification(3, "INF FLY:Don't move, or you might trigger the Anti-cheat")
 
 			SpoofedCamera:Destroy()
 
