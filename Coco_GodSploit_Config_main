@@ -714,6 +714,7 @@ local function CreateSettingsFile()
 		FpsBooster = {KeyBind = "..."},
 		Indicators = {KeyBind = "..."},
 		AutoReport = {KeyBind = "..."},
+		NoNameTag = {KeyBind = "..."},
 		AntiStaff = {Kick = false, KeyBind = "..."},
 		AutoToxic = {KeyBind = "..."},
 		GalaxySky = {KeyBind = "..."},
@@ -4370,6 +4371,84 @@ task.spawn(function()
 end)
 
 task.spawn(function()
+	local NoNameTag, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "NoNameTag", Settings.NoNameTag.Value, function(CallBack)
+		Settings.NoNameTag.Value = CallBack
+
+		task.spawn(function()
+			if Settings.NoNameTag.Value == true then
+				if IsAlive(LocalPlayer) and LocalPlayer.Character.Head:FindFirstChild("Nametag") then
+					
+					if ReplicatedStorage:FindFirstChild("Nametag") and LocalPlayer.Character.Head:FindFirstChild("Nametag") then
+						ReplicatedStorage:FindFirstChild("Nametag"):Destroy()
+					end
+					
+					LocalPlayer.Character.Head.Nametag.Parent = ReplicatedStorage
+					
+					task.spawn(function()
+						LocalPlayer.CharacterAdded:Connect(function()
+							task.wait(0.3)
+
+							if LocalPlayer.Character.Head:FindFirstChild("Nametag") then
+								if ReplicatedStorage:FindFirstChild("Nametag") and LocalPlayer.Character.Head:FindFirstChild("Nametag") then
+									ReplicatedStorage:FindFirstChild("Nametag"):Destroy()
+								end
+								
+								LocalPlayer.Character.Head.Nametag.Parent = ReplicatedStorage								
+							end
+						end)
+					end)
+				end
+			end
+
+			if Settings.NoNameTag.Value == false then
+				local NameTag = ReplicatedStorage:FindFirstChild("Nametag")
+
+				if IsAlive(LocalPlayer) and NameTag and not LocalPlayer.Character.Head:FindFirstChild("Nametag") then
+					NameTag.Parent = LocalPlayer.Character.Head
+				end
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(WorldTab, Settings.NoNameTag.KeyBind, LayoutOrder + 1, function(CallBack)
+					Settings.NoNameTag.KeyBind = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.NoNameTag.KeyBind then
+					Settings.NoNameTag.Value = not Settings.NoNameTag.Value
+
+					if Settings.NoNameTag.Value == true then
+						UIGradient.Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 0.803922, 0.411765))}
+					end
+
+					if Settings.NoNameTag.Value == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
 	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "SkyBox", Settings.GalaxySky.Value, function(CallBack)
 		Settings.GalaxySky.Value = CallBack
 
@@ -5156,7 +5235,7 @@ task.spawn(function()
 	ViewModel.RightHand.RightWrist.C1 = C1 * CFrame.Angles(math.rad(0), math.rad(0), math.rad(RotationZ.Value))
 
 	task.spawn(function()
-		CreateNotification(5, "GodSploit has loaded!")
+		CreateNotification(5, "GodSploit Config has loaded!")
 	end)
 
 	task.spawn(function()
@@ -5181,7 +5260,7 @@ TextLabel.BorderSizePixel = 0
 TextLabel.Position = UDim2.new(0, 0, 0, 0)
 TextLabel.Size = UDim2.new(0.2, 0, 0.15, 0)
 TextLabel.Font = Enum.Font.GothamBold
-TextLabel.Text = "Coco Alsploit Config discord.gg/J6XkRGqTY3"
+TextLabel.Text = "Coco GodSploit Config discord.gg/J6XkRGqTY3"
 TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
 TextLabel.TextScaled = true
 TextLabel.TextSize = 28.000
