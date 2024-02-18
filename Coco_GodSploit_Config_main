@@ -4371,7 +4371,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local NoNameTag, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "NoNameTag", Settings.NoNameTag.Value, function(CallBack)
+	local NoNameTag, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "NoNameTag", Settings.AutoToxic.Value, function(CallBack)
 		Settings.NoNameTag.Value = CallBack
 
 		task.spawn(function()
