@@ -19,81 +19,114 @@ local ContainerFrameUIListLayout = Instance.new("UIListLayout")
 local NotificationContainer = Instance.new("Frame")
 local NotificationContainerUIListLayout = Instance.new("UIListLayout")
 
+local Watermark = Instance.new("TextLabel")
+local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
+
 local DefaultLayoutOrder = 0
 
-GodSploit.Name = "GodSploit"
-GodSploit.Parent = LocalPlayer:WaitForChild("PlayerGui")
-GodSploit.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-GodSploit.ResetOnSpawn = false
+task.spawn(function()
+	task.spawn(function()
+		repeat
+			task.wait(0.001)
 
-ContainerFrame.Name = "ContainerFrame"
-ContainerFrame.Parent = GodSploit
-ContainerFrame.BackgroundColor3 = Color3.new(255, 255, 255)
-ContainerFrame.BackgroundTransparency = 1.000
-ContainerFrame.BorderColor3 = Color3.new(0, 0, 0)
-ContainerFrame.BorderSizePixel = 0
-ContainerFrame.Position = UDim2.new(0, 0, 0, 0)
-ContainerFrame.Size = UDim2.new(1, 0, 1, 0)
-ContainerFrame.Visible = false
+			Watermark.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+		until not game
+	end)
+	
+	Watermark.Name = "Watermark"
+	Watermark.Parent = GodSploit
+	Watermark.BackgroundColor3 = Color3.new(255, 255, 255)
+	Watermark.BackgroundTransparency = 1.000
+	Watermark.BorderColor3 = Color3.new(0, 0, 0)
+	Watermark.BorderSizePixel = 0
+	Watermark.Position = UDim2.new(0.760, 0, 0, 0)
+	Watermark.Size = UDim2.new(0.218, 0, 0.061, 0)
+	Watermark.Font = Enum.Font.GothamBold
+	Watermark.Text = "CocoSploit✨ discord.gg/J6XkRGqTY3"
+	Watermark.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+	Watermark.TextScaled = true
+	Watermark.TextSize = 14.000
+	Watermark.TextWrapped = true
+	
+	UITextSizeConstraint.Parent = Watermark
+	UITextSizeConstraint.MaxTextSize = 25
 
-ContainerFrameUIListLayout.Parent = ContainerFrame
-ContainerFrameUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-ContainerFrameUIListLayout.Padding = UDim.new(0, 50)
-ContainerFrameUIListLayout.FillDirection = Enum.FillDirection.Horizontal
-ContainerFrameUIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	GodSploit.Name = "GodSploit"
+	GodSploit.Parent = LocalPlayer:WaitForChild("PlayerGui")
+	GodSploit.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	GodSploit.ResetOnSpawn = false
 
-NotificationContainer.Name = "NotificationContainer"
-NotificationContainer.Parent = GodSploit
-NotificationContainer.BackgroundColor3 = Color3.new(255, 255, 255)
-NotificationContainer.BackgroundTransparency = 1.000
-NotificationContainer.BorderColor3 = Color3.new(0, 0, 0)
-NotificationContainer.BorderSizePixel = 0
-NotificationContainer.Position = UDim2.new(0.8, 0, 0, 0)
-NotificationContainer.Size = UDim2.new(0.2, 0, 0.980487823, 0)
+	ContainerFrame.Name = "ContainerFrame"
+	ContainerFrame.Parent = GodSploit
+	ContainerFrame.BackgroundColor3 = Color3.new(255, 255, 255)
+	ContainerFrame.BackgroundTransparency = 1.000
+	ContainerFrame.BorderColor3 = Color3.new(0, 0, 0)
+	ContainerFrame.BorderSizePixel = 0
+	ContainerFrame.Position = UDim2.new(0, 0, 0, 0)
+	ContainerFrame.Size = UDim2.new(1, 0, 1, 0)
+	ContainerFrame.Visible = false
 
-NotificationContainerUIListLayout.Parent = NotificationContainer
-NotificationContainerUIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-NotificationContainerUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
-NotificationContainerUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
-NotificationContainerUIListLayout.Padding = UDim.new(0, 10)
+	ContainerFrameUIListLayout.Parent = ContainerFrame
+	ContainerFrameUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	ContainerFrameUIListLayout.Padding = UDim.new(0, 50)
+	ContainerFrameUIListLayout.FillDirection = Enum.FillDirection.Horizontal
+	ContainerFrameUIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+
+	NotificationContainer.Name = "NotificationContainer"
+	NotificationContainer.Parent = GodSploit
+	NotificationContainer.BackgroundColor3 = Color3.new(255, 255, 255)
+	NotificationContainer.BackgroundTransparency = 1.000
+	NotificationContainer.BorderColor3 = Color3.new(0, 0, 0)
+	NotificationContainer.BorderSizePixel = 0
+	NotificationContainer.Position = UDim2.new(0.8, 0, 0, 0)
+	NotificationContainer.Size = UDim2.new(0.2, 0, 0.980487823, 0)
+
+	NotificationContainerUIListLayout.Parent = NotificationContainer
+	NotificationContainerUIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+	NotificationContainerUIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+	NotificationContainerUIListLayout.VerticalAlignment = Enum.VerticalAlignment.Bottom
+	NotificationContainerUIListLayout.Padding = UDim.new(0, 10)
+end)
 
 local UIAspectRatioConstraintOpen = Instance.new("UIAspectRatioConstraint")
 local UIStroke = Instance.new("UIStroke")
 local UICorner = Instance.new("UICorner")
 local Open = Instance.new("ImageButton")
-
-UIStroke.Parent = Open
-UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
-UIStroke.Thickness = 2
-UIStroke.Color = Color3.new(1, 0.666667, 0)
-
-Open.Name = "Open"
-Open.Parent = GodSploit
-Open.BackgroundColor3 = Color3.new(255, 255, 255)
-Open.BorderColor3 = Color3.new(0, 0, 0)
-Open.BorderSizePixel = 0
-Open.Position = UDim2.new(0.963096738, 0, 0.351765305, 0)
-Open.Size = UDim2.new(0.0329854637, 0, 0.0837961882, 0)
-Open.Image = "rbxassetid://16296032484"
-
-UICorner.CornerRadius = UDim.new(0, 6)
-UICorner.Parent = Open
-
-UIAspectRatioConstraintOpen.Parent = Open
-UIAspectRatioConstraintOpen.AspectRatio = 1
-
 local Blur = Instance.new("BlurEffect")
 
-Blur.Parent = LightingService
-Blur.Enabled = false
-Blur.Size = 16
-
 task.spawn(function()
-	Open.Activated:Connect(function()
-		ContainerFrame.Visible = not ContainerFrame.Visible
-		Blur.Enabled = not Blur.Enabled
+	UIStroke.Parent = Open
+	UIStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+	UIStroke.Thickness = 2
+	UIStroke.Color = Color3.new(1, 0.666667, 0)
+
+	Open.Name = "Open"
+	Open.Parent = GodSploit
+	Open.BackgroundColor3 = Color3.new(255, 255, 255)
+	Open.BorderColor3 = Color3.new(0, 0, 0)
+	Open.BorderSizePixel = 0
+	Open.Position = UDim2.new(0.963096738, 0, 0.351765305, 0)
+	Open.Size = UDim2.new(0.0329854637, 0, 0.0837961882, 0)
+	Open.Image = "rbxassetid://16296032484"
+
+	UICorner.CornerRadius = UDim.new(0, 6)
+	UICorner.Parent = Open
+
+	UIAspectRatioConstraintOpen.Parent = Open
+	UIAspectRatioConstraintOpen.AspectRatio = 1
+
+	Blur.Parent = LightingService
+	Blur.Enabled = false
+	Blur.Size = 16
+
+	task.spawn(function()
+		Open.Activated:Connect(function()
+			ContainerFrame.Visible = not ContainerFrame.Visible
+			Blur.Enabled = not Blur.Enabled
+		end)
 	end)
 end)
+
 
 local function CreateTab(Name)
 	local Tab = Instance.new("Frame")
@@ -102,7 +135,6 @@ local function CreateTab(Name)
 	local ModulesContainer = Instance.new("Frame")	
 	local UIListLayout = Instance.new("UIListLayout")	
 	local Title = Instance.new("TextLabel")
-	local UIGradient = Instance.new("UIGradient")
 
 	Tab.Name = "Tab"
 	Tab.Parent = ContainerFrame
@@ -147,13 +179,17 @@ local function CreateTab(Name)
 	Title.Size = UDim2.new(0.99999994, 0, 0.742857158, 0)
 	Title.Font = Enum.Font.GothamBold
 	Title.Text = Name
-	Title.TextColor3 = Color3.new(255, 255, 255)
+	Title.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
 	Title.TextSize = 17
 	Title.TextWrapped = true
 
-	UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 0.803922, 0.411765))}
-	UIGradient.Rotation = 90
-	UIGradient.Parent = Title
+	task.spawn(function()
+		repeat
+			task.wait(0.001)
+
+			Title.TextColor3 = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+		until not Title
+	end)
 
 	return ModulesContainer
 end
@@ -172,7 +208,14 @@ local function CreateToggle(Parent, Name, DefaultValue, CallBack)
 		task.spawn(function()
 			if Value == true then
 				CallBackValue = true
-				UIGradient.Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 0.803922, 0.411765))}
+
+				task.spawn(function()
+					repeat
+						task.wait(0.001)
+
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromHSV(tick() % 5 / 5, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.fromHSV(tick() % 5 / 5, 1, 1))}
+					until CallBackValue == false
+				end)
 
 				CallBack(true)
 			end
@@ -181,7 +224,14 @@ local function CreateToggle(Parent, Name, DefaultValue, CallBack)
 		task.spawn(function()
 			if Value == false then
 				CallBackValue = false
-				UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+				
+				task.spawn(function()
+					repeat
+						task.wait(0.001)
+
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					until CallBackValue == true
+				end)				
 
 				CallBack(false)
 			end
@@ -660,7 +710,7 @@ local function CreateFlyHud()
 	return Background, Text, Display
 end
 
-function CreateOutline(Player)
+local function CreateOutline(Player)
 	if IsAlive(Player) then
 		local BillBoard = Instance.new("BillboardGui")
 
@@ -680,6 +730,14 @@ function CreateOutline(Player)
 		Stroke.Color = Color3.new(1, 0.666667, 0)
 		Stroke.Transparency = 0
 
+		task.spawn(function()
+			repeat
+				task.wait(0.001)
+
+				Stroke.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+			until not Stroke
+		end)
+
 		local UICorner = Instance.new("UICorner")
 
 		UICorner.Parent = Frame
@@ -694,18 +752,18 @@ end
 local Settings = {}
 local Loaded = false
 
-local SaveFileName = "GodSploitBetaSaving"
+local SaveFileName = "GodSploitBetaSaving.txt"
 
 local function CreateSettingsFile()
 	local DefaultSetting = {Properties = {Value = false}}
-	
+
 	local MetaTable = {__index, DefaultSetting.Properties}
-	
+
 	Settings = {
 		NoPlacementCps = {KeyBind = "..."},
 		ChestStealer = {Range = 30, KeyBind = "..."},
 		InfiniteJump = {KeyBind = "..."},
-		AutoClicker = {Cps = 30, KeyBind = "..."},
+		AutoClicker = {Cps = 40, KeyBind = "..."},
 		NoKnockBack = {KeyBind = "..."},	
 		InfiniteFly = {KeyBind = "..."},
 		DamageBoost = {KeyBind = "..."},
@@ -737,20 +795,18 @@ local function CreateSettingsFile()
 		Reach = {KeyBind = "..."},
 		Nuker = {Range = 30, CustomAnimation = true, BreakOres = true, KeyBind = "..."},
 		BedTp = {KeyBind = "..."},
-                MobileGui = {Value = false, KeyBind = "..."},
-		Sigma = {KeyBind = "..."},
-		Cape = {KeyBind = "..."},
+		Cape = {KeyBind = "...", Sigma = false},
 		Fly = {KeyBind = "..."},
 		Esp = {KeyBind = "..."},
 		Fov = {Fov = 100, KeyBind = "..."}
 	}
-	
+
 	task.spawn(function()
 		for i, v in next, Settings do
 			setmetatable(v, MetaTable)
 		end
 	end)
-	
+
 	task.spawn(function()
 		if not (writefile or makefolder or readfile or isfile) then
 			CreateNotification(5, "Your executor does not support saving.")
@@ -763,7 +819,7 @@ local function CreateSettingsFile()
 
 			local JSONEncodeSettings = HttpService:JSONEncode(Settings)
 
-			writefile("GodSploitBedwarsConfigSaving/" .. SaveFileName, JSONEncodeSettings)	
+			writefile("GodSploitBedwarsConfigSaving/" .. SaveFileName, JSONEncodeSettings)
 		end
 	end)	
 end
@@ -818,7 +874,7 @@ end)
 
 repeat task.wait() until Loaded == true
 
-local KnitGotten, KnitClient  = false, nil
+local KnitClientGotten, KnitClient = false, nil
 
 task.spawn(function()
 	KnitClient = debug.getupvalue(require(LocalPlayer.PlayerScripts.TS.knit).setup, 6)
@@ -826,22 +882,39 @@ end)
 
 task.spawn(function()
 	if KnitClient then
-		KnitGotten = true
+		KnitClientGotten = true
 	end
 end)
 
 task.spawn(function()
-	if not KnitGotten then
-		CreateNotification(10, "Your executor might not support some features.")
+	if not KnitClientGotten then
+		CreateNotification(10, "Your executor will not support alot features.")
 	end
 end)
 
-local Client = require(ReplicatedStorage.TS.remotes).default.Client
+local Client, ClientGotten = nil
+
+task.spawn(function()
+	Client = require(ReplicatedStorage.TS.remotes).default.Client
+end)
+
+task.spawn(function()
+	if Client then
+		ClientGotten = true
+	end
+end)
 
 local Camera = WorkSpace.CurrentCamera
 local OrigC0 = ReplicatedStorage.Assets.Viewmodel.RightHand.RightWrist.C0
 
-local HannahPromptTriggerRemote = Client:Get("HannahPromptTrigger")
+local HannahPromptTriggerRemote = nil
+
+task.spawn(function()
+	if ClientGotten then
+		HannahPromptTriggerRemote = Client:Get("HannahPromptTrigger")
+	end	
+end)
+
 local TrinitySetAngelTypeRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("SetAngelType")
 local SetObservedChestRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("Inventory/SetObservedChest")
 local ResetCharacterRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("ResetCharacter")
@@ -849,7 +922,19 @@ local ChestGiveItemRemote =  ReplicatedStorage:WaitForChild("rbxts_include"):Wai
 local ChestGetItemRemote =  ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("Inventory/ChestGetItem")
 local PurchaseItemRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("BedwarsPurchaseItem")
 local BlockPlacingRemote =  ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@easy-games"):WaitForChild("block-engine"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("PlaceBlock")
-local ClientHandlerStore = require(LocalPlayer.PlayerScripts.TS.ui.store).ClientStore
+
+local ClientHandlerStore, ClientHandlerStoreGotten = nil, false
+
+task.spawn(function()
+	ClientHandlerStore = require(LocalPlayer.PlayerScripts.TS.ui.store).ClientStore
+end)
+
+task.spawn(function()
+	if ClientHandlerStore then
+		ClientHandlerStoreGotten = true
+	end
+end)
+
 local SendMessageRemote = ReplicatedStorage:WaitForChild("DefaultChatSystemChatEvents"):WaitForChild("SayMessageRequest")
 local DamageBlockRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@easy-games"):WaitForChild("block-engine"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("DamageBlock")
 local ProjectileRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("ProjectileFire")
@@ -859,7 +944,7 @@ local GroundHitRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForC
 local DamageIndicator
 
 task.spawn(function()
-	if KnitGotten then
+	if KnitClientGotten then
 		DamageIndicator = KnitClient.Controllers.DamageIndicatorController.spawnDamageIndicator
 	end
 end)
@@ -882,7 +967,7 @@ local SwordController
 local FovController
 
 task.spawn(function()
-	if KnitGotten then
+	if KnitClientGotten then
 		BlockPlacementController = KnitClient.Controllers.BlockPlacementController
 		ViewmodelController = KnitClient.Controllers.ViewmodelController
 		ZephyrController = KnitClient.Controllers.WindWalkerController
@@ -898,6 +983,7 @@ local ItemTable = debug.getupvalue(require(ReplicatedStorage.TS.item["item-meta"
 local KillAuraAnimationCooldown = true
 local NearestEntityFound = false
 local InfiniteFlyValue = false
+local CanSeeNearestBed = false
 local FlyBodyVelocity = nil
 local NearestBedFound = false
 local SpoofedCamera = nil
@@ -914,13 +1000,8 @@ local Fps = 0
 
 local Animations = {
 	KillAura = {
-		{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(220), math.rad(100), math.rad(100)),Time = 0.25},
-		{CFrame = CFrame.new(0, 0, 0) * CFrame.Angles(math.rad(0), math.rad(0), math.rad(0)), Time = 0.25}
-	},
-
-	Sigma = {
 		{CFrame = CFrame.new(0.2, 0, -1.3) * CFrame.Angles(math.rad(111), math.rad(111), math.rad(130)), Time = 0.16},
-		{CFrame = CFrame.new(0, -0.2, -1.7) * CFrame.Angles(math.rad(30), math.rad(111), math.rad(190)), Time = 0.16},
+		{CFrame = CFrame.new(0, -0.2, -1.7) * CFrame.Angles(math.rad(30), math.rad(111), math.rad(190)), Time = 0.16}
 	},
 
 	Neutral = {
@@ -991,7 +1072,7 @@ function FindNearestPlayer(MaxDistance)
 
 			if Distance < NearestPlayerDistance then
 				NearestPlayerDistance = Distance
-				NearestPlayer = v				
+				NearestPlayer = v
 			end
 		end
 	end
@@ -1106,16 +1187,16 @@ local function FindNearestChest(MaxDistance)
 end
 
 local function ShootProjectile(Item, Projectile)
-	local NearestEntity = FindNearestEntity(math.huge)
+	local NearestPlayer = FindNearestPlayer()
 
-	if NearestEntity and not NearestEntity:FindFirstChildOfClass("ForceField") then
+	if NearestPlayer and not NearestPlayer:FindFirstChildOfClass("ForceField") then
 		local Args = {
 			[1] = Item,
 			[2] = Projectile,
 			[3] = Projectile,
-			[4] = (NearestEntity:FindFirstChild("Head").Position or NearestEntity.PrimaryPart.Position),
-			[5] = (NearestEntity:FindFirstChild("Head").Position or NearestEntity.PrimaryPart.Position),
-			[6] = Vector3.new(0, (NearestEntity:FindFirstChild("Head").Position and -10 or -25), 0),
+			[4] = (NearestPlayer.Character:FindFirstChild("Head").Position or NearestPlayer.Character.PrimaryPart.Position),
+			[5] = (NearestPlayer.Character:FindFirstChild("Head").Position or NearestPlayer.Character.PrimaryPart.Position),
+			[6] = Vector3.new(0, (NearestPlayer.Character:FindFirstChild("Head").Position and -10 or -25), 0),
 			[7] = HttpService:GenerateGUID(true),
 			[8] = {["drawDurationSeconds"] = 0.96, ["shotId"] = HttpService:GenerateGUID(false)},
 			[9] = (WorkSpace:GetServerTimeNow() - 0.11)
@@ -1138,13 +1219,26 @@ function FindNearestBed(MaxDistance)
 	local MaxDistance = MaxDistance or math.huge
 	local NearestBed = nil
 
-	for i, v in next, WorkSpace:GetDescendants() do
-		if v.Name:lower() == "bed" and v:FindFirstChild("Covers") and v:FindFirstChild("Covers").BrickColor ~= LocalPlayer.Team.TeamColor and (v:GetAttribute("BedShieldEndTime") and v:GetAttribute("BedShieldEndTime") < WorkSpace:GetServerTimeNow() or true)  then
-			local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+	for i, v in next, CollectionService:GetTagged("bed")do
+		if v:FindFirstChild("Covers").BrickColor ~= LocalPlayer.Team.TeamColor then			
+			if v:GetAttribute("BedShieldEndTime") then 				
+				if v:GetAttribute("BedShieldEndTime") < WorkSpace:GetServerTimeNow() then
+					local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
 
-			if Distance < MaxDistance then
-				MaxDistance = Distance
-				NearestBed = v
+					if Distance < MaxDistance then
+						MaxDistance = Distance
+						NearestBed = v
+					end
+				end
+			end
+
+			if not v:GetAttribute("BedShieldEndTime") then
+				local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+
+				if Distance < MaxDistance then
+					MaxDistance = Distance
+					NearestBed = v
+				end
 			end
 		end
 	end
@@ -1241,7 +1335,13 @@ local function SetCollisions(Value)
 end
 
 local function GetMatchState()
-	return ClientHandlerStore:getState().Game.matchState
+	if ClientHandlerStoreGotten then
+		return ClientHandlerStore:getState().Game.matchState
+	end
+
+	if not ClientHandlerStoreGotten then
+		return 1
+	end
 end
 
 local function HashFunction(Value)
@@ -1265,9 +1365,15 @@ local function DecimalRound(Number, DigitsPast0)
 end
 
 local function GetQueueType()
-	local State = ClientHandlerStore:getState()
+	if ClientHandlerStoreGotten then
+		local State = ClientHandlerStore:getState()
 
-	return State.Game.queueType or "bedwars_test"
+		return State.Game.queueType or "bedwars_test"
+	end
+
+	if not ClientHandlerStoreGotten then
+		return "bedwars_test"
+	end
 end
 
 function KillHumanoid(Time)
@@ -1549,22 +1655,18 @@ function GetSpeed()
 
 	if IsAlive(LocalPlayer) then 
 
-		local SpeedDamageBoost =  LocalPlayer.Character:GetAttribute("SpeedBoost")
+		local SpeedBoost = LocalPlayer.Character:GetAttribute("SpeedBoost")
 
-		if SpeedDamageBoost and SpeedDamageBoost > 1 then 
-			Speed = Speed + (20 * (SpeedDamageBoost - 1))
-		end
-
-		if LocalPlayer.Character:GetAttribute("SpeedPieBuff") then 
-			Speed = Speed + 5
+		if SpeedBoost and SpeedBoost > 1 then 
+			Speed = Speed + (8 * (SpeedBoost - 1))
 		end
 
 		if LocalPlayer.Character:GetAttribute("GrimReaperChannel") then 
 			Speed = Speed + 20
 		end
 
-		if ZephyrOrb ~= 0 then
-			Speed = Speed + 18
+		if type(ZephyrOrb) == "number" and ZephyrOrb > 0 then
+			Speed = Speed + 19
 		end
 
 		if DamageBoost == true then
@@ -1731,7 +1833,7 @@ local function AutoBuy()
 				["shopId"] = NearestNpc.Name
 			}
 		}
-		
+
 		local VoidSword = {
 			[1] = {
 				["shopItem"] = {
@@ -1841,7 +1943,7 @@ local function AutoBuy()
 			if HasItem("wood_sword") then
 				PurchaseItem(StoneSword)
 			end
-			
+
 			PurchaseItem(VoidSword)
 		end)
 
@@ -1903,20 +2005,6 @@ function IsAlive(Player)
 	return true
 end	
 
-local function playDragonBreathAnimation()
-    local DragonBreathRemote = game:GetService("ReplicatedStorage").rbxts_include.node_modules:FindFirstChild("@rbxts").net.out._NetManaged.DragonBreath
-    DragonBreathRemote:FireServer({
-        ["Player"] = game:GetService("Players").LocalPlayer
-    })
-end
-
-local function playkillauraAnimation()
-    local anim = Instance.new("Animation")
-    anim.AnimationId = "rbxassetid://4947108314"
-    local loader = LocalPlayer.Character:FindFirstChild("Humanoid"):FindFirstChild("Animator")
-    loader:LoadAnimation(anim):Play()
-end
-
 local function SwordHit(Entity, Weapon, NearestEntityDistance)
 	local LocalPlayerHumanoidRootPart = LocalPlayer.Character.HumanoidRootPart
 	local EntityPrimaryPart = Entity.PrimaryPart
@@ -1927,23 +2015,15 @@ local function SwordHit(Entity, Weapon, NearestEntityDistance)
 		if KillAuraAnimationCooldown and Settings.KillAura.CustomAnimation == true then
 			KillAuraAnimationCooldown = false
 
-			if Settings.Sigma.Value == false then
-				PlayAnimation(Animations.KillAura)
+			PlayAnimation(Animations.KillAura)
 
-				KillAuraAnimationCooldown = true
-			end
-
-			if Settings.Sigma.Value == true then
-				PlayAnimation(Animations.Sigma)
-
-				KillAuraAnimationCooldown = true
-			end
+			KillAuraAnimationCooldown = true
 		end
 	end)
 
 	task.spawn(function()
 		if Settings.KillAura.Strafe == true and NearestEntityDistance < 10 then
-			LocalPlayerHumanoidRootPart.CFrame = CFrame.new(EntityPrimaryPart.Position - EntityPrimaryPart.CFrame.LookVector * 5 + Vector3.new(0, 0, 5))
+			LocalPlayerHumanoidRootPart.CFrame = CFrame.new(EntityPrimaryPart.Position - EntityPrimaryPart.CFrame.LookVector * 5)
 		end
 	end)
 
@@ -2013,7 +2093,10 @@ end
 
 local function InfFly()
 	if InfiniteFlyValue == true and IsAlive(LocalPlayer) then
-		SpoofedCamera = CreateSpoofedCamera()
+		
+        CreateNotification(0.5, "Inf Fly Enabled")
+        
+        SpoofedCamera = CreateSpoofedCamera()
 		StartLevel = LocalPlayer.Character.Head.Position.Y
 
 		if SpoofedCamera then
@@ -2034,14 +2117,15 @@ local function InfFly()
 			LocalPlayer.Character.PrimaryPart.Anchored = true
 			LocalPlayer.Character.PrimaryPart.CFrame = SpoofedCamera.CFrame + Vector3.new(0, 5, 0)	
 			SetCamera(LocalPlayer.Character)
-                        CreateNotification(3, "INF FLY:Don't move, or you might trigger the Anti-cheat")
 
 			SpoofedCamera:Destroy()
 
 			task.wait(0.025)
 
-			WorkSpace.Gravity = 196.2
+			WorkSpace.Gravity = 50
 			LocalPlayer.Character.PrimaryPart.Anchored = false
+
+            CreateNotification(0.5, "Inf Fly Disabled")
 
 			task.wait(1)
 
@@ -2081,9 +2165,15 @@ local function Nuker(NearestBed, NearestOre)
 					["hitNormal"] = GetServerPosition(TargetBlock.Position)
 				})
 			end
+
+			task.spawn(function()
+				local _, Value = Camera:WorldToScreenPoint(NearestBed.Position)
+
+				CanSeeNearestBed = Value
+			end)
 		end
 	end)
-	
+
 	task.spawn(function()
 		if not NearestBed and NearestOre then		
 			if Settings.Nuker.BreakOres == true then
@@ -2101,6 +2191,7 @@ end
 
 local function FlyMe()
 	local FlyGroundTime = tick()
+    CreateNotification(0.5, "Fly Enabled")
 
 	if FlyValue == true and IsAlive(LocalPlayer) then		
 		task.spawn(function()
@@ -2109,8 +2200,8 @@ local function FlyMe()
 			repeat
 				task.wait()
 
-				if tick() - FlyGroundTime <= 1.8 then
-					local MaxFlyTime = 1.8
+				if tick() - FlyGroundTime <= 2.3 then
+					local MaxFlyTime = 2.3
 					local FlyTime = DecimalRound(tick() - FlyGroundTime, 1)
 
 					NumberDisplay.Text = FlyTime		
@@ -2123,6 +2214,8 @@ local function FlyMe()
 
 			until FlyValue == false or not IsAlive(LocalPlayer)
 
+
+            CreateNotification(0.5, "Fly Disabled")
 			FlyHud:Destroy()
 		end)		
 
@@ -2144,11 +2237,11 @@ local function FlyMe()
 				if FlyValue == true and IsAlive(LocalPlayer) then
 					FlyBodyVelocity.Velocity = Vector3.new(0, (FlyUp and 40 or 0) + (FlyDown and -40 or 0), 0)
 				end
-				
+
 				task.spawn(function()
-					if (tick() - FlyGroundTime) >= 1.8 then
+					if (tick() - FlyGroundTime) >= 2.3 then
 						FlyGroundTime = tick()
-						
+
 						local FlyTeleportPosition = 0
 						local FlyRaycastParameters = RaycastParams.new()
 
@@ -2160,18 +2253,18 @@ local function FlyMe()
 						if FlyRaycast and IsAlive(LocalPlayer) then 
 							local Args = {LocalPlayer.Character.PrimaryPart.CFrame:GetComponents()}
 							Args[2] = FlyRaycast.Position.Y + 1 + LocalPlayer.Character.Humanoid.HipHeight
-							
+
 							FlyTeleportPosition = LocalPlayer.Character.PrimaryPart.Position.Y
 
 							LocalPlayer.Character.PrimaryPart.CFrame = CFrame.new(unpack(Args))
-							
+
 							task.spawn(function()								
 								task.wait(0.15)
 
 								if IsAlive(LocalPlayer) then 
 									local Args = {LocalPlayer.Character.PrimaryPart.CFrame:GetComponents()}									
 									Args[2] = FlyTeleportPosition
-									
+
 									LocalPlayer.Character.PrimaryPart.CFrame = CFrame.new(unpack(Args))																		
 								end	
 							end)
@@ -2205,13 +2298,11 @@ task.spawn(function()
 			task.spawn(function()
 				if NearestEntity and Sword then
 					SwordHit(NearestEntity, Sword, NearestEntityDistance)
-                                        playkillauraAnimation()
-                                        playDragonBreathAnimation()
-					
+
 					NearestEntityFound = true
 				end
 			end)
-			
+
 			task.spawn(function()
 				if not NearestEntity then
 					NearestEntityFound = false
@@ -2239,9 +2330,9 @@ task.spawn(function()
 
 		task.spawn(function()		
 			if Settings.Aimbot.Value == true and IsAlive(LocalPlayer) then	
-				local NearestEntity, NearestEntityDistance = FindNearestEntity(math.huge)
-				
-				if NearestEntity and (AntiVoidPart and NearestEntity.PrimaryPart.Position.Y >= AntiVoidPart.Position.Y or true) and not NearestEntity:FindFirstChildOfClass("ForceField") and NearestEntityDistance > 18 then
+				local NearestPlayer, NearestPlayerDistance = FindNearestPlayer(math.huge)
+
+				if NearestPlayer and (AntiVoidPart and NearestPlayer.Character.PrimaryPart.Position.Y >= AntiVoidPart.Position.Y or true) and not NearestPlayer.Character:FindFirstChildOfClass("ForceField") and NearestPlayerDistance > 18 then
 					local BestBow = GetBow()
 
 					if BestBow and HasItem(BestBow.itemType) and HasItem("arrow") then
@@ -2274,7 +2365,7 @@ task.spawn(function()
 		end)
 
 		task.spawn(function()
-			if Settings.Scaffold.Value == true and IsAlive(LocalPlayer) and GetMatchState() ~= 0 then
+			if Settings.Scaffold.Value == true and IsAlive(LocalPlayer) and FlyValue == false and GetMatchState() ~= 0 then
 				for i = 1, Settings.Scaffold.ExpandDistance do
 					local ScaffoldCFrame = LocalPlayer.Character.PrimaryPart.Position + (LocalPlayer.Character.Humanoid.MoveDirection * (i * 3.3)) - Vector3.new(0, (LocalPlayer.Character.PrimaryPart.Size.Y / 2) + (LocalPlayer.Character.Humanoid.HipHeight + 1.5), 0)
 					local Position = GetServerPosition(ScaffoldCFrame)
@@ -2324,17 +2415,11 @@ task.spawn(function()
 		end)
 
 		task.spawn(function()
-			if Settings.AutoBuy.Value == true and IsAlive(LocalPlayer) and GetMatchState() ~= 0 then
-				AutoBuy()
-			end			
-		end)
-
-		task.spawn(function()
-			if Settings.Fov.Value == true and KnitGotten == true then 
+			if Settings.Fov.Value == true and KnitClientGotten == true then 
 				FovController:setFOV(Settings.Fov.Fov) 
 			end 
 
-			if Settings.Fov.Value == false and KnitGotten == true then 
+			if Settings.Fov.Value == false and KnitClientGotten == true and ClientHandlerStoreGotten then 
 				FovController:setFOV(ClientHandlerStore:getState().Settings.fov) 
 			end
 		end)
@@ -2347,7 +2432,7 @@ task.spawn(function()
 
 		if Settings.AutoClicker.Value == true and IsAlive(LocalPlayer) and GetMatchState() ~= 0 then
 			task.spawn(function()
-				if KnitGotten == true and ClientHandlerStore:getstate().Inventory.observedInventory == "block" and BlockPlacementController.blockPlacer.clientManager then
+				if KnitClientGotten == true and ClientHandlerStoreGotten and ClientHandlerStore:getstate().Inventory.observedInventory == "block" and BlockPlacementController.blockPlacer.clientManager then
 					local MouseInformation = BlockPlacementController.blockPlacer.clientManager:getBlockSelector():getMouseInfo(0)
 
 					if MouseInformation then
@@ -2357,7 +2442,7 @@ task.spawn(function()
 			end)
 
 			task.spawn(function()
-				if KnitGotten == true then
+				if KnitClientGotten == true then
 					SwordController:swingSwordAtMouse()
 				end				
 			end)
@@ -2498,22 +2583,30 @@ task.spawn(function()
 						Nuker(NearestBed, NearestOre)
 					end
 				end)
-				
+
 				task.spawn(function()
 					if not NearestBed then
 						NearestBedFound = false
 					end
-				end)				
+				end)
 			end
+		end)
+
+		task.spawn(function()
+			if Settings.AutoBuy.Value == true and IsAlive(LocalPlayer) and GetMatchState() ~= 0 then
+				AutoBuy()
+			end			
 		end)
 	until not game
 end)
 
 task.spawn(function()
 	repeat		
-		task.wait(0.35)
+		task.wait()
 
-		if IsAlive(LocalPlayer) and Settings.Nuker.Value == true and Settings.Nuker.CustomAnimation == true and NearestBedFound and not NearestEntityFound then
+		if IsAlive(LocalPlayer) and Settings.Nuker.Value == true and Settings.Nuker.CustomAnimation == true and NearestBedFound and CanSeeNearestBed and not NearestEntityFound then
+			task.wait(0.3)
+
 			ViewmodelController:playAnimation(15)
 		end		
 	until not game
@@ -2522,19 +2615,13 @@ end)
 task.spawn(function()
 	repeat task.wait() until GetMatchState() ~= 0
 
-	if KnitGotten == true then
+	if KnitClientGotten == true then
 		local ZephyrUpdate = ZephyrController.updateJump
 
-		ZephyrController.updateJump = function(self, orb, ...)
-			if IsAlive(LocalPlayer) and orb then
-				ZephyrOrb = 1
-			end
+		ZephyrController.updateJump = function(self, Orb, ...)
+			ZephyrOrb= IsAlive(LocalPlayer) and Orb or 0
 
-			if not IsAlive(LocalPlayer) or not orb then
-				ZephyrOrb = 0
-			end
-
-			return ZephyrUpdate(self, orb, ...)
+			return ZephyrUpdate(self, Orb, ...)
 		end
 	end
 end)
@@ -2648,7 +2735,7 @@ task.spawn(function()
 
 		local OldCpsFunction = nil
 
-		if Settings.AutoClicker.Value == true and KnitGotten == true then
+		if Settings.AutoClicker.Value == true and KnitClientGotten == true then
 			SwordController.isClickingTooFast = function(self) 
 				self.lastSwing = tick()
 
@@ -2656,7 +2743,7 @@ task.spawn(function()
 			end
 		end
 
-		if Settings.AutoClicker.Value == false and KnitGotten == true then
+		if Settings.AutoClicker.Value == false and KnitClientGotten == true then
 			SwordController.isClickingTooFast = OldCpsFunction
 		end
 	end)
@@ -2706,7 +2793,7 @@ task.spawn(function()
 			Value = not Value
 
 			if Value == true then
-				InstanceUI = CreateSlider(CombatTab, "Cps", Settings.AutoClicker.Cps, 30, LayoutOrder + 2, function(CallBack)
+				InstanceUI = CreateSlider(CombatTab, "Cps", Settings.AutoClicker.Cps, 40, LayoutOrder + 2, function(CallBack)
 					Settings.AutoClicker.Cps = CallBack
 				end)
 			end
@@ -2821,7 +2908,7 @@ task.spawn(function()
 			end
 		end)
 	end)
-	
+
 	task.spawn(function()
 		local InstanceUI
 		local Value = false
@@ -2958,7 +3045,7 @@ task.spawn(function()
 
 		local OldSprintFunction
 
-		if Settings.Sprint.Value == true and KnitGotten == true then
+		if Settings.Sprint.Value == true and KnitClientGotten == true then
 			OldSprintFunction = SprintController.stopSprinting
 
 			SprintController.stopSprinting = function(...)
@@ -2977,7 +3064,7 @@ task.spawn(function()
 			end)
 		end
 
-		if Settings.Sprint.Value == false and KnitGotten == true then
+		if Settings.Sprint.Value == false and KnitClientGotten == true then
 			SprintController.stopSprinting = OldSprintFunction
 			SprintController:stopSprinting()
 		end
@@ -3614,7 +3701,7 @@ task.spawn(function()
 				FlyMe()
 			end
 		end)
-		
+
 		task.spawn(function()
 			if Settings.Fly.Value == false then
 				FlyValue = false
@@ -3962,13 +4049,13 @@ end)
 task.spawn(function()
 	local AutoBank, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "AutoBank", Settings.AutoBank.Value, function(CallBack)
 		Settings.AutoBank.Value = CallBack
-		
+
 		if Settings.AutoBank.Value == false then
 			task.spawn(function()
 				CollectEnderChestItems()
-				
+
 				task.wait(1)
-				
+
 				CollectEnderChestItems()
 			end)
 		end
@@ -4183,11 +4270,11 @@ task.spawn(function()
 	local Fov, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "Fov", Settings.Fov.Value, function(CallBack)
 		Settings.Fov.Value = CallBack
 
-		if Settings.Fov.Value == true and KnitGotten == true then
+		if Settings.Fov.Value == true and KnitClientGotten == true then
 			FovController:setFOV(Settings.Fov.Fov)
 		end
 
-		if Settings.Fov.Value == false and KnitGotten == true then
+		if Settings.Fov.Value == false and KnitClientGotten == true and ClientHandlerStoreGotten then
 			FovController:setFOV(ClientHandlerStore:getState().Settings.fov)
 		end
 	end)
@@ -4240,7 +4327,7 @@ task.spawn(function()
 				InstanceUI = CreateSlider(UtilityTab, "Fov", Settings.Fov.Fov, 120, LayoutOrder + 2, function(CallBack)
 					Settings.Fov.Fov = CallBack
 
-					if Settings.Fov.Value == true and KnitGotten == true then
+					if Settings.Fov.Value == true and KnitClientGotten == true then
 						FovController:setFOV(Settings.Fov.Fov)
 					end
 				end)
@@ -4371,19 +4458,19 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local NoNameTag, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "NoNameTag", Settings.AutoToxic.Value, function(CallBack)
+	local NoNameTag, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "NoNameTag", Settings.NoNameTag.Value, function(CallBack)
 		Settings.NoNameTag.Value = CallBack
 
 		task.spawn(function()
 			if Settings.NoNameTag.Value == true then
 				if IsAlive(LocalPlayer) and LocalPlayer.Character.Head:FindFirstChild("Nametag") then
-					
+
 					if ReplicatedStorage:FindFirstChild("Nametag") and LocalPlayer.Character.Head:FindFirstChild("Nametag") then
 						ReplicatedStorage:FindFirstChild("Nametag"):Destroy()
 					end
-					
+
 					LocalPlayer.Character.Head.Nametag.Parent = ReplicatedStorage
-					
+
 					task.spawn(function()
 						LocalPlayer.CharacterAdded:Connect(function()
 							task.wait(0.3)
@@ -4392,7 +4479,7 @@ task.spawn(function()
 								if ReplicatedStorage:FindFirstChild("Nametag") and LocalPlayer.Character.Head:FindFirstChild("Nametag") then
 									ReplicatedStorage:FindFirstChild("Nametag"):Destroy()
 								end
-								
+
 								LocalPlayer.Character.Head.Nametag.Parent = ReplicatedStorage								
 							end
 						end)
@@ -4449,7 +4536,58 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "SkyBox", Settings.GalaxySky.Value, function(CallBack)
+	local MobileGui, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Mobile Gui", Settings.Reach.Value, function(CallBack)
+		Settings.MobileGui.Value = CallBack
+
+		if Settings.MobileGui.Value == true then
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_mobile_Gui_flyscript"))()
+		end
+
+		if Settings.MobileGui.Value == false then
+			CreateNotification(3, "Close at next round")
+		end
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(WorldTab, Settings.MobileGui.KeyBind, LayoutOrder + 1, function(CallBack)
+					Settings.MobileGui.KeyBind = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.MobileGui.KeyBind then
+					Settings.MobileGui.Value = not Settings.MobileGui.Value
+
+					if Settings.MobileGui.Value == true then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
+					end
+
+					if Settings.MobileGui.Value == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
+	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "GalaxySky", Settings.GalaxySky.Value, function(CallBack)
 		Settings.GalaxySky.Value = CallBack
 
 		if Settings.GalaxySky.Value == true then
@@ -4518,65 +4656,14 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local MobileGui, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Mobile Gui", Settings.Reach.Value, function(CallBack)
-		Settings.MobileGui.Value = CallBack
-
-		if Settings.MobileGui.Value == true then
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_mobile_Gui_flyscript"))()
-		end
-
-		if Settings.MobileGui.Value == false then
-			CreateNotification(3, "Close at next round")
-		end
-	end)
-
-	task.spawn(function()
-		local InstanceUI
-		local Value = false
-
-		DropDownButton.Activated:Connect(function()
-			Value = not Value
-
-			if Value == true then
-				InstanceUI = CreateKeyBind(WorldTab, Settings.MobileGui.KeyBind, LayoutOrder + 1, function(CallBack)
-					Settings.MobileGui.KeyBind = CallBack
-				end)
-			end
-
-			if Value == false then
-				InstanceUI:Destroy()
-			end
-		end)
-	end)
-
-	task.spawn(function()
-		UserInputService.InputBegan:Connect(function(Input)
-			if not UserInputService:GetFocusedTextBox() then
-				if Input.KeyCode.Name == Settings.MobileGui.KeyBind then
-					Settings.MobileGui.Value = not Settings.MobileGui.Value
-
-					if Settings.MobileGui.Value == true then
-						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
-					end
-
-					if Settings.MobileGui.Value == false then
-						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
-					end
-				end
-			end
-		end)
-	end)
-end)
-
-task.spawn(function()
-	local Indicators, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Damage Indicators", Settings.Indicators.Value, function(CallBack)
+	local Indicators, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Indicators", Settings.Indicators.Value, function(CallBack)
 		Settings.Indicators.Value = CallBack
 
 		task.spawn(function()
 			local OldObj = debug.getupvalue(DamageIndicator, 10)
 
 			if Settings.Indicators.Value == true then
-				local Messages = {"GodSploit Config", "Best Config", "Coco Script", "EZ"}
+				local Messages = {"GodSploit Config", "Best Config", "CocoSploit✨", "EZ"}
 
 				debug.setupvalue(DamageIndicator, 10, {
 					Create = function(self, obj, ...)
@@ -4936,65 +5023,6 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local Sigma, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Sigma", Settings.Sigma.Value, function(CallBack)
-		Settings.Sigma.Value = CallBack
-
-		if Settings.Sigma.Value == true then
-			task.spawn(function()
-				if IsAlive(LocalPlayer) and Settings.Cape.Value == true and LocalPlayer.Character:FindFirstChild("Cape"):FindFirstChild("Decal") then
-					LocalPlayer.Character:FindFirstChild("Cape"):FindFirstChild("Decal").Texture = "rbxassetid://" .. 13528140280
-				end
-			end)
-		end
-
-		if Settings.Sigma.Value == false then
-			task.spawn(function()
-				if IsAlive(LocalPlayer) and Settings.Cape.Value == true and LocalPlayer.Character:FindFirstChild("Cape"):FindFirstChild("Decal") then
-					LocalPlayer.Character:FindFirstChild("Cape"):FindFirstChild("Decal").Texture = "rbxassetid://" .. 16331277884
-				end
-			end)
-		end
-	end)
-
-	task.spawn(function()
-		local InstanceUI
-		local Value = false
-
-		DropDownButton.Activated:Connect(function()
-			Value = not Value
-
-			if Value == true then
-				InstanceUI = CreateKeyBind(WorldTab, Settings.Sigma.KeyBind, LayoutOrder + 1, function(CallBack)
-					Settings.Sigma.KeyBind = CallBack
-				end)
-			end
-
-			if Value == false then
-				InstanceUI:Destroy()
-			end
-		end)
-	end)
-
-	task.spawn(function()
-		UserInputService.InputBegan:Connect(function(Input)
-			if not UserInputService:GetFocusedTextBox() then
-				if Input.KeyCode.Name == Settings.Sigma.KeyBind then
-					Settings.Sigma.Value = not Settings.Sigma.Value
-
-					if Settings.Sigma.Value == true then
-						UIGradient.Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 0.803922, 0.411765))}
-					end
-
-					if Settings.Sigma.Value == false then
-						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
-					end
-				end
-			end
-		end)
-	end)
-end)
-
-task.spawn(function()
 	local Nuker, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Nuker", Settings.Nuker.Value, function(CallBack)
 		Settings.Nuker.Value = CallBack
 	end)
@@ -5035,7 +5063,7 @@ task.spawn(function()
 			end
 		end)
 	end)
-	
+
 	task.spawn(function()
 		local InstanceUI
 		local Value = false
@@ -5100,7 +5128,7 @@ task.spawn(function()
 
 		if Settings.Cape.Value == true then
 			task.spawn(function()
-				local DecalId = (Settings.Sigma.Value and 13528140280 or 16331277884)
+				local DecalId = (Settings.Cape.Sigma and 13528140280 or 16331277884)
 
 				CreateCape("rbxassetid://" .. DecalId)
 
@@ -5161,6 +5189,43 @@ task.spawn(function()
 			end
 		end)
 	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateMiniToggle(WorldTab, "Sigma", Settings.Cape.Sigma, LayoutOrder + 2, function(CallBack)
+					Settings.Cape.Sigma = CallBack
+
+					task.spawn(function()
+						if Settings.Cape.Sigma == true then
+							task.spawn(function()
+								if IsAlive(LocalPlayer) and Settings.Cape.Value == true and LocalPlayer.Character:FindFirstChild("Cape") then
+									LocalPlayer.Character:FindFirstChild("Cape").Decal.Texture = "rbxassetid://" .. 13528140280
+								end
+							end)
+						end
+
+						if Settings.Cape.Sigma  == false then
+							task.spawn(function()
+								if IsAlive(LocalPlayer) and Settings.Cape.Value == true and LocalPlayer.Character:FindFirstChild("Cape") then
+									LocalPlayer.Character:FindFirstChild("Cape").Decal.Texture = "rbxassetid://" .. 16331277884
+								end
+							end)
+						end
+					end)					
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
 end)
 
 task.spawn(function()
@@ -5169,25 +5234,25 @@ task.spawn(function()
 
 		for i, v in next, PlayerService:GetPlayers() do
 			v.Chatted:Connect(function(Message)				
-				if Message:lower() == ";kick" and v.Name == Owner and LocalPlayer.Name ~= Owner then
+				if Message:lower() == ";kick default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
 					task.spawn(function()
 						LocalPlayer:Kick("Kicked by GodSploit owner")
 					end)
 				end
 
-				if Message:lower() == ";kill" and v.Name == Owner and LocalPlayer.Name ~= Owner then
+				if Message:lower() == ";kill default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
 					task.spawn(function()
 						KillHumanoid(0)
 					end)
 				end
 
-				if Message:lower() == ";lagback" and v.Name == Owner and LocalPlayer.Name ~= Owner then
+				if Message:lower() == ";lagback default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
 					task.spawn(function()
 						LocalPlayer.Character.PrimaryPart.Velocity = Vector3.new(99999, 99999, 99999)
 					end)
 				end
 
-				if Message:lower() == ";breakmap" and v.Name == Owner and LocalPlayer.Name ~= Owner then
+				if Message:lower() == ";breakmap default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
 					task.spawn(function()
 						for i, v in next, CollectionService:GetTagged("block") do
 							v:Destroy()
@@ -5235,7 +5300,7 @@ task.spawn(function()
 	ViewModel.RightHand.RightWrist.C1 = C1 * CFrame.Angles(math.rad(0), math.rad(0), math.rad(RotationZ.Value))
 
 	task.spawn(function()
-		CreateNotification(5, "GodSploit Config has loaded!")
+		CreateNotification(5, "GodSploit has loaded!")
 	end)
 
 	task.spawn(function()
@@ -5243,45 +5308,14 @@ task.spawn(function()
 	end)
 end)
 
-local TweenService = game:GetService("TweenService")
-local NeonWaterMark = Instance.new("ScreenGui")
-local TextLabel = Instance.new("TextLabel")
-local UITextSizeConstraint = Instance.new("UITextSizeConstraint")
+task.spawn(function()
+	repeat
+		task.wait(0.001)
 
-NeonWaterMark.Name = "NeonWaterMark"
-NeonWaterMark.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
-NeonWaterMark.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
-NeonWaterMark.ResetOnSpawn = false
-
-TextLabel.Parent = NeonWaterMark
-TextLabel.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.BackgroundTransparency = 1.000
-TextLabel.BorderSizePixel = 0
-TextLabel.Position = UDim2.new(0, 0, 0, 0)
-TextLabel.Size = UDim2.new(0.2, 0, 0.15, 0)
-TextLabel.Font = Enum.Font.GothamBold
-TextLabel.Text = "Coco GodSploit Config discord.gg/J6XkRGqTY3"
-TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
-TextLabel.TextScaled = true
-TextLabel.TextSize = 28.000
-TextLabel.TextWrapped = true
-TextLabel.TextXAlignment = Enum.TextXAlignment.Left
-
--- Add UITextSizeConstraint for dynamic text sizing
-UITextSizeConstraint.MaxTextSize = 28
-UITextSizeConstraint.MinTextSize = 14
-UITextSizeConstraint.Parent = TextLabel
-
--- Tweening function for rainbow color change
-local function changeColor()
-    local rainbowColor = Color3.fromHSV(tick() % 5 / 5, 1, 1)
-    local info = TweenInfo.new(1, Enum.EasingStyle.Linear, Enum.EasingDirection.Out)
-    local tween = TweenService:Create(TextLabel, info, {TextColor3 = rainbowColor})
-    tween:Play()
-end
-
--- Run the color change function in a loop
-while true do
-    changeColor()
-    wait(1) -- Adjust the wait time for a smoother or faster color change
-end
+		for i, v in next, GodSploit:GetDescendants() do
+			if v:IsA("UIStroke") and v.Parent.Name ~= "Bar" then
+				v.Color = Color3.fromHSV(tick() % 5 / 5, 1, 1)
+			end
+		end
+	until not game
+end)
