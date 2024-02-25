@@ -568,6 +568,11 @@ local function CreateSlider(Parent, Name, DefaultValue, MaximumValue, LayoutOrde
 end
 
 local function CreateNotification(Duration, Message)
+    sound = Instance.new("Sound",workspace)
+    sound.Name = "Noooooooooooooooot noooooooooooooooooooooooot"
+    sound.SoundId = "rbxassetid://4590657391"
+    sound:Play()
+
 	local Notification = Instance.new("Frame")
 	local UIStroke = Instance.new("UIStroke")
 	local UIGradient = Instance.new("UIGradient")
