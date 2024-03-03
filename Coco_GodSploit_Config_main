@@ -757,7 +757,7 @@ end
 local Settings = {}
 local Loaded = false
 
-local SaveFileName = "GodSploitBetaSaving.txt"
+local SaveFileName = "GodSploit142Saving.txt"
 
 local function CreateSettingsFile()
 	local DefaultSetting = {Properties = {Value = false}}
@@ -765,6 +765,8 @@ local function CreateSettingsFile()
 	local MetaTable = {__index, DefaultSetting.Properties}
 
 	Settings = {
+		CustomHealthBar = {KeyBind = "..."},
+		CustomInventory = {KeyBind = "..."},
 		NoPlacementCps = {KeyBind = "..."},
 		ChestStealer = {Range = 30, KeyBind = "..."},
 		InfiniteJump = {KeyBind = "..."},
@@ -777,6 +779,7 @@ local function CreateSettingsFile()
 		FpsBooster = {KeyBind = "..."},
 		Indicators = {KeyBind = "..."},
 		AutoReport = {KeyBind = "..."},
+		WinterSky = {KeyBind = "..."},
 		NoNameTag = {KeyBind = "..."},
 		AntiStaff = {Kick = false, KeyBind = "..."},
 		AutoToxic = {KeyBind = "..."},
@@ -839,13 +842,13 @@ local function CheckFirstTime()
 	end
 end
 
-function SaveSettings()	
+local function SaveSettings()	
 	local JSONEncodeSettings = HttpService:JSONEncode(Settings)
 
 	writefile("GodSploitBedwarsConfigSaving/" .. SaveFileName, JSONEncodeSettings)	
 end
 
-function LoadSettings()
+local function LoadSettings()
 	if isfile("GodSploitBedwarsConfigSaving/" .. SaveFileName) then
 		Settings = HttpService:JSONDecode(readfile("GodSploitBedwarsConfigSaving/" .. SaveFileName))
 
@@ -954,6 +957,18 @@ task.spawn(function()
 	end
 end)
 
+local HotBarHealthBar, HotBarHealthBarGotten = nil, false
+
+task.spawn(function()
+	HotBarHealthBar = require(LocalPlayer.PlayerScripts.TS.controllers.global.hotbar.ui.healthbar["hotbar-healthbar"]).HotbarHealthbar.render
+end)
+
+task.spawn(function()
+	if HotBarHealthBar then
+		HotBarHealthBarGotten = true
+	end
+end)
+
 local ProjectileMeta = require(ReplicatedStorage.TS.projectile["projectile-meta"]).ProjectileMeta
 local SwordHitRemote = ReplicatedStorage:WaitForChild("rbxts_include"):WaitForChild("node_modules"):WaitForChild("@rbxts"):WaitForChild("net"):WaitForChild("out"):WaitForChild("_NetManaged"):WaitForChild("SwordHit")
 local CombatConstant = require(ReplicatedStorage.TS.combat["combat-constant"]).CombatConstant
@@ -1005,8 +1020,8 @@ local Fps = 0
 
 local Animations = {
 	KillAura = {
-		{CFrame = CFrame.new(0.2, 0, -1.3) * CFrame.Angles(math.rad(111), math.rad(111), math.rad(130)), Time = 0.16},
-		{CFrame = CFrame.new(0, -0.2, -1.7) * CFrame.Angles(math.rad(30), math.rad(111), math.rad(190)), Time = 0.16}
+		{CFrame = CFrame.new(0.69, -0.77, 1.47) * CFrame.Angles(math.rad(-33), math.rad(57), math.rad(-81)), Time = 0.12},
+		{CFrame = CFrame.new(0.74, -0.92, 0.88) * CFrame.Angles(math.rad(147), math.rad(71), math.rad(53)), Time = 0.12}
 	},
 
 	Neutral = {
@@ -1077,7 +1092,7 @@ function FindNearestPlayer(MaxDistance)
 
 			if Distance < NearestPlayerDistance then
 				NearestPlayerDistance = Distance
-				NearestPlayer = v
+				NearestPlayer = v				
 			end
 		end
 	end
@@ -1255,14 +1270,49 @@ local function FindNearestNpc(MaxDistance)
 	local MaxDistance = MaxDistance or math.huge
 	local NearestNpc = nil
 
-	for i, v in next, CollectionService:GetTagged("BedwarsItemShop") do
-		local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+	task.spawn(function()
+		for i,v in next, (CollectionService:GetTagged("broken-enchant-table")) do 
+			local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
 
-		if Distance < MaxDistance then
-			MaxDistance = Distance
-			NearestNpc = v		
+			if Distance < MaxDistance then
+				MaxDistance = Distance
+				NearestNpc = v		
+			end
 		end
-	end
+	end)
+
+	task.spawn(function()
+		for i,v in next, (CollectionService:GetTagged("enchant-table")) do 
+			local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+
+			if Distance < MaxDistance then
+				MaxDistance = Distance
+				NearestNpc = v		
+			end
+		end
+	end)
+
+	task.spawn(function()
+		for i, v in next, CollectionService:GetTagged("BedwarsTeamUpgrader") do
+			local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+
+			if Distance < MaxDistance then
+				MaxDistance = Distance
+				NearestNpc = v
+			end
+		end
+	end)
+
+	task.spawn(function()
+		for i, v in next, CollectionService:GetTagged("BedwarsItemShop") do
+			local Distance = (v.Position - LocalPlayer.Character.PrimaryPart.Position).Magnitude
+
+			if Distance < MaxDistance then
+				MaxDistance = Distance
+				NearestNpc = v		
+			end
+		end
+	end)
 
 	return NearestNpc
 end
@@ -1407,8 +1457,6 @@ end
 
 local function Invisibility()
 	repeat task.wait() until GetMatchState() ~= 0 and IsAlive(LocalPlayer)
-
-	task.wait(0.3)
 
 	local Animation = Instance.new("Animation")
 	local Id = 11335949902
@@ -1603,7 +1651,7 @@ local function ChatSpam()
 	local KillMessage = ""
 
 	if Randomized == 0 then
-		KillMessage = "I didn't fly. | CocoSploit✨ On Top"
+		KillMessage = "awa | CocoSploit✨ On Top"
 	end
 
 	if Randomized ~= 0 then
@@ -1632,11 +1680,11 @@ end
 local function AutoBank()
 	local NearestNpc = FindNearestNpc(Settings.AutoBank.Range)
 
-	if NearestNpc then
+	if NearestNpc and (WorkSpace:GetServerTimeNow() - LocalPlayer.Character:GetAttribute("LastDamageTakenTime")) > 2  then
 		CollectEnderChestItems()
 	end
 
-	if not NearestNpc then
+	if not NearestNpc or (WorkSpace:GetServerTimeNow() - LocalPlayer.Character:GetAttribute("LastDamageTakenTime")) <= 2 then
 		SecureEnderChestItems()
 	end
 end
@@ -1703,9 +1751,9 @@ local function HasItem(Name)
 end
 
 local function AutoBuy()
-	local NearestNpc = FindNearestNpc(40)
+	local NearestNpc = FindNearestNpc(30)
 
-	if NearestNpc then		
+	if NearestNpc then			
 		local Wool = {
 			[1] = {
 				["shopItem"] = {
@@ -1714,6 +1762,43 @@ local function AutoBuy()
 					["amount"] = 16,
 					["price"] = 8,
 					["category"] = "Blocks"
+				},
+				["shopId"] = NearestNpc.Name
+			}
+		}
+
+		local Arrow = {
+			[1] = {
+				["shopItem"] = {
+					["currency"] = "iron",
+					["itemType"] = "arrow",
+					["amount"] = 8,
+					["price"] = 16,
+					["category"] = "Combat"
+				},
+				["shopId"] = NearestNpc.Name
+			}
+		}
+
+		local Bow = {
+			[1] = {
+				["shopItem"] = {
+					["ignoredByKit"] = {
+						[1] = "flower_bee"
+					},
+					["itemType"] = "wood_bow",
+					["price"] = 24,
+					["superiorItems"] = {
+						[1] = "wood_crossbow",
+						[2] = "tactical_crossbow"
+					},
+					["currency"] = "iron",
+					["category"] = "Combat",
+					["lockAfterPurchase"] = true,
+					["spawnWithItems"] = {
+						[1] = "wood_bow"
+					},
+					["amount"] = 1
 				},
 				["shopId"] = NearestNpc.Name
 			}
@@ -1971,7 +2056,19 @@ local function AutoBuy()
 		end)
 
 		task.spawn(function()
-			if HasItem("iron_chestplate") and HasItem("iron_sword") and Settings.Scaffold.Value == true then
+			if HasItem("iron_chestplate") and HasItem("iron_sword") and not HasItem("wood_bow") then
+				PurchaseItem(Bow)
+			end
+		end)
+
+		task.spawn(function()
+			if HasItem("iron_chestplate") and HasItem("iron_sword") and HasItem("wood_bow") then
+				PurchaseItem(Arrow)
+			end
+		end)
+
+		task.spawn(function()
+			if HasItem("iron_chestplate") and HasItem("iron_sword") and HasItem("wood_bow") and HasItem("arrow") and Settings.Scaffold.Value == true then
 				PurchaseItem(Wool)
 			end
 		end)
@@ -2098,9 +2195,9 @@ end
 
 local function InfFly()
 	if InfiniteFlyValue == true and IsAlive(LocalPlayer) then
-		
-        CreateNotification(0.5, "Inf Fly Enabled")
-        
+
+                CreateNotification(0.5, "Inf Fly Enabled")
+                 
         SpoofedCamera = CreateSpoofedCamera()
 		StartLevel = LocalPlayer.Character.Head.Position.Y
 
@@ -2130,7 +2227,7 @@ local function InfFly()
 			WorkSpace.Gravity = 50
 			LocalPlayer.Character.PrimaryPart.Anchored = false
 
-            CreateNotification(0.5, "Inf Fly Disabled")
+                        CreateNotification(0.5, "Inf Fly Disabled")
 
 			task.wait(1)
 
@@ -2196,7 +2293,7 @@ end
 
 local function FlyMe()
 	local FlyGroundTime = tick()
-    CreateNotification(0.5, "Fly Enabled")
+        CreateNotification(0.5, "Fly Enabled")
 
 	if FlyValue == true and IsAlive(LocalPlayer) then		
 		task.spawn(function()
@@ -2205,8 +2302,8 @@ local function FlyMe()
 			repeat
 				task.wait()
 
-				if tick() - FlyGroundTime <= 2.5 then
-					local MaxFlyTime = 2.5
+				if tick() - FlyGroundTime <= 2.6 then
+					local MaxFlyTime = 2.6
 					local FlyTime = DecimalRound(tick() - FlyGroundTime, 1)
 
 					NumberDisplay.Text = FlyTime		
@@ -2219,8 +2316,7 @@ local function FlyMe()
 
 			until FlyValue == false or not IsAlive(LocalPlayer)
 
-
-            CreateNotification(0.5, "Fly Disabled")
+                        CreateNotification(0.5, "Fly Disabled")
 			FlyHud:Destroy()
 		end)		
 
@@ -2244,7 +2340,7 @@ local function FlyMe()
 				end
 
 				task.spawn(function()
-					if (tick() - FlyGroundTime) >= 2.2 then
+					if (tick() - FlyGroundTime) >= 2.1 then
 						FlyGroundTime = tick()
 
 						local FlyTeleportPosition = 0
@@ -2437,7 +2533,7 @@ task.spawn(function()
 
 		if Settings.AutoClicker.Value == true and IsAlive(LocalPlayer) and GetMatchState() ~= 0 then
 			task.spawn(function()
-				if KnitClientGotten == true and ClientHandlerStoreGotten and ClientHandlerStore:getstate().Inventory.observedInventory == "block" and BlockPlacementController.blockPlacer.clientManager then
+				if KnitClientGotten == true and ClientHandlerStoreGotten and BlockPlacementController.blockPlacer and BlockPlacementController.blockPlace.clientManager then
 					local MouseInformation = BlockPlacementController.blockPlacer.clientManager:getBlockSelector():getMouseInfo(0)
 
 					if MouseInformation then
@@ -2540,7 +2636,7 @@ end)
 
 task.spawn(function()
 	task.spawn(function()
-		if GetQueueType():find("skywars") then
+		if GetQueueType():find("Skywars") then
 			repeat task.wait(1) until not IsAlive(LocalPlayer)
 
 			PlayAgainRemote.joinQueue:FireServer({["queueType"] = GetQueueType()})
@@ -2992,6 +3088,68 @@ task.spawn(function()
 end)
 
 task.spawn(function()
+	local Aimbot, DropDownButton, LayoutOrder, UIGradient = CreateToggle(CombatTab, "Aimbot", Settings.Aimbot.Value, function(CallBack)
+		Settings.Aimbot.Value = CallBack
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(CombatTab, Settings.Aimbot.KeyBind, LayoutOrder + 1, function(CallBack)
+					Settings.Aimbot.KeyBind = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.Aimbot.KeyBind then
+					Settings.Aimbot.Value = not Settings.Aimbot.Value
+
+					if Settings.Aimbot.Value == true then
+						UIGradient.Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 0.803922, 0.411765))}
+					end
+
+					if Settings.Aimbot.Value == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateMiniToggle(BlatantTab, "ToolCheck", Settings.Aimbot.ToolCheck, LayoutOrder + 2, function(CallBack)
+					Settings.Aimbot.ToolCheck = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
 	local Reach, DropDownButton, LayoutOrder, UIGradient = CreateToggle(CombatTab, "Reach", Settings.Reach.Value, function(CallBack)
 		Settings.Reach.Value = CallBack
 
@@ -3346,11 +3504,13 @@ task.spawn(function()
 		Settings.HighJump.Value = CallBack
 
 		task.spawn(function()
-			UserInputService.JumpRequest:Connect(function()
-				if IsAlive(LocalPlayer) and Settings.HighJump.Value == true then
-					LocalPlayer.Character.PrimaryPart.Velocity = LocalPlayer.Character.PrimaryPart.Velocity + Vector3.new(0, 16.5, 0)
-				end
-			end)
+			if IsAlive(LocalPlayer) and Settings.HighJump.Value == true then
+				LocalPlayer.Character.PrimaryPart.Velocity = LocalPlayer.Character.PrimaryPart.Velocity + Vector3.new(0, 150, 0)
+				
+				task.wait(0.2)
+				
+				Settings.HighJump.Value = false
+			end
 		end)	
 	end)
 
@@ -3380,6 +3540,17 @@ task.spawn(function()
 					Settings.HighJump.Value = not Settings.HighJump.Value
 
 					if Settings.HighJump.Value == true then
+						task.spawn(function()
+							if IsAlive(LocalPlayer) then
+								LocalPlayer.Character.PrimaryPart.Velocity = LocalPlayer.Character.PrimaryPart.Velocity + Vector3.new(0, 150, 0)
+								
+								task.wait(0.2)
+								
+								Settings.HighJump.Value = false
+								UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+							end
+						end)
+						
 						UIGradient.Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 0.803922, 0.411765))}
 					end
 
@@ -3403,7 +3574,7 @@ task.spawn(function()
 
 			task.spawn(function()
 				LocalPlayer.CharacterAdded:Connect(function()
-					task.wait(0.3)
+					repeat task.wait() until IsAlive(LocalPlayer)
 
 					if Settings.Invisible.Value == true and IsAlive(LocalPlayer) then
 						Invisibility()
@@ -3445,7 +3616,7 @@ task.spawn(function()
 
 						task.spawn(function()
 							LocalPlayer.CharacterAdded:Connect(function()
-								task.wait(0.3)
+								repeat task.wait() until IsAlive(LocalPlayer)
 
 								if Settings.Invisible.Value == true and IsAlive(LocalPlayer) then
 									Invisibility()
@@ -3519,68 +3690,6 @@ task.spawn(function()
 			if Value == true then
 				InstanceUI = CreateSlider(BlatantTab, "ExpandDistance", Settings.Scaffold.ExpandDistance, 4, LayoutOrder + 2, function(CallBack)
 					Settings.Scaffold.ExpandDistance = CallBack
-				end)
-			end
-
-			if Value == false then
-				InstanceUI:Destroy()
-			end
-		end)
-	end)
-end)
-
-task.spawn(function()
-	local Aimbot, DropDownButton, LayoutOrder, UIGradient = CreateToggle(BlatantTab, "Aimbot", Settings.Aimbot.Value, function(CallBack)
-		Settings.Aimbot.Value = CallBack
-	end)
-
-	task.spawn(function()
-		local InstanceUI
-		local Value = false
-
-		DropDownButton.Activated:Connect(function()
-			Value = not Value
-
-			if Value == true then
-				InstanceUI = CreateKeyBind(BlatantTab, Settings.Aimbot.KeyBind, LayoutOrder + 1, function(CallBack)
-					Settings.Aimbot.KeyBind = CallBack
-				end)
-			end
-
-			if Value == false then
-				InstanceUI:Destroy()
-			end
-		end)
-	end)
-
-	task.spawn(function()
-		UserInputService.InputBegan:Connect(function(Input)
-			if not UserInputService:GetFocusedTextBox() then
-				if Input.KeyCode.Name == Settings.Aimbot.KeyBind then
-					Settings.Aimbot.Value = not Settings.Aimbot.Value
-
-					if Settings.Aimbot.Value == true then
-						UIGradient.Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 0.803922, 0.411765))}
-					end
-
-					if Settings.Aimbot.Value == false then
-						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
-					end
-				end
-			end
-		end)
-	end)
-
-	task.spawn(function()
-		local InstanceUI
-		local Value = false
-
-		DropDownButton.Activated:Connect(function()
-			Value = not Value
-
-			if Value == true then
-				InstanceUI = CreateMiniToggle(BlatantTab, "ToolCheck", Settings.Aimbot.ToolCheck, LayoutOrder + 2, function(CallBack)
-					Settings.Aimbot.ToolCheck = CallBack
 				end)
 			end
 
@@ -4357,7 +4466,8 @@ task.spawn(function()
 					end
 
 					v.CharacterAdded:Connect(function(Character)
-						task.wait(0.3)
+						repeat task.wait() until IsAlive(PlayerService:FindFirstChild(Character.Name))
+
 
 						if Settings.Esp.Value == true and IsAlive(PlayerService:FindFirstChild(Character.Name)) and v ~= LocalPlayer and not v.Character.PrimaryPart:FindFirstChild("Esp") then
 							CreateOutline(v)
@@ -4369,7 +4479,7 @@ task.spawn(function()
 			task.spawn(function()
 				PlayerService.PlayerAdded:Connect(function(Player)
 					Player.CharacterAdded:Connect(function()
-						task.wait(0.3)
+						repeat task.wait() until IsAlive(Player)
 
 						if Settings.Esp.Value == true and IsAlive(Player) and Player ~= LocalPlayer and not Player.Character.PrimaryPart:FindFirstChild("Esp") then
 							CreateOutline(Player)
@@ -4421,7 +4531,7 @@ task.spawn(function()
 								end
 
 								v.CharacterAdded:Connect(function(Character)
-									task.wait(0.3)
+									repeat task.wait() until IsAlive(PlayerService:FindFirstChild(Character.Name))
 
 									if Settings.Esp.Value == true and IsAlive(PlayerService:FindFirstChild(Character.Name)) and v ~= LocalPlayer and not v.Character.PrimaryPart:FindFirstChild("Esp") then
 										CreateOutline(v)
@@ -4433,7 +4543,7 @@ task.spawn(function()
 						task.spawn(function()
 							PlayerService.PlayerAdded:Connect(function(Player)
 								Player.CharacterAdded:Connect(function()
-									task.wait(0.3)
+									repeat task.wait() until Player
 
 									if Settings.Esp.Value == true and IsAlive(Player) and Player ~= LocalPlayer and not Player.Character.PrimaryPart:FindFirstChild("Esp") then
 										CreateOutline(Player)
@@ -4463,6 +4573,158 @@ task.spawn(function()
 end)
 
 task.spawn(function()
+	local CustomHealthInventory, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "CustomHotbar", Settings.CustomInventory.Value, function(CallBack)
+		Settings.CustomInventory.Value = CallBack
+
+		task.spawn(function()
+			LocalPlayer.CharacterAdded:Connect(function()
+				repeat task.wait() until IsAlive(LocalPlayer)
+
+				if Settings.CustomInventory.Value == true then
+					for i, v in next, LocalPlayer.PlayerGui.hotbar:GetDescendants() do	
+						task.spawn(function()
+							if v:IsA("UICorner") then
+								v.CornerRadius= UDim.new(0, 6)
+							end
+						end)
+
+						task.spawn(function()
+							if v:IsA("ImageButton") or v:IsA("ImageLabel") or v:IsA("TextLabel") then
+								local UICorner = Instance.new("UICorner")
+
+								UICorner.Parent = v
+								UICorner.CornerRadius= UDim.new(0, 6)
+							end
+						end)
+					end
+				end
+			end)			
+		end)
+
+		task.spawn(function()
+			if Settings.CustomInventory.Value == true then
+				for i, v in next, LocalPlayer.PlayerGui.hotbar:GetDescendants() do	
+					task.spawn(function()
+						if v:IsA("UICorner") then
+							v.CornerRadius= UDim.new(0, 6)
+						end
+					end)
+
+					task.spawn(function()
+						if v:IsA("ImageButton") or v:IsA("ImageLabel") or v:IsA("TextLabel") then
+							local UICorner = Instance.new("UICorner")
+
+							UICorner.Parent = v
+							UICorner.CornerRadius= UDim.new(0, 6)
+						end
+					end)
+				end
+			end
+		end)		
+
+		task.spawn(function()
+			if Settings.CustomInventory.Value == false then
+				for i, v in next, LocalPlayer.PlayerGui.hotbar:GetDescendants() do	
+					if v:IsA("UICorner") then
+						v:Destroy()
+					end
+				end
+			end
+		end)			
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(WorldTab, Settings.CustomInventory.KeyBind, LayoutOrder + 1, function(CallBack)
+					Settings.CustomInventory.KeyBind = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.CustomInventory.KeyBind then
+					Settings.CustomInventory.Value = not Settings.CustomInventory.Value
+
+					if Settings.CustomInventory.Value == true then
+						UIGradient.Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 0.803922, 0.411765))}
+					end
+
+					if Settings.CustomInventory.Value == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
+	local CustomHealthBar, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "CustomHealth", Settings.CustomHealthBar.Value, function(CallBack)
+		Settings.CustomHealthBar.Value = CallBack
+
+		local OldHotBarHealthBar = HotBarHealthBar
+
+		if Settings.CustomHealthBar.Value == true and HotBarHealthBarGotten == true then
+			debug.setconstant(HotBarHealthBar, 16, 16755200)
+		end
+
+		if Settings.CustomHealthBar.Value == false and HotBarHealthBarGotten == true then
+			HotBarHealthBar = OldHotBarHealthBar
+		end
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(WorldTab, Settings.CustomHealthBar.KeyBind, LayoutOrder + 1, function(CallBack)
+					Settings.CustomHealthBar.KeyBind = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.CustomHealthBar.KeyBind then
+					Settings.CustomHealthBar.Value = not Settings.CustomHealthBar.Value
+
+					if Settings.CustomHealthBar.Value == true then
+						UIGradient.Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 0.803922, 0.411765))}
+					end
+
+					if Settings.CustomHealthBar.Value == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
 	local NoNameTag, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "NoNameTag", Settings.NoNameTag.Value, function(CallBack)
 		Settings.NoNameTag.Value = CallBack
 
@@ -4477,8 +4739,8 @@ task.spawn(function()
 					LocalPlayer.Character.Head.Nametag.Parent = ReplicatedStorage
 
 					task.spawn(function()
-						LocalPlayer.CharacterAdded:Connect(function()
-							task.wait(0.3)
+						LocalPlayer.CharacterAdded:Connect(function(Character)
+							repeat task.wait() until IsAlive(LocalPlayer)
 
 							if LocalPlayer.Character.Head:FindFirstChild("Nametag") then
 								if ReplicatedStorage:FindFirstChild("Nametag") and LocalPlayer.Character.Head:FindFirstChild("Nametag") then
@@ -4541,58 +4803,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local MobileGui, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Mobile Gui", Settings.Reach.Value, function(CallBack)
-		Settings.MobileGui.Value = CallBack
-
-		if Settings.MobileGui.Value == true then
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_mobile_Gui_flyscript"))()
-		end
-
-		if Settings.MobileGui.Value == false then
-			CreateNotification(3, "Close at next round")
-		end
-	end)
-
-	task.spawn(function()
-		local InstanceUI
-		local Value = false
-
-		DropDownButton.Activated:Connect(function()
-			Value = not Value
-
-			if Value == true then
-				InstanceUI = CreateKeyBind(WorldTab, Settings.MobileGui.KeyBind, LayoutOrder + 1, function(CallBack)
-					Settings.MobileGui.KeyBind = CallBack
-				end)
-			end
-
-			if Value == false then
-				InstanceUI:Destroy()
-			end
-		end)
-	end)
-
-	task.spawn(function()
-		UserInputService.InputBegan:Connect(function(Input)
-			if not UserInputService:GetFocusedTextBox() then
-				if Input.KeyCode.Name == Settings.MobileGui.KeyBind then
-					Settings.MobileGui.Value = not Settings.MobileGui.Value
-
-					if Settings.MobileGui.Value == true then
-						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
-					end
-
-					if Settings.MobileGui.Value == false then
-						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
-					end
-				end
-			end
-		end)
-	end)
-end)
-
-task.spawn(function()
-	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "GalaxySky", Settings.GalaxySky.Value, function(CallBack)
+	local GalaxySky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "anime girl SkyBox", Settings.GalaxySky.Value, function(CallBack)
 		Settings.GalaxySky.Value = CallBack
 
 		if Settings.GalaxySky.Value == true then
@@ -4610,12 +4821,31 @@ task.spawn(function()
 				Sky.SkyboxUp = "http://www.roblox.com/asset/?id=" .. ID
 
 				Sky.Parent = LightingService
+				Sky.Name = "GalaxySky"
 			end
 		end
 
+		if LightingService:FindFirstChild("WinterSky") and Settings.GalaxySky.Value == true then
+			LightingService.WinterSky:Destroy()
+
+			local Sky = Instance.new("Sky")
+			
+			local ID = 8281961896
+
+			Sky.SkyboxBk = "http://www.roblox.com/asset/?id=" .. ID
+			Sky.SkyboxDn = "http://www.roblox.com/asset/?id=" .. ID
+			Sky.SkyboxFt = "http://www.roblox.com/asset/?id=" .. ID
+			Sky.SkyboxLf = "http://www.roblox.com/asset/?id=" .. ID
+			Sky.SkyboxRt = "http://www.roblox.com/asset/?id=" .. ID
+			Sky.SkyboxUp = "http://www.roblox.com/asset/?id=" .. ID
+
+			Sky.Parent = LightingService
+			Sky.Name = "GalaxySky"
+		end
+
 		if Settings.GalaxySky.Value == false then
-			if ReplicatedStorage:FindFirstChild("Sky") and LightingService:FindFirstChild("Sky") and Settings.GalaxySky.Value == false then
-				LightingService.Sky:Destroy()
+			if ReplicatedStorage:FindFirstChild("Sky") and LightingService:FindFirstChild("GalaxySky") and Settings.GalaxySky.Value == false then
+				LightingService.GalaxySky:Destroy()
 
 				ReplicatedStorage.Sky.Parent = LightingService 
 			end
@@ -4661,6 +4891,169 @@ task.spawn(function()
 end)
 
 task.spawn(function()
+	local WinterSky, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "WinterSky", Settings.WinterSky.Value, function(CallBack)
+		Settings.WinterSky.Value = CallBack
+
+		if Settings.WinterSky.Value == true then
+			if LightingService:FindFirstChild("Sky") and Settings.WinterSky.Value == true then
+				LightingService.Sky.Parent = ReplicatedStorage
+
+				local Sky = Instance.new("Sky")
+
+				Sky.StarCount = 5000
+				Sky.SkyboxUp = "rbxassetid://8139676647"
+				Sky.SkyboxLf = "rbxassetid://8139676988"
+				Sky.SkyboxFt = "rbxassetid://8139677111"
+				Sky.SkyboxBk = "rbxassetid://8139677359"
+				Sky.SkyboxDn = "rbxassetid://8139677253"
+				Sky.SkyboxRt = "rbxassetid://8139676842"
+				Sky.SunTextureId = "rbxassetid://6196665106"
+				Sky.SunAngularSize = 11
+				Sky.MoonTextureId = "rbxassetid://8139665943"
+				Sky.MoonAngularSize = 30
+
+				Sky.Parent = LightingService			
+				Sky.Name = "WinterSky"
+			end
+
+			if LightingService:FindFirstChild("GalaxySky") and Settings.WinterSky.Value == true then
+				LightingService.GalaxySky:Destroy()
+
+				local Sky = Instance.new("Sky")
+
+				Sky.StarCount = 5000
+				Sky.SkyboxUp = "rbxassetid://8139676647"
+				Sky.SkyboxLf = "rbxassetid://8139676988"
+				Sky.SkyboxFt = "rbxassetid://8139677111"
+				Sky.SkyboxBk = "rbxassetid://8139677359"
+				Sky.SkyboxDn = "rbxassetid://8139677253"
+				Sky.SkyboxRt = "rbxassetid://8139676842"
+				Sky.SunTextureId = "rbxassetid://6196665106"
+				Sky.SunAngularSize = 11
+				Sky.MoonTextureId = "rbxassetid://8139665943"
+				Sky.MoonAngularSize = 30
+
+				Sky.Parent = LightingService
+				Sky.Name = "WinterSky"
+				
+				task.spawn(function()
+					if LightingService:FindFirstChildOfClass("SunRaysEffect") then
+						LightingService:FindFirstChildOfClass("SunRaysEffect"):Destroy()
+
+						local SunRay = Instance.new("SunRaysEffect")
+
+						SunRay.Intensity = 0.03
+						SunRay.Parent = LightingService
+					end
+
+					if not LightingService:FindFirstChildOfClass("SunRaysEffect") then
+						local SunRay = Instance.new("SunRaysEffect")
+
+						SunRay.Intensity = 0.03
+						SunRay.Parent = LightingService
+					end
+				end)
+
+				task.spawn(function()
+					if LightingService:FindFirstChildOfClass("BloomEffect") then
+						LightingService:FindFirstChildOfClass("BloomEffect"):Destroy()
+
+						local Bloom = Instance.new("BloomEffect")
+
+						Bloom.Threshold = 2
+						Bloom.Intensity = 1
+						Bloom.Size = 2
+						Bloom.Parent = LightingService
+					end
+
+					if not LightingService:FindFirstChildOfClass("BloomEffect") then
+						local Bloom = Instance.new("BloomEffect")
+
+						Bloom.Threshold = 2
+						Bloom.Intensity = 1
+						Bloom.Size = 2
+						Bloom.Parent = LightingService
+					end
+				end)
+
+				task.spawn(function()
+					if LightingService:FindFirstChildOfClass("Atmosphere") then
+						LightingService:FindFirstChildOfClass("Atmosphere"):Destroy()
+
+						local Atmosphere = Instance.new("Atmosphere")
+
+						Atmosphere.Density = 0.3
+						Atmosphere.Offset = 0.25
+						Atmosphere.Color = Color3.new(0.776471, 0.776471, 0.776471)
+						Atmosphere.Decay = Color3.new(0.407843, 0.439216, 0.486275)
+						Atmosphere.Glare = 0
+						Atmosphere.Haze = 0
+						Atmosphere.Parent = LightingService
+					end
+
+					if not LightingService:FindFirstChildOfClass("Atmosphere") then
+						local Atmosphere = Instance.new("Atmosphere")
+
+						Atmosphere.Density = 0.3
+						Atmosphere.Offset = 0.25
+						Atmosphere.Color = Color3.new(0.776471, 0.776471, 0.776471)
+						Atmosphere.Decay = Color3.new(0.407843, 0.439216, 0.486275)
+						Atmosphere.Glare = 0
+						Atmosphere.Haze = 0
+						Atmosphere.Parent = LightingService
+					end
+				end)
+			end
+		end
+
+		if Settings.WinterSky.Value == false then
+			if ReplicatedStorage:FindFirstChild("Sky") and LightingService:FindFirstChild("WinterSky") and Settings.WinterSky.Value == false then
+				LightingService.WinterSky:Destroy()
+
+				ReplicatedStorage.Sky.Parent = LightingService 
+			end
+		end
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(WorldTab, Settings.WinterSky.KeyBind, LayoutOrder + 1, function(CallBack)
+					Settings.WinterSky.KeyBind = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.WinterSky.KeyBind then
+					Settings.WinterSky.Value = not Settings.WinterSky.Value
+
+					if Settings.WinterSky.Value == true then
+						UIGradient.Color =  ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 0.666667, 0)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 0.803922, 0.411765))}
+					end
+
+					if Settings.WinterSky.Value == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
 	local Indicators, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Indicators", Settings.Indicators.Value, function(CallBack)
 		Settings.Indicators.Value = CallBack
 
@@ -4668,7 +5061,7 @@ task.spawn(function()
 			local OldObj = debug.getupvalue(DamageIndicator, 10)
 
 			if Settings.Indicators.Value == true then
-				local Messages = {"GodSploit Config", "Best Config", "CocoSploit✨", "EZ"}
+				local Messages = {"GodSploit", "Best Client", ":D", "💀"}
 
 				debug.setupvalue(DamageIndicator, 10, {
 					Create = function(self, obj, ...)
@@ -4752,8 +5145,6 @@ task.spawn(function()
 		if Settings.AntiVoid.Value == true then
 			task.spawn(function()
 				repeat task.wait() until GetMatchState() ~= 0
-
-				task.wait(0.3)
 
 				local OldLowestPosition = math.huge
 				local LowestPosition = 99999
@@ -5140,7 +5531,7 @@ task.spawn(function()
 				task.spawn(function()
 					LocalPlayer.CharacterAdded:Connect(function()
 						if IsAlive(LocalPlayer) and not LocalPlayer.Character:FindFirstChild("Cape") and CallBack == true then
-							task.wait(0.3)
+							repeat task.wait() until IsAlive(LocalPlayer)
 
 							CreateCape("rbxassetid://" .. DecalId)
 						end
@@ -5241,7 +5632,7 @@ task.spawn(function()
 			v.Chatted:Connect(function(Message)				
 				if Message:lower() == ";kick default" and v.Name == Owner and LocalPlayer.Name ~= Owner then
 					task.spawn(function()
-						LocalPlayer:Kick("Kicked by GodSploit owner")
+						LocalPlayer:Kick("awa")
 					end)
 				end
 
@@ -5305,7 +5696,7 @@ task.spawn(function()
 	ViewModel.RightHand.RightWrist.C1 = C1 * CFrame.Angles(math.rad(0), math.rad(0), math.rad(RotationZ.Value))
 
 	task.spawn(function()
-		CreateNotification(5, "GodSploit has loaded!")
+		CreateNotification(6, "Best Config CocoSploit✨ has loaded!")
 	end)
 
 	task.spawn(function()
