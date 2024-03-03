@@ -2312,14 +2312,14 @@ function RecallPlayer()
     
         if #playerPositions > 0 then
             local selectedPosition = playerPositions[math.random(1, #playerPositions)]
-            local duration = 0.4
+            local duration = 0.5
     
             local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
             local tween = TweenService:Create(lplr.Character.HumanoidRootPart, tweenInfo, {CFrame = selectedPosition})
             tween:Play()
             tween.Completed:Wait()
         else
-            print("There are no available player positions with different team color.")
+            CreateNotification(5, "There are no available player positions with different team color.")
         end
     end
     
@@ -2349,14 +2349,14 @@ function Recallbed()
         if #availableBeds > 0 then
             local selectedBed = availableBeds[math.random(1, #availableBeds)]
             local part = selectedBed
-            local duration = 0.4 -- tp speed
+            local duration = 0.5 -- tp speed
     
             local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
             local tween = TweenService:Create(lplr.Character.HumanoidRootPart, tweenInfo, {CFrame = part.CFrame * CFrame.new(0, 5, 0)})
             tween:Play()
             tween.Completed:Wait()
         else
-            print("There are no available beds with different team color.")
+            CreateNotification(5, "There are no available beds with different team color.")
         end
     end
     
