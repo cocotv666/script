@@ -2532,6 +2532,12 @@ task.spawn(function()
 
 							ShootProjectile(SnowBall, "snowball")
 						end
+
+                        if HasItem("lasso") then
+							local Lasso = ReplicatedStorage.Inventories:FindFirstChild(LocalPlayer.Name):FindFirstChild("lasso")
+
+							ShootProjectile(Lasso, "lasso")
+						end
 					end
 				end			
 			end
@@ -2553,6 +2559,29 @@ task.spawn(function()
 			end
 		end)
 	until not game
+end)
+
+task.spawn(function()
+	repeat
+		if IsAlive(LocalPlayer) then	
+			local NearestPlayer, NearestPlayerDistance = FindNearestPlayer(math.huge)
+
+			if NearestPlayer and (AntiVoidPart and NearestPlayer.Character.PrimaryPart.Position.Y >= AntiVoidPart.Position.Y or true) and not NearestPlayer.Character:FindFirstChildOfClass("ForceField") and NearestPlayerDistance > 18 then
+				if HasItem("lasso") then
+					local Lasso = ReplicatedStorage.Inventories:FindFirstChild(LocalPlayer.Name):FindFirstChild("lasso")
+
+					ShootProjectile(Lasso, "lasso")
+				end
+
+                if HasItem("telepearl") then
+					local Telepearl = ReplicatedStorage.Inventories:FindFirstChild(LocalPlayer.Name):FindFirstChild("telepearl")
+
+					ShootProjectile(Telepearl, "telepearl")
+				end
+			end
+		end			
+		wait(0.1)
+	until false
 end)
 
 task.spawn(function()	
