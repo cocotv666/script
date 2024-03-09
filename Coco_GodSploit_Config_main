@@ -2543,12 +2543,6 @@ task.spawn(function()
 					ShootProjectile(Lasso, "lasso")
 				end
 
-                if HasItem("vacuum") then
-					local Vacuum = ReplicatedStorage.Inventories:FindFirstChild(LocalPlayer.Name):FindFirstChild("vacuum")
-
-					ShootProjectile(Vacuum, "ghost")
-				end
-
                 if HasItem("telepearl") then
 					local Telepearl = ReplicatedStorage.Inventories:FindFirstChild(LocalPlayer.Name):FindFirstChild("telepearl")
 
