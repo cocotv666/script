@@ -2291,39 +2291,38 @@ local function Nuker(NearestBed, NearestOre)
 	end)
 end
 
+local function RecallTweenToNearestBed()
+    if IsAlive(LocalPlayer) then
+        local NearestBed = FindNearestBed()
+
+        if NearestBed then
+            local TweenInformation = TweenInfo.new(0.32, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)
+            local BedTpTween = TweenService:Create(LocalPlayer.Character.PrimaryPart, TweenInformation, {CFrame = NearestBed.CFrame + Vector3.new(0, 10, 0)})
+
+            BedTpTween:Play()
+        end
+    end
+end
+
+local function RecallTweenToNearestPlayer()
+    if IsAlive(LocalPlayer) then
+        local NearestPlayer = FindNearestPlayer()
+
+        if NearestPlayer then
+            local TweenInformation = TweenInfo.new(0.33, Enum.EasingStyle.Linear, Enum.EasingDirection.In, 0, false, 0)
+            local PlayerTpTween = TweenService:Create(LocalPlayer.Character.PrimaryPart, TweenInformation, {CFrame = NearestPlayer.Character.PrimaryPart.CFrame + Vector3.new(0, 2, 0)})
+
+            PlayerTpTween:Play()
+        end
+    end
+end
+
 function RecallPlayer()
     game:GetService("VirtualInputManager"):SendKeyEvent(true, "C" , false , game)
     
     wait(6.3)
     
-    local Players = game:GetService("Players")
-    local TweenService = game:GetService("TweenService")
-    
-    local lplr = Players.LocalPlayer
-    
-    function teleportPlayer()
-        local playerPositions = {}
-    
-        for i, player in pairs(Players:GetPlayers()) do
-            if player ~= lplr and player.TeamColor ~= lplr.TeamColor then
-                table.insert(playerPositions, player.Character.HumanoidRootPart.CFrame)
-            end
-        end
-    
-        if #playerPositions > 0 then
-            local selectedPosition = playerPositions[math.random(1, #playerPositions)]
-            local duration = 0.5
-    
-            local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
-            local tween = TweenService:Create(lplr.Character.HumanoidRootPart, tweenInfo, {CFrame = selectedPosition})
-            tween:Play()
-            tween.Completed:Wait()
-        else
-            CreateNotification(5, "There are no available player positions with different team color.")
-        end
-    end
-    
-    teleportPlayer()
+    local function RecallTweenToNearestPlayer()
 end
 
 function Recallbed()
@@ -2331,36 +2330,7 @@ function Recallbed()
     
     wait(6.3)
     
-    local Players = game:GetService("Players")
-    local TweenService = game:GetService("TweenService")
-    local UserInputService = game:GetService("UserInputService")
-    
-    local lplr = Players.LocalPlayer
-    
-    function teleportPlayer()
-        local availableBeds = {}
-    
-        for i, v in pairs(workspace:GetChildren()) do
-            if v.Name == "bed" and v.Covers.BrickColor ~= lplr.TeamColor then
-                table.insert(availableBeds, v)
-            end
-        end
-    
-        if #availableBeds > 0 then
-            local selectedBed = availableBeds[math.random(1, #availableBeds)]
-            local part = selectedBed
-            local duration = 0.5 -- tp speed
-    
-            local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
-            local tween = TweenService:Create(lplr.Character.HumanoidRootPart, tweenInfo, {CFrame = part.CFrame * CFrame.new(0, 5, 0)})
-            tween:Play()
-            tween.Completed:Wait()
-        else
-            CreateNotification(5, "There are no available beds with different team color.")
-        end
-    end
-    
-    teleportPlayer()
+    RecallTweenToNearestBed()
 end
 
 local function FlyMe()
@@ -2374,8 +2344,8 @@ local function FlyMe()
 			repeat
 				task.wait()
 
-				if tick() - FlyGroundTime <= 2.6 then
-					local MaxFlyTime = 2.6
+				if tick() - FlyGroundTime <= 2.5 then
+					local MaxFlyTime = 2.5
 					local FlyTime = DecimalRound(tick() - FlyGroundTime, 1)
 
 					NumberDisplay.Text = FlyTime		
@@ -2412,7 +2382,7 @@ local function FlyMe()
 				end
 
 				task.spawn(function()
-					if (tick() - FlyGroundTime) >= 2.1 then
+					if (tick() - FlyGroundTime) >= 2 then
 						FlyGroundTime = tick()
 
 						local FlyTeleportPosition = 0
@@ -2571,6 +2541,12 @@ task.spawn(function()
 					local Lasso = ReplicatedStorage.Inventories:FindFirstChild(LocalPlayer.Name):FindFirstChild("lasso")
 
 					ShootProjectile(Lasso, "lasso")
+				end
+
+                if HasItem("vacuum") then
+					local Vacuum = ReplicatedStorage.Inventories:FindFirstChild(LocalPlayer.Name):FindFirstChild("vacuum")
+
+					ShootProjectile(Vacuum, "ghost")
 				end
 
                 if HasItem("telepearl") then
