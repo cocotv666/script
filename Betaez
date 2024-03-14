@@ -1,1 +1,106 @@
 
+--Raven B4 Loader
+repeat task.wait() until game:IsLoaded()
+task.wait(2)
+assert(not shared.RavenB4Injected, "RavenB4 is already Injected!")
+shared.RavenB4Injected = true
+local UIS = game:GetService("UserInputService")
+local Players = game:GetService("Players")
+local LocalPlayer = Players.LocalPlayer
+local lib = {}
+-- HTTP INTERCEPTOR!
+fluxus = fluxus or {}
+fluxus.request = fluxus.request or nil
+local request = http_request or request or HttpPost or fluxus.request or nil
+if request ~= nil and (hookfunction) then
+    local oldfunc
+    oldfunc = hookfunction(request, function(requestData,...)
+        if(string.find(requestData.Url, 'discord') or string.find(requestData.Url, 'webhook') or string.find(requestData.Url, 'ipv4')) then
+            requestData.Url = 'tried to log but failed'
+        end
+
+        return oldfunc(requestData,...)
+    end)
+end
+--WHITELIST/BLACKLIST FUNCTIONS
+if shared.RavenWhitelist ~= nil then
+    for i,v in pairs(shared.RavenWhitelist) do
+        if v == game:GetService("RbxAnalyticsService"):GetClientId() then
+            print("Whitelisted!")
+        else
+            LocalPlayer:Kick("You're not Whitelisted from this Config!")
+        end
+    end
+end
+if shared.RavenBlacklist ~= nil then
+    for i,v in pairs(shared.RavenBlacklist) do
+        if v == game:GetService("RbxAnalyticsService"):GetClientId() then
+            LocalPlayer:Kick("You're Blacklisted from this Config!")
+        end
+    end
+end
+--SETTING EVERYTHING UP
+if not ((writefile) or (readfile) or (makefolder)) then
+    LocalPlayer:Kick("Executor is not supported, please use another executor for Raven B4!")
+end
+
+if isfolder("RavenB4") == false then
+    makefolder("RavenB4")
+end
+if isfolder("RavenB4\\Configs") == false then
+    makefolder("RavenB4\\Configs")
+end
+local PetSim99IDCheck = false
+local BedwarsIDCheck = false
+local SkywarsIDCheck = false
+local BridgeDuelsIDCheck = false
+local bedwarsids = {6872265039,6872274481,8444591321,8560631822}
+local skywarsids = {8951451142,8542259458,8542275097,13246639586,8768229691,8592115909}
+local bladeballids = {13772394625,14915220621,15144787112,15234596844,15264892126,15185247558}
+local petsim99ids = {8737899170}
+
+if table.find(bedwarsids,game.PlaceId) then
+    shared.RavenConfigName = 'Raven B4 Bedwars'
+    BedwarsIDCheck = true
+elseif table.find(skywarsids,game.PlaceId) then
+    shared.RavenConfigName = 'NewSkywarsUpdated'
+    SkywarsIDCheck = true
+elseif table.find(bladeballids,game.PlaceId) then
+    shared.RavenConfigName = 'Raven B4 BladeBall69'
+    BridgeDuelsIDCheck = true
+elseif table.find(petsim99ids,game.PlaceId) then
+    shared.RavenConfigName = 'NewPetSim99Updated'
+    PetSim99IDCheck = true
+else
+    print("Game Is Not Supported!")
+end
+
+if shared.RavenConfigName == nil then
+    shared.RavenConfigName = 'Default Config'
+end
+
+if UIS.KeyboardEnabled and UIS.MouseEnabled and not UIS.TouchEnabled then
+    lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/goinglikeatrainlol/Raven-B4-Source-Code/main/Raven%20B4/main/Raven%20GUI/Raven%20B4%20NEW%20GUI%20PC.lua"))()
+else
+    lib = loadstring(game:HttpGet("https://raw.githubusercontent.com/goinglikeatrainlol/Raven-B4-Source-Code/main/Raven%20B4/main/Raven%20GUI/Raven%20B4%20NEW%20MOBILE%20GUI.lua"))()
+end
+
+if BedwarsIDCheck == true then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/goinglikeatrainlol/Raven-B4-Source-Code/main/Raven%20B4/main/Raven%20Game%20Scripts/Raven%20B4%20BEDWARS.lua"))()
+    lib:createnotification("BEST Bedwars Script out there!",6)
+elseif SkywarsIDCheck == true then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/goinglikeatrainlol/RavenB4Roblox/main/Games/Skywars"))()
+    lib:createnotification("BEST Skywars Script out there!",6)
+elseif BridgeDuelsIDCheck == true then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/goinglikeatrainlol/RavenB4Roblox/main/Games/BladeBall"))()
+    lib:createnotification("BEST BladeBall Script out there!",6)
+elseif PetSim99IDCheck == true then
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/goinglikeatrainlol/RavenB4Roblox/main/Games/PetSim99"))()
+    lib:createnotification("BEST Pet Sim 99 Script out there!",6)
+else
+    lib:createnotification("Game is not supported!",6)
+    if shared.RavenB4Started == nil then
+        shared.RavenB4Completed = true
+    end
+end
+return lib
