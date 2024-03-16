@@ -3,15 +3,15 @@ local TargetInfoHUD = Instance.new("ScreenGui")
 local Health = Instance.new("Frame")
 local Meter = Instance.new("Frame")
 local Health2 = Instance.new("TextLabel")
-local ImageLabel = Instance.new("ImageLabel")
 local HP = Instance.new("TextLabel")
 local TextLabel = Instance.new("TextLabel")
+local ImageLabel = Instance.new("ImageLabel")
 local ImageLabel_2 = Instance.new("ImageLabel")
 local UICorner = Instance.new("UICorner")
 
 -- Properties
 TargetInfoHUD.Name = "TargetInfoHUD"
-TargetInfoHUD.Parent = game.CoreGui -- 將 Parent 修改為 game.CoreGui
+TargetInfoHUD.Parent = game.CoreGui
 TargetInfoHUD.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 Health.Name = "Health"
@@ -92,9 +92,8 @@ local LocalPlayer = Players.LocalPlayer
 function IsAlive(plr)
     plr = plr or LocalPlayer
     if not plr.Character then return false end
-    if not plr.Character:FindFirstChild("Head") then return false end
     if not plr.Character:FindFirstChild("Humanoid") then return false end
-    if plr.Character:FindFirstChild("Humanoid").Health < 0.11 then return false end
+    if plr.Character:FindFirstChild("Humanoid").Health <= 0 then return false end
     return true
 end
 
@@ -103,7 +102,7 @@ function GetClosestPlayer()
     local distance = 19
     for _,v in pairs(Players:GetPlayers()) do
         if v ~= LocalPlayer and v.Team ~= LocalPlayer.Team and IsAlive(v) and not v.Character:FindFirstChildOfClass("ForceField") then
-            local plrdist = LocalPlayer:DistanceFromCharacter(v.Character:FindFirstChildOfClass('Humanoid').RootPart.CFrame.p)
+            local plrdist = (v.Character:FindFirstChildOfClass('Humanoid').RootPart.Position - LocalPlayer.Character:FindFirstChildOfClass('Humanoid').RootPart.Position).magnitude
             if plrdist < distance then
                 target = v
                 distance = plrdist
