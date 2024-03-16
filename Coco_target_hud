@@ -1,4 +1,4 @@
--- Instances
+-- 创建实例
 local TargetInfoHUD = Instance.new("ScreenGui")
 local Health = Instance.new("Frame")
 local Meter = Instance.new("Frame")
@@ -9,7 +9,7 @@ local ImageLabel = Instance.new("ImageLabel")
 local ImageLabel_2 = Instance.new("ImageLabel")
 local UICorner = Instance.new("UICorner")
 
--- Properties
+-- 属性设置
 TargetInfoHUD.Name = "TargetInfoHUD"
 TargetInfoHUD.Parent = game.CoreGui
 TargetInfoHUD.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
@@ -89,6 +89,7 @@ UICorner.Parent = Health
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
 
+-- 判断玩家是否存活
 function IsAlive(plr)
     plr = plr or LocalPlayer
     if not plr.Character then return false end
@@ -97,6 +98,7 @@ function IsAlive(plr)
     return true
 end
 
+-- 获取最近的玩家
 function GetClosestPlayer()
     local target = nil
     local distance = 19
@@ -112,11 +114,12 @@ function GetClosestPlayer()
     return target
 end
 
+-- 更新目标信息
 local function UpdateTargetInfo()
     local targetPlayer = GetClosestPlayer()
     local TargetInfoHUD = game.CoreGui:FindFirstChild("TargetInfoHUD")
     if targetPlayer then
-        if not TargetInfoHUD then
+        if not TargetInfoHUD or not TargetInfoHUD:FindFirstChild("Health") then
             TargetInfoHUD = Instance.new("ScreenGui")
             TargetInfoHUD.Name = "TargetInfoHUD"
             TargetInfoHUD.Parent = game.CoreGui
@@ -135,8 +138,4 @@ local function UpdateTargetInfo()
     end
 end
 
-local updateInterval = 0.1
-while true do
-    UpdateTargetInfo()
-    wait(updateInterval)
-end
+local updateInterval = 0
