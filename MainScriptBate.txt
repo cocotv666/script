@@ -4450,7 +4450,7 @@ task.spawn(function()
 end)
 
 task.spawn(function()
-	local AutoReport2, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "AutoReport V2", Settings.AutoReport.Value, function(CallBack)
+	local AutoReport2, DropDownButton, LayoutOrder, UIGradient = CreateToggle(UtilityTab, "AutoReport V2", Settings.AutoReport.Value, function(CallBack)
 
 		if Settings.AutoReport.Value == true then
 			loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_AutoReport"))()
