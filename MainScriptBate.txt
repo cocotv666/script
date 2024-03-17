@@ -2313,6 +2313,78 @@ local function Nuker(NearestBed, NearestOre)
 	end)
 end
 
+function RecallPlayer()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "C" , false , game)
+    
+    wait(6.3)
+    
+    local Players = game:GetService("Players")
+    local TweenService = game:GetService("TweenService")
+    
+    local lplr = Players.LocalPlayer
+    
+    function teleportPlayer()
+        local playerPositions = {}
+    
+        for i, player in pairs(Players:GetPlayers()) do
+            if player ~= lplr and player.TeamColor ~= lplr.TeamColor then
+                table.insert(playerPositions, player.Character.HumanoidRootPart.CFrame)
+            end
+        end
+    
+        if #playerPositions > 0 then
+            local selectedPosition = playerPositions[math.random(1, #playerPositions)]
+            local duration = 0.33
+    
+            local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
+            local tween = TweenService:Create(lplr.Character.HumanoidRootPart, tweenInfo, {CFrame = selectedPosition})
+            tween:Play()
+            tween.Completed:Wait()
+        else
+            CreateNotification(5, "There are no available player positions with different team color.")
+        end
+    end
+    
+    teleportPlayer()
+end
+
+function Recallbed()
+    game:GetService("VirtualInputManager"):SendKeyEvent(true, "C" , false , game)
+    
+    wait(6.3)
+    
+    local Players = game:GetService("Players")
+    local TweenService = game:GetService("TweenService")
+    local UserInputService = game:GetService("UserInputService")
+    
+    local lplr = Players.LocalPlayer
+    
+    function teleportPlayer()
+        local availableBeds = {}
+    
+        for i, v in pairs(workspace:GetChildren()) do
+            if v.Name == "bed" and v.Covers.BrickColor ~= lplr.TeamColor then
+                table.insert(availableBeds, v)
+            end
+        end
+    
+        if #availableBeds > 0 then
+            local selectedBed = availableBeds[math.random(1, #availableBeds)]
+            local part = selectedBed
+            local duration = 0.32 -- tp speed
+    
+            local tweenInfo = TweenInfo.new(duration, Enum.EasingStyle.Linear)
+            local tween = TweenService:Create(lplr.Character.HumanoidRootPart, tweenInfo, {CFrame = part.CFrame * CFrame.new(0, 5, 0)})
+            tween:Play()
+            tween.Completed:Wait()
+        else
+            CreateNotification(5, "There are no available beds with different team color.")
+        end
+    end
+    
+    teleportPlayer()
+end
+
 local function FlyMe()
 	local FlyGroundTime = tick()
 
@@ -2323,8 +2395,8 @@ local function FlyMe()
 			repeat
 				task.wait()
 
-				if tick() - FlyGroundTime <= 2.3 then
-					local MaxFlyTime = 2.3
+				if tick() - FlyGroundTime <= 2.5 then
+					local MaxFlyTime = 2.5
 					local FlyTime = DecimalRound(tick() - FlyGroundTime, 1)
 
 					NumberDisplay.Text = FlyTime		
@@ -2360,7 +2432,7 @@ local function FlyMe()
 				end
 
 				task.spawn(function()
-					if (tick() - FlyGroundTime) >= 2.3 then
+					if (tick() - FlyGroundTime) >= 2.1 then
 						FlyGroundTime = tick()
 
 						local FlyTeleportPosition = 0
@@ -5604,7 +5676,7 @@ task.spawn(function()
 			local OldObj = debug.getupvalue(DamageIndicator, 10)
 
 			if Settings.Indicators.Value == true then
-				local Messages = {"GodSploit", "Best Client", ":D", "💀"}
+				local Messages = {"CocoSploit Private 👑", "💎", "^ω^", "INF"}
 
 				debug.setupvalue(DamageIndicator, 10, {
 					Create = function(self, obj, ...)
@@ -5798,6 +5870,156 @@ task.spawn(function()
 
 			if Value == false then
 				InstanceUI:Destroy()
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
+	local MobileGui, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Mobile Gui", CallBack, function(CallBack)
+
+		if CallBack == true then
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/cocotv666/script/main/Coco_mobile_Gui_flyscript"))()
+		end
+
+		if CallBack == false then
+			CreateNotification(3, "Close at next round")
+		end
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(WorldTab, CallBack, LayoutOrder + 1, function(CallBack)
+					CallBack = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.MobileGui.KeyBind then
+					Settings.MobileGui.Value = not Settings.MobileGui.Value
+
+					if CallBack == true then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
+					end
+
+					if CallBack == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
+	local RecallTPPlayer, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Recall TP V2(Player)", CallBack, function(CallBack)
+
+		if CallBack == true then
+			RecallPlayer()
+		end
+
+		if CallBack == false then
+			print("hi")
+		end
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(WorldTab, CallBack, LayoutOrder + 1, function(CallBack)
+					CallBack = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.RecallTPPlayer.KeyBind then
+					Settings.RecallTPPlayer.Value = not Settings.RecallTPPlayer.Value
+
+					if CallBack == true then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
+					end
+
+					if CallBack == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
+			end
+		end)
+	end)
+end)
+
+task.spawn(function()
+	local Recallbed, DropDownButton, LayoutOrder, UIGradient = CreateToggle(WorldTab, "Recall TP V2(Bed)", CallBack, function(CallBack)
+
+		if CallBack == true then
+			Recallbed()
+		end
+
+		if CallBack == false then
+			print("hi")
+		end
+	end)
+
+	task.spawn(function()
+		local InstanceUI
+		local Value = false
+
+		DropDownButton.Activated:Connect(function()
+			Value = not Value
+
+			if Value == true then
+				InstanceUI = CreateKeyBind(WorldTab, CallBack, LayoutOrder + 1, function(CallBack)
+					CallBack = CallBack
+				end)
+			end
+
+			if Value == false then
+				InstanceUI:Destroy()
+			end
+		end)
+	end)
+
+	task.spawn(function()
+		UserInputService.InputBegan:Connect(function(Input)
+			if not UserInputService:GetFocusedTextBox() then
+				if Input.KeyCode.Name == Settings.Recallbed.KeyBind then
+					Settings.Recallbed.Value = not Settings.Recallbed.Value
+
+					if CallBack == true then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(0.635294, 0.313725, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(0.831373, 0.686275, 1))}
+					end
+
+					if CallBack == false then
+						UIGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.new(1, 1, 1)), ColorSequenceKeypoint.new(1.00, Color3.new(1, 1, 1))}
+					end
+				end
 			end
 		end)
 	end)
