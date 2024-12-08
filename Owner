@@ -1,0 +1,3 @@
+local Owners = {"tieguy_896coco", "coco_123cola456"}
+
+return Owners
